@@ -1,0 +1,51 @@
+experiment_id: E13
+experiment_name: surrogate_support_and_null_center
+source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+source_e05_run_pointer: runs/latest_e05_run.txt
+source_e10_run_pointer: runs/latest_e10_run.txt
+source_e12_run_pointer: runs/latest_e12_run.txt
+random_seed: 20260718
+
+information_sets:
+  city_baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  local_baseline_state:
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  target: crime_count_all
+  bicycle_state: bicycle_lag_bin
+
+frozen_e10:
+  repetitions: 999
+  temporal_block_days: 7
+  circular_minimum_shift_days: 31
+
+relationships:
+  support_metrics:
+    - support_atoms_per_observation
+    - singleton_observation_share
+    - effective_df_per_observation
+  regression_fixed_effects:
+    - city
+    - null_design
+  cluster: city_grid
+
+acceptance:
+  expected_city_surrogate_rows: 8991
+  expected_local_surrogate_rows: 1015983
+  expected_city_summary_rows: 9
+  expected_local_summary_rows: 1017
+  expected_local_grids: 339
+  cmi_reconciliation_tolerance_bits: 1.0e-10
+  minimum_support_value: 0.0
+
+reporting:
+  figure_dpi: 300
+  parquet_compression: zstd
+  figures_are_python_generated: true

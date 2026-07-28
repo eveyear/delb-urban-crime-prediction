@@ -1,0 +1,85 @@
+\begin{table}[!t]
+\caption{Theorem-level boundary between established results and the present
+DELB formulation. ``Present role'' states how a result is used; it is not an
+assertion of absolute bibliographic priority.}
+\label{tab:prior_bound_matrix}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{
+    >{\RaggedRight\arraybackslash}p{0.15\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.17\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.25\textwidth}
+    >{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{Result family} & \textbf{Target and loss} &
+\textbf{Established result} & \textbf{Present role and non-claim}\\
+\midrule
+Rate--distortion and general Bayes-risk bounds
+\citep{shannon_rate_distortion,chen_bayes_risk,jeong_ziv_zakai}
+& General source/estimand and specified distortion or loss
+& Operational coding tradeoffs and decision-theoretic or
+hypothesis-testing lower bounds, including bounds applicable to discrete
+estimands
+& Establishes that discrete estimation-error lower bounds are not new as a
+class; DELB is distinguished by its exact integer-entropy envelope and
+causal prediction form\\
+
+Fano and converse relations
+\citep{cover_thomas,feder_merhav}
+& Finite-alphabet target and Hamming error
+& Relations between equivocation and minimum classification-error
+probability
+& Classification-loss counterpart only; neither Fano nor its inversion is
+claimed as DELB novelty\\
+
+Maximum entropy and information projection
+\citep{csiszar_iprojection,cover_thomas}
+& Distributions under linear moment constraints
+& Exponential-family extremizers and KL/information-projection identities
+for entropy deficits
+& Supplies the general reason that the moment-matched entropy deficit is a
+KL divergence; the identity is not new in isolation\\
+
+Massey and later refinements
+\citep{massey_integer_entropy,rioul_massey}
+& Integer-valued variable and second moment or variance
+& Discrete-Gaussian entropy extremizer and the closed-form
+\(1/12\)-corrected entropy bound
+& Supplies the exact lattice envelope and conservative closed-form
+ingredient; neither is claimed as newly discovered\\
+
+Fang et al.\ \citep{fang_variance_bounds}
+& Real-valued process and squared prediction error
+& Conditional differential-entropy bounds, residual independence, and
+Gaussian innovation attainability
+& Continuous prediction analogue and source of the entropy--error logic;
+the contribution here is its exact integer-lattice specialization\\
+
+Recent entropy-based prediction limits
+\citep{ayers2025complexity,hauser2026dmd}
+& Real-valued time-series complexity ranking, or the dimension of a
+finite-time operator-prediction space
+& Extensions of the continuous conditional-entropy argument and
+measure-theoretic-entropy constraints on predictive representation dimension
+& Direct 2025--2026 neighbors, but neither targets integer-valued squared
+prediction error nor inverts the discrete maximum-entropy envelope\\
+
+Recent entropy-estimator benchmarking
+\citep{calcagnile2026benchmark}
+& Finite-sample estimation of entropy or entropy rate
+& Controlled comparison of several estimators against certified entropy
+values for dynamical systems
+& Supports the need to separate a population entropy estimand from estimator
+behavior; it is not a prediction-error lower-bound theorem\\
+
+Present DELB formulation
+& Causal integer-valued prediction and squared error
+& Exact inverse lattice envelope, predictor-dependent refinement, equality
+conditions, and two-component prediction-slack diagnostic
+& Claimed as a unified specialization and diagnostic synthesis, not a new
+primitive entropy, KL, rate--distortion, Fano, or generic Bayes-risk
+inequality\\
+\bottomrule
+\end{tabularx}
+\end{table}

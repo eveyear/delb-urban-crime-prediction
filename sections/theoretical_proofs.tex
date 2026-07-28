@@ -1,0 +1,609 @@
+\section{Supplementary Theory and Proofs}
+\label{app:proofs}
+
+\makeatletter
+\@ifundefined{theHequation}{}{%
+  \renewcommand*{\theHequation}{\thesection.\arabic{equation}}}
+\@ifundefined{theHtheorem}{}{%
+  \renewcommand*{\theHtheorem}{app.\thesection.\arabic{theorem}}}
+\@ifundefined{theHproposition}{}{%
+  \renewcommand*{\theHproposition}{app.\thesection.\arabic{proposition}}}
+\@ifundefined{theHcorollary}{}{%
+  \renewcommand*{\theHcorollary}{app.\thesection.\arabic{corollary}}}
+\@ifundefined{theHlemma}{}{%
+  \renewcommand*{\theHlemma}{app.\thesection.\arabic{lemma}}}
+\@ifundefined{theHremark}{}{%
+  \renewcommand*{\theHremark}{app.\thesection.\arabic{remark}}}
+\makeatother
+
+This appendix places the DELB relative to established bounds, states the
+supplementary Fano counterpart, and proves all main-text theoretical results.
+All logarithms in entropy expressions are to base \(2\); \(\ln\) denotes the
+natural logarithm.
+
+\subsection{Scope Relative to Established Bounds}
+\label{subsec:prior_bound_scope}
+
+The DELB is a causal integer-prediction specialization and synthesis rather
+than a claim to a new primitive maximum-entropy law. Shannon's source-coding
+and rate--distortion arguments, Bayes-risk inequalities, Ziv--Zakai bounds,
+and Fano-type error bounds address different operational objects
+\citep{shannon1948,shannon_rate_distortion,chen_bayes_risk,
+jeong_ziv_zakai,feder_merhav}. Massey's integer entropy--variance relation
+and later refinements provide the lattice correction
+\citep{massey_integer_entropy,rioul_massey}; Fang et al.\ provide the
+continuous conditional-entropy prediction argument
+\citep{fang_variance_bounds}. Recent work applies the continuous argument to
+time-series complexity ranking, derives entropy-based lower bounds on the
+dimension of finite-time prediction spaces, and benchmarks finite-sample
+entropy estimators against certified entropy values
+\citep{ayers2025complexity,hauser2026dmd,calcagnile2026benchmark}.
+Table~\ref{tab:prior_bound_matrix} separates these ingredients and neighboring
+objectives from the four-part prediction package used here.
+
+\input{sections/generated/s2/table_prior_bound_matrix}
+
+Table~\ref{tab:core_bound_comparison} provides a compact operational
+comparison used to motivate the main-text methodology.
+
+\input{sections/table_core_bound_comparison}
+
+For reference, Table~\ref{tab:delb_theorem_package} separates the four
+questions answered by the DELB package.
+
+\input{sections/table_delb_theorem_package}
+
+\begin{Remark}[Claim hierarchy]
+\label{rem:claim_hierarchy}
+The contribution lies in jointly organizing the exact inverse-lattice floor,
+predictor-dependent refinement, necessary and sufficient attainability, and
+two-slack decomposition for causal integer prediction, and in connecting
+added side information to a reproducible finite-sample inferential chain.
+The discrete-Gaussian extremizer, KL identity, lattice correction, and Fano
+inequality remain inherited components.
+\end{Remark}
+
+\input{sections/theoretical_extensions}
+
+\subsection{Fano Counterpart for Classification Loss}
+\label{subsec:fano_counterpart}
+
+Let a fixed quantizer map the integer target to
+\begin{equation}
+Y_t=Q(X_t)\in\{1,\ldots,K\},
+\label{eq:fano_quantized_target}
+\end{equation}
+and let \(\widehat Y_t\) be measurable with respect to
+\(\mathcal F_{t-m}\). Write
+\(P_e=\Pr(\widehat Y_t\neq Y_t)\), and define
+\begin{equation}
+\phi_K(p)=h_2(p)+p\log_2(K-1),
+\qquad 0\leq p\leq1-\frac1K.
+\label{eq:fano_phi}
+\end{equation}
+
+\begin{Proposition}[Fano classification-error floor]
+\label{prop:fano_error_floor}
+For every such classifier,
+\begin{equation}
+H(Y_t\mid\mathcal F_{t-m})
+\leq h_2(P_e)+P_e\log_2(K-1),
+\label{eq:fano_conditional_inequality}
+\end{equation}
+and hence
+\begin{equation}
+P_e\geq
+\phi_K^{-1}\!\left[H(Y_t\mid\mathcal F_{t-m})\right].
+\label{eq:fano_general_floor}
+\end{equation}
+For \(K=2\), the correct increasing branch gives
+\begin{equation}
+P_e\geq
+h_2^{-1}\!\left[H(Y_t\mid\mathcal F_{t-m})\right],
+\qquad h_2^{-1}:[0,1]\rightarrow[0,1/2].
+\label{eq:fano_binary_floor}
+\end{equation}
+\end{Proposition}
+
+For the baseline and augmented information sets defined in
+Section~\ref{subsec:methods_information_sets}, define
+\begin{equation}
+P_{\mathrm F}^{0}
+=\phi_K^{-1}[H(Y\mid\mathcal F^0)],
+\qquad
+P_{\mathrm F}^{B}
+=\phi_K^{-1}[H(Y\mid\mathcal F^B)].
+\label{eq:fano_mobility_floors}
+\end{equation}
+
+\begin{Corollary}[Side-information ordering of Fano floors]
+\label{cor:mobility_fano_ordering}
+The entropy reduction
+\begin{equation}
+H(Y\mid\mathcal F^0)-H(Y\mid\mathcal F^B)
+=I(Y;Q_B(\mathbf B^{(q)})\mid\mathcal F^0)\geq0
+\label{eq:fano_mobility_cmi}
+\end{equation}
+implies
+\begin{equation}
+P_{\mathrm F}^{B}\leq P_{\mathrm F}^{0}.
+\label{eq:fano_mobility_floor_order}
+\end{equation}
+\end{Corollary}
+
+This is a classification-loss counterpart, not a second derivation of the
+count-MSE DELB. The targets, losses, equality conditions, and numerical
+scales remain distinct.
+
+\subsection{Conditional Integer Translations}
+
+\begin{Lemma}[Entropy invariance under a measurable integer translation]
+\label{lem:conditional_translation}
+Let \(X\) be integer valued, let \(\mathcal{F}\) be a sigma-algebra, and let
+\(\widehat{X}\) be an integer-valued, \(\mathcal{F}\)-measurable random
+variable. If \(E=X-\widehat{X}\), then
+\begin{equation}
+H(E\mid\mathcal{F})=H(X\mid\mathcal{F}).
+\label{eq:conditional_translation}
+\end{equation}
+Consequently,
+\begin{equation}
+H(E)
+=
+H(X\mid\mathcal{F})+I(E;\mathcal{F}).
+\label{eq:error_entropy_identity}
+\end{equation}
+\end{Lemma}
+
+\begin{proof}
+Condition on a realization of the information in \(\mathcal{F}\). The value
+\(\widehat{x}\) is then fixed, and
+\[
+\Pr(E=k\mid\mathcal{F})
+=
+\Pr(X=k+\widehat{x}\mid\mathcal{F}).
+\]
+The map \(k\mapsto k+\widehat{x}\) is a bijection of \(\mathbb{Z}\), so it
+only relabels the atoms of the conditional probability mass function.
+Shannon entropy is invariant under such a relabeling. Averaging the
+pointwise identity over \(\mathcal{F}\) proves
+Equation~\eqref{eq:conditional_translation}. Finally,
+\(I(E;\mathcal{F})=H(E)-H(E\mid\mathcal{F})\), which gives
+Equation~\eqref{eq:error_entropy_identity}.
+\end{proof}
+
+\subsection{The Integer Maximum-Entropy Distribution}
+
+\begin{Lemma}[Discrete-Gaussian extremizer]
+\label{lem:discrete_gaussian_extremizer}
+For every \(D>0\), the entropy envelope in
+Definition~\ref{def:integer_entropy_envelope} is attained by the centered
+discrete Gaussian in Equation~\eqref{eq:general_discrete_gaussian}, with the
+unique parameter \(\lambda>0\) satisfying \(D(\lambda)=D\). Its entropy is
+given by Equation~\eqref{eq:general_discrete_gaussian_entropy}. For \(D=0\),
+the extremizer is the point mass at zero.
+\end{Lemma}
+
+\begin{proof}
+Write
+\[
+\Theta(\lambda)
+=
+\sum_{k\in\mathbb{Z}}\exp(-\lambda k^2),
+\qquad
+q_\lambda(k)
+=
+\frac{\exp(-\lambda k^2)}{\Theta(\lambda)}.
+\]
+Termwise differentiation is valid for every \(\lambda>0\), and therefore
+\[
+\mathbb{E}_{q_\lambda}[Z^2]
+=
+-\frac{\mathrm{d}}{\mathrm{d}\lambda}\ln\Theta(\lambda)
+=D(\lambda).
+\]
+Moreover,
+\[
+\frac{\mathrm{d}D(\lambda)}{\mathrm{d}\lambda}
+=
+-\operatorname{Var}_{q_\lambda}(Z^2)<0.
+\]
+The limits are \(D(\lambda)\to\infty\) as \(\lambda\downarrow0\) and
+\(D(\lambda)\to0\) as \(\lambda\uparrow\infty\). Hence each \(D>0\)
+corresponds to a unique \(\lambda\).
+
+Let \(p\) be any probability mass function on \(\mathbb{Z}\) satisfying
+\(\mathbb{E}_{p}[Z^2]\leq D\), and choose \(\lambda\) so that
+\(D(\lambda)=D\). Nonnegativity of relative entropy gives
+\begin{align}
+0
+&\leq
+D_{\mathrm{KL}}(p\|q_\lambda)
+=
+\sum_{k\in\mathbb{Z}}p(k)
+\log_2\frac{p(k)}{q_\lambda(k)}
+\nonumber\\
+&=
+-H(p)
++
+\frac{\lambda\mathbb{E}_{p}[Z^2]+\ln\Theta(\lambda)}{\ln2}.
+\label{eq:kl_discrete_gaussian}
+\end{align}
+It follows that
+\begin{equation}
+H(p)
+\leq
+\frac{\lambda D+\ln\Theta(\lambda)}{\ln2}
+=
+H(q_\lambda).
+\label{eq:integer_max_entropy}
+\end{equation}
+Equality requires both
+\(D_{\mathrm{KL}}(p\|q_\lambda)=0\) and
+\(\mathbb{E}_{p}[Z^2]=D\), hence \(p=q_\lambda\). Direct substitution into
+\(-\sum_kq_\lambda(k)\log_2q_\lambda(k)\) yields
+Equation~\eqref{eq:general_discrete_gaussian_entropy}. If \(D=0\), the
+constraint forces \(Z=0\) almost surely, so the entropy is zero.
+\end{proof}
+
+\subsection{Proof of the Exact DELB}
+
+\begin{proof}[Proof of Theorem~\ref{thm:exact_delb}]
+Apply Lemma~\ref{lem:conditional_translation} with
+\(\mathcal{F}=\mathcal{F}_{t-m}\). Then
+\begin{equation}
+H(E_t)
+=
+H(X_t\mid\mathcal{F}_{t-m})
++
+I(E_t;\mathcal{F}_{t-m}).
+\label{eq:appendix_error_entropy}
+\end{equation}
+Because \(E_t\in\mathbb{Z}\) and
+\(\mathbb{E}[E_t^2]=D_t^{(m)}\), the definition of the entropy envelope
+implies
+\[
+H(E_t)\leq\mathcal{H}_{\mathbb{Z}}(D_t^{(m)}).
+\]
+The generalized inverse is nondecreasing. Thus,
+\[
+D_t^{(m)}
+\geq
+\mathcal{H}_{\mathbb{Z}}^{-1}\!\left(H(E_t)\right),
+\]
+and Equation~\eqref{eq:general_predictor_dependent_delb} follows from
+Equation~\eqref{eq:appendix_error_entropy}. Since mutual information is
+nonnegative, applying the same monotone inverse proves
+Equation~\eqref{eq:general_universal_delb}.
+
+By Lemma~\ref{lem:discrete_gaussian_extremizer}, equality in the
+predictor-dependent inequality holds precisely when \(E_t\) is the centered
+discrete Gaussian having second moment \(D_t^{(m)}\), with the degenerate
+point mass at zero included. Equality in the universal inequality also
+requires \(I(E_t;\mathcal{F}_{t-m})=0\), i.e., independence of the prediction
+error and the available information.
+\end{proof}
+
+\subsection{Proof of the Exact Attainability Decomposition}
+
+\begin{proof}[Proof of Proposition~\ref{prop:attainability_decomposition}]
+The calculation below specializes the standard maximum-entropy
+information-projection identity to the moment-matched discrete Gaussian
+\citep{csiszar_iprojection,cover_thomas}. It is included here to make the
+prediction-specific equality conditions and the two resulting slack terms
+self-contained.
+
+First suppose \(D>0\), and write the moment-matched discrete Gaussian as
+\[
+q_D(k)
+=
+\frac{\exp(-\lambda_D k^2)}{\Theta(\lambda_D)},
+\qquad
+\mathbb{E}_{q_D}[Z^2]=D.
+\]
+Since \(q_D(k)>0\) for every \(k\in\mathbb{Z}\), direct expansion of
+relative entropy in bits gives
+\begin{align}
+D_{\mathrm{KL},2}(P_E\Vert q_D)
+&=
+\sum_{k\in\mathbb{Z}}P_E(k)
+\log_2\frac{P_E(k)}{q_D(k)}
+\nonumber\\
+&=
+-H(E)
++
+\frac{\lambda_D\mathbb{E}[E^2]
+      +\ln\Theta(\lambda_D)}{\ln2}
+\nonumber\\
+&=
+\mathcal{H}_{\mathbb{Z}}(D)-H(E).
+\label{eq:appendix_shape_slack}
+\end{align}
+The last equality uses \(\mathbb{E}[E^2]=D\) and
+Equation~\eqref{eq:general_discrete_gaussian_entropy}. Lemma
+\ref{lem:conditional_translation} gives
+\[
+H(E)=H(X_t\mid\mathcal{F})+I(E;\mathcal{F}).
+\]
+Substitution into Equation~\eqref{eq:appendix_shape_slack} proves
+Equation~\eqref{eq:predictor_attainability_decomposition}; adding
+\(I(E;\mathcal{F})\) to both sides proves
+Equation~\eqref{eq:universal_attainability_decomposition}.
+
+If \(D=0\), then \(E=0\) almost surely. Hence \(q_0=P_E=\delta_0\),
+\(H(E)=0\), \(I(E;\mathcal{F})=0\), and
+\(H(X_t\mid\mathcal{F})=0\) by conditional translation. Both equations
+therefore reduce to \(0=0\).
+
+Relative entropy and mutual information are nonnegative. Thus the first
+slack vanishes precisely when \(P_E=q_D\), and the universal slack
+vanishes precisely when \(P_E=q_D\) and
+\(I(E;\mathcal{F})=0\). For discrete random variables, zero mutual
+information is equivalent to independence.
+\end{proof}
+
+\subsection{Fano Classification-Error Results}
+
+\begin{proof}[Proof of Proposition~\ref{prop:fano_error_floor}]
+Let
+\(J=\mathbf{1}\{\widehat{Y}_t\neq Y_t\}\). Because \(J\) is determined by
+\((Y_t,\widehat{Y}_t)\),
+\begin{align*}
+H(Y_t\mid\widehat{Y}_t)
+&=
+H(J,Y_t\mid\widehat{Y}_t)\\
+&=
+H(J\mid\widehat{Y}_t)
++
+H(Y_t\mid J,\widehat{Y}_t).
+\end{align*}
+The first term is at most \(h_2(P_e)\). If \(J=0\), the second term is
+zero; if \(J=1\), at most \(K-1\) labels remain possible. Therefore
+\[
+H(Y_t\mid\widehat{Y}_t)
+\leq
+h_2(P_e)+P_e\log_2(K-1).
+\]
+Since \(\widehat{Y}_t\) is measurable with respect to
+\(\mathcal{F}_{t-m}\), conditioning on the full information set cannot
+increase entropy:
+\[
+H(Y_t\mid\mathcal{F}_{t-m})
+\leq
+H(Y_t\mid\widehat{Y}_t).
+\]
+This proves Equation~\eqref{eq:fano_conditional_inequality}.
+
+The function \(\phi_K\) is continuous and strictly increasing on
+\([0,1-1/K]\), from \(0\) to \(\log_2K\). If
+\(P_e\leq1-1/K\), monotone inversion gives
+Equation~\eqref{eq:fano_general_floor}; if
+\(P_e>1-1/K\), that equation holds trivially because the inverse takes
+values only in \([0,1-1/K]\). When \(K=2\),
+\(\log_2(K-1)=0\), so \(\phi_2=h_2\) on \([0,1/2]\), proving
+Equation~\eqref{eq:fano_binary_floor}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:mobility_fano_ordering}]
+By the definition of \(\mathcal{F}^{B}_{c,i,t}\), the conditional
+mutual-information identity gives
+\[
+H(Y_{c,i,t}\mid\mathcal{F}^{0}_{c,i,t})
+-
+H(Y_{c,i,t}\mid\mathcal{F}^{B}_{c,i,t})
+=
+I\!\left(
+Y_{c,i,t};
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\mid\mathcal{F}^{0}_{c,i,t}
+\right)
+\geq0.
+\]
+The inverse \(\phi_K^{-1}\) on its increasing branch is nondecreasing.
+Applying it to the two conditional entropies proves
+Equation~\eqref{eq:fano_mobility_floor_order}. Proposition
+\ref{prop:fano_error_floor} applies separately to every classifier
+measurable with respect to either information set.
+\end{proof}
+
+\subsection{Uniform Dequantization and the Closed-Form Bound}
+
+\begin{proof}[Proof of Corollary~\ref{cor:closed_form_delb}]
+Let \(U\sim\operatorname{Unif}[-1/2,1/2)\) be independent of \(E_t\), and
+put \(Y=E_t+U\). On the interval
+\([k-1/2,k+1/2)\), the density of \(Y\) equals
+\(\Pr(E_t=k)\). The intervals are disjoint and have unit length; hence
+\begin{equation}
+h(Y)=H(E_t).
+\label{eq:dither_entropy_identity}
+\end{equation}
+Furthermore,
+\begin{equation}
+\operatorname{Var}(Y)
+=
+\operatorname{Var}(E_t)+\frac{1}{12}
+\leq
+\mathbb{E}[E_t^2]+\frac{1}{12}
+=
+D_t^{(m)}+\frac{1}{12}.
+\label{eq:dither_variance}
+\end{equation}
+The Gaussian maximizes differential entropy at fixed variance, so
+\begin{equation}
+H(E_t)
+=h(Y)
+\leq
+\frac{1}{2}\log_2\!\left[
+2\pi e\left(D_t^{(m)}+\frac{1}{12}\right)
+\right].
+\label{eq:dither_gaussian_bound}
+\end{equation}
+Rearrangement yields
+\[
+D_t^{(m)}
+\geq
+\frac{2^{2H(E_t)}}{2\pi e}-\frac{1}{12}.
+\]
+Equation~\eqref{eq:appendix_error_entropy} gives both the
+predictor-dependent version and, after dropping the nonnegative mutual
+information term, the universal version. Finally \(D_t^{(m)}\geq0\);
+taking the positive part proves Equation~\eqref{eq:discrete_mse_bound}.
+\end{proof}
+
+\subsection{Temporal and Vector Consequences}
+
+\begin{proof}[Proof of Proposition~\ref{prop:general_horizon_monotonicity}]
+For \(1\leq\ell<m\), causal nesting gives
+\(\mathcal{F}_{t-m}\subseteq\mathcal{F}_{t-\ell}\). The conditional
+mutual-information identity therefore gives
+\[
+H(X_t\mid\mathcal{F}_{t-m})
+-
+H(X_t\mid\mathcal{F}_{t-\ell})
+=
+I(X_t;\mathcal{F}_{t-\ell}\mid\mathcal{F}_{t-m})
+\geq0,
+\]
+which is Equation~\eqref{eq:general_horizon_entropy}. Monotonicity of
+\(\mathcal{H}_{\mathbb{Z}}^{-1}\) proves
+Equation~\eqref{eq:general_horizon_delb}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:general_stationary_delb}]
+By stationarity,
+\[
+H(X_t\mid X_0,\ldots,X_{t-1})
+=
+H(X_0\mid X_{-t},\ldots,X_{-1}).
+\]
+The right-hand side is nonincreasing in \(t\) and converges to the entropy
+rate \(\overline{H}(X)\). Applying
+Equation~\eqref{eq:general_universal_delb} at each \(t\), and using the
+continuity and monotonicity of the inverse entropy envelope established by
+the discrete-Gaussian parametrization in
+Lemma~\ref{lem:discrete_gaussian_extremizer}, gives
+Equation~\eqref{eq:general_stationary_exact_bound}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:general_vector_delb}]
+Let
+\(\mathbf{E}_t=\mathbf{X}_t-\widehat{\mathbf{X}}_t\), and let
+\(\mathbf{U}\) be independent and uniformly distributed on
+\([-1/2,1/2)^n\). The unit cubes
+\(\mathbf{k}+[-1/2,1/2)^n\), \(\mathbf{k}\in\mathbb{Z}^n\), are disjoint,
+so the multivariate analogue of
+Equation~\eqref{eq:dither_entropy_identity} is
+\[
+h(\mathbf{E}_t+\mathbf{U})=H(\mathbf{E}_t).
+\]
+Let \(\boldsymbol{\Sigma}_E\) be the covariance matrix of
+\(\mathbf{E}_t\). The multivariate Gaussian maximum-entropy inequality and
+the arithmetic--geometric mean inequality for the eigenvalues give
+\begin{align}
+H(\mathbf{E}_t)
+&\leq
+\frac{1}{2}\log_2\!\left[
+(2\pi e)^n
+\det\!\left(\boldsymbol{\Sigma}_E+\frac{1}{12}\mathbf{I}_n\right)
+\right]
+\nonumber\\
+&\leq
+\frac{n}{2}\log_2\!\left[
+2\pi e
+\left(
+\frac{\operatorname{tr}(\boldsymbol{\Sigma}_E)}{n}
++
+\frac{1}{12}
+\right)
+\right]
+\nonumber\\
+&\leq
+\frac{n}{2}\log_2\!\left[
+2\pi e
+\left(
+\frac{\mathbb{E}\|\mathbf{E}_t\|_2^2}{n}
++
+\frac{1}{12}
+\right)
+\right].
+\label{eq:vector_dither_bound}
+\end{align}
+Conditional integer-vector translation is bijective, so
+\[
+H(\mathbf{E}_t)
+\geq
+H(\mathbf{E}_t\mid\mathcal{F}_{t-m})
+=
+H(\mathbf{X}_t\mid\mathcal{F}_{t-m}).
+\]
+Substitution into Equation~\eqref{eq:vector_dither_bound}, rearrangement,
+and nonnegativity of the MSE prove
+Equation~\eqref{eq:general_vector_delb}. The joint conditional entropy is
+essential: replacing it with a sum of marginal entropies would generally
+discard spatial dependence.
+\end{proof}
+
+\subsection{Specialization to Crime Counts and Bicycle Mobility}
+
+The crime-count result is a direct substitution of
+\(X_t=C_{c,i,t}\) and
+\(\mathcal{F}_{t-m}=\mathcal{F}^{0}_{c,i,t}\) into
+Theorem~\ref{thm:exact_delb}. This proves
+Equations~\eqref{eq:local_bound_baseline} and
+\eqref{eq:crime_baseline_exact_bound}; Corollary~\ref{cor:closed_form_delb}
+proves Equation~\eqref{eq:crime_baseline_closed_bound}. If the target is
+top-coded, deterministic data processing gives
+Equation~\eqref{eq:top_coded_entropy_order}. Because
+\(\mathcal{H}_{\mathbb{Z}}^{-1}\) is nondecreasing, inserting the smaller
+top-coded entropy produces a no-larger, and therefore conservative, lower
+bound for the original-count MSE.
+
+\begin{proof}[Proof of Proposition~\ref{prop:bicycle_information_value}]
+By Equation~\eqref{eq:bike_information},
+\[
+\mathcal{F}^{B}_{c,i,t}
+=
+\mathcal{F}^{0}_{c,i,t}
+\vee
+\sigma\!\left\{Q_B(\mathbf{B}^{(q)}_{c,i,t})\right\}.
+\]
+The defining identity for conditional mutual information gives
+\begin{align*}
+I\!\left(
+C_{c,i,t};
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\mid\mathcal{F}^{0}_{c,i,t}
+\right)
+&=
+H(C_{c,i,t}\mid\mathcal{F}^{0}_{c,i,t})\\
+&\quad-
+H(C_{c,i,t}\mid\mathcal{F}^{B}_{c,i,t}),
+\end{align*}
+which is Equation~\eqref{eq:bicycle_information_gain} and is nonnegative.
+Applying the nondecreasing function
+\(\mathcal{H}_{\mathbb{Z}}^{-1}\) proves
+Equation~\eqref{eq:bicycle_exact_bound_order}. From the definition in
+Equation~\eqref{eq:discrete_entropy_power},
+\[
+\frac{N_d(C\mid\mathcal{F}^{B})}
+{N_d(C\mid\mathcal{F}^{0})}
+=
+2^{\,2[H(C\mid\mathcal{F}^{B})-H(C\mid\mathcal{F}^{0})]}
+=
+2^{-2\Delta H^B},
+\]
+which proves Equation~\eqref{eq:cmi_entropy_power_ratio}.
+
+Finally, conditional on \(\mathcal{F}^{0}_{c,i,t}\),
+\(Q_B(\mathbf{B}^{(q)}_{c,i,t})\) is a deterministic function of
+\(\mathbf{B}^{(q)}_{c,i,t}\). The conditional Markov chain
+\[
+C_{c,i,t}
+\longrightarrow
+\mathbf{B}^{(q)}_{c,i,t}
+\longrightarrow
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\]
+therefore satisfies the conditional data-processing inequality, proving
+Equation~\eqref{eq:bicycle_data_processing}.
+\end{proof}

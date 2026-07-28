@@ -1,0 +1,196 @@
+\section{Estimator and Training-Period-Frozen Analysis-Domain Sensitivity}
+\label{supsec:estimator_domain}
+
+The E09 sensitivity analysis evaluated the plug-in, Miller--Madow, and
+coherent observed-support Jeffreys--Dirichlet estimators across 16
+prespecified specifications in each city. All 16 DELB-reduction point
+estimates were positive for every city and estimator
+(Table~\ref{tab:sup_estimator_specifications}). The Jeffreys calculation
+places a symmetric posterior on observed full-joint atoms and coherently
+aggregates its marginals; it does not reconstruct unobserved support.
+
+E17 applied all three estimators to the same 999 temporal-block, spatial-series,
+and circular-shift surrogates. Table~\ref{tab:sup_estimator_nulls} reports
+both Benjamini--Hochberg adjustment within each estimator's nine
+city--design comparisons and global adjustment over all 27 comparisons.
+Figure~\ref{fig:sup_estimator_nulls} shows observed CMI relative to the
+estimator-specific null mean.
+
+\input{sections/generated/e17/table_estimator_sensitivity}
+
+\input{sections/generated/e17/table_estimator_null_summary}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e17/e17_estimator_null_sensitivity.pdf}
+\caption{Estimator sensitivity of city-level randomization calibration.
+Each point is the observed CMI minus the mean of the same design-conditioned
+reference distribution. Nonzero null centers are allowed.}
+\label{fig:sup_estimator_nulls}
+\end{figure}
+
+The analysis-domain sensitivity compares the training-period-frozen bicycle
+service domain with the complete training crime-supported domain. The
+domain is fixed before validation and testing; this is therefore an
+analysis-population sensitivity, not a post-outcome spatial selection.
+Table~\ref{tab:sup_frozen_domain} and
+Figure~\ref{fig:sup_frozen_domain} show that expanding the spatial
+population changes the magnitude of CMI and DELB reduction, especially in
+New York City and Vancouver. These differences are descriptive and do not
+identify a bicycle effect.
+
+\input{sections/generated/e17/table_frozen_domain_sensitivity}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e17/e04_domain_sensitivity.pdf}
+\caption{Training-period-frozen analysis-domain sensitivity. The complete
+crime-supported domain and the training bicycle-covered domain define
+different spatial target populations.}
+\label{fig:sup_frozen_domain}
+\end{figure}
+
+\section{Local Estimates and Lag-Specificity Details}
+\label{supsec:moved_local_lag}
+
+\input{sections/generated/e11/table_local_information}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e11/e05_local_delb_reduction_maps.pdf}
+\end{adjustwidth}
+\caption{Local DELB-reduction point estimates for eligible cells. None
+passed all three randomization references.}
+\label{fig:local_delb_maps}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e10_distant_lags.pdf}
+\caption{Matched recent- and distant-lag CMI estimates. Their similarity
+shows that the positive primary point estimate is not specific to the
+one-day mobility horizon.}
+\label{fig:distant_lags}
+\end{figure}
+
+\section{Sample-Size and Multiscale Details}
+\label{supsec:moved_scale}
+
+\input{sections/generated/e16/table_e16_sample_stability}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_sample_stability.pdf}
+\end{adjustwidth}
+\caption{Relative deviation from the full-sample baseline DELB and CMI
+estimate under nested block thinning. The curves measure estimator
+stability, not distance from population truth.}
+\label{fig:e16_sample_stability}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_full_sample_intensity_heatmap.pdf}
+\end{adjustwidth}
+\caption{Full-sample Miller--Madow reduction in the deterministically scaled
+intensity-RMSE floor by city, spatial resolution, and temporal resolution.}
+\label{fig:e16_intensity_heatmap}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_6_key_scale_pvalues.pdf}
+\end{adjustwidth}
+\caption{Full-sample upper-tail randomization \(p\)-values at the
+500~m--day, 1~km--day, and 2~km--week key scales.}
+\label{fig:e16_key_pvalues}
+\end{figure}
+
+\section{Crime-Type Heterogeneity}
+\label{supsec:moved_crime_type}
+
+\input{sections/generated/e11/table_crime_type}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e08_crime_type_delb_reduction.pdf}
+\caption{DELB-reduction point estimates by harmonized crime category and
+city. Intervals measure block-bootstrap sampling variation and are not
+category-specific randomization tests.}
+\label{fig:crime_type_delb}
+\end{figure}
+
+\section{Alternative Specifications and Rolling Origins}
+\label{supsec:moved_rolling}
+
+\input{sections/generated/e11/table_robustness}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e11/e09_rolling_origins.pdf}
+\end{adjustwidth}
+\caption{Expanding-window monthly prediction results. Positive
+\(\Delta\mathrm{MSE}\) favors the bicycle-aware model; stability remains
+model-specific.}
+\label{fig:rolling_origins}
+\end{figure}
+
+\section{Additional Descriptive and Finite-Sample Figures}
+\label{supsec:additional_figures}
+
+Figures~\ref{fig:spatial_patterns} and \ref{fig:monthly_patterns} are
+descriptive audits. They precede conditioning and are not evidence of CMI,
+a DELB reduction, or a causal mobility effect.
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=0.98\linewidth]{figures/e11/e02_spatial_patterns.pdf}
+\end{adjustwidth}
+\caption{Spatial concentration of harmonized property-crime counts and
+bicycle endpoint flow, 2020--2022.}
+\label{fig:spatial_patterns}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e02_monthly_patterns.png}
+\caption{Monthly crime counts and bicycle endpoint flow by city,
+2020--2022.}
+\label{fig:monthly_patterns}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e12_bias_rmse_supplement.pdf}
+\end{adjustwidth}
+\caption{Estimator bias and RMSE over the complete sparse-state simulation
+grid.}
+\label{fig:e12_bias_supplement}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e13_support_metrics_supplement.pdf}
+\end{adjustwidth}
+\caption{Supplementary support-metric relationships for simulation and
+empirical null summaries.}
+\label{fig:e13_support_supplement}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e14_fano_bootstrap.pdf}
+\end{adjustwidth}
+\caption{Centered seven-day block-bootstrap intervals for estimated Fano
+floors and held-out modal-classifier errors.}
+\label{fig:e14_bootstrap_supplement}
+\end{figure}

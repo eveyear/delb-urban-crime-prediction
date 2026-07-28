@@ -1,0 +1,175 @@
+\section{估计器与训练期冻结分析域敏感性}
+\label{supsec:estimator_domain}
+
+E09 在每个城市的 16 个预设规格中比较 plugin、Miller--Madow 与一致的
+observed-support Jeffreys--Dirichlet 估计器。每个城市和估计器的 16 个
+DELB 降幅点估计均为正（表~\ref{tab:sup_estimator_specifications}）。
+Jeffreys 方法在观测到的完整联合原子上设置对称后验并一致聚合边际，但不恢复
+未观测支持。
+
+E17 在相同的 999 个时间区块、空间序列和循环移位替代样本上计算三种估计器。
+表~\ref{tab:sup_estimator_nulls} 同时报告每个估计器内部九项
+Benjamini--Hochberg 修正以及全部 27 项比较的全局修正。图
+\ref{fig:sup_estimator_nulls} 给出观测 CMI 与估计器特定 null mean 的差。
+
+\input{sections/generated/e17/table_estimator_sensitivity_Chinese}
+
+\input{sections/generated/e17/table_estimator_null_summary_Chinese}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e17/e17_estimator_null_sensitivity.pdf}
+\caption{城市层面随机化校准的估计器敏感性。每个点表示观测 CMI 减去同一
+设计条件参考分布的均值；零分布中心允许非零。}
+\label{fig:sup_estimator_nulls}
+\end{figure}
+
+训练期冻结分析域敏感性比较训练期自行车服务覆盖域与完整训练期犯罪支持域。
+该范围在验证和测试前已经固定，因此检验的是分析总体，而不是事后空间选择。
+表~\ref{tab:sup_frozen_domain}与图~\ref{fig:sup_frozen_domain}显示，扩大空间
+总体会改变 CMI 与 DELB 降幅，纽约和温哥华尤为明显。该差异属于描述性结果，
+不能识别自行车因果效应。
+
+\input{sections/generated/e17/table_frozen_domain_sensitivity_Chinese}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e17/e04_domain_sensitivity.pdf}
+\caption{训练期冻结分析域敏感性。完整犯罪支持域与训练期自行车覆盖域定义了
+不同的空间目标总体。}
+\label{fig:sup_frozen_domain}
+\end{figure}
+
+\section{局部估计与滞后特异性细节}
+\label{supsec:moved_local_lag}
+
+\input{sections/generated/e11/table_local_information}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e11/e05_local_delb_reduction_maps.pdf}
+\end{adjustwidth}
+\caption{合格网格的局部 DELB 降幅点估计。没有网格同时通过三种随机化参考。}
+\label{fig:local_delb_maps}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e10_distant_lags.pdf}
+\caption{匹配的近期与远期滞后 CMI 估计。二者相近说明正的主要点估计并不特异于
+一日移动时间窗。}
+\label{fig:distant_lags}
+\end{figure}
+
+\section{样本量与多尺度细节}
+\label{supsec:moved_scale}
+
+\input{sections/generated/e16/table_e16_sample_stability}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_sample_stability.pdf}
+\end{adjustwidth}
+\caption{嵌套区块稀释下基线 DELB 与 CMI 估计相对完整样本的偏离。曲线衡量
+估计稳定性，而非与总体真值的距离。}
+\label{fig:e16_sample_stability}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_full_sample_intensity_heatmap.pdf}
+\end{adjustwidth}
+\caption{按城市、空间分辨率和时间分辨率划分的完整样本 Miller--Madow
+强度 RMSE 底线下降。}
+\label{fig:e16_intensity_heatmap}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e16/e16_s16_6_key_scale_pvalues.pdf}
+\end{adjustwidth}
+\caption{500~m--日、1~km--日和 2~km--周关键尺度的完整样本上尾随机化
+\(p\) 值。}
+\label{fig:e16_key_pvalues}
+\end{figure}
+
+\section{犯罪类型异质性}
+\label{supsec:moved_crime_type}
+
+\input{sections/generated/e11/table_crime_type}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e08_crime_type_delb_reduction.pdf}
+\caption{按统一犯罪类别和城市划分的 DELB 降幅点估计。区间表示区块 bootstrap
+抽样变异，不是类别特异随机化检验。}
+\label{fig:crime_type_delb}
+\end{figure}
+
+\section{替代规格与滚动起点}
+\label{supsec:moved_rolling}
+
+\input{sections/generated/e11/table_robustness}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/e11/e09_rolling_origins.pdf}
+\end{adjustwidth}
+\caption{扩展窗口月度预测结果。正的 \(\Delta\mathrm{MSE}\) 有利于自行车增强
+模型；稳定性仍然取决于模型。}
+\label{fig:rolling_origins}
+\end{figure}
+
+\section{其他描述性与有限样本图}
+\label{supsec:additional_figures}
+
+图~\ref{fig:spatial_patterns}和图~\ref{fig:monthly_patterns}属于描述性审计。
+它们尚未进行条件化，因此不构成 CMI、DELB 下降或移动因果效应的证据。
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=0.98\linewidth]{figures/e11/e02_spatial_patterns.pdf}
+\end{adjustwidth}
+\caption{2020--2022 年统一财产犯罪计数与自行车端点流量的空间集中度。}
+\label{fig:spatial_patterns}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e11/e02_monthly_patterns.png}
+\caption{2020--2022 年各城市月度犯罪计数与自行车端点流量。}
+\label{fig:monthly_patterns}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e12_bias_rmse_supplement.pdf}
+\end{adjustwidth}
+\caption{完整稀疏状态模拟网格中的估计偏差与 RMSE。}
+\label{fig:e12_bias_supplement}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e13_support_metrics_supplement.pdf}
+\end{adjustwidth}
+\caption{模拟和经验零分布汇总中的支持度指标关系。}
+\label{fig:e13_support_supplement}
+\end{figure}
+
+\begin{figure}[!htbp]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\includegraphics[width=\linewidth]{figures/s7/e14_fano_bootstrap.pdf}
+\end{adjustwidth}
+\caption{估计 Fano 底线与留出众数分类器误差的中心化七日区块 bootstrap 区间。}
+\label{fig:e14_bootstrap_supplement}
+\end{figure}

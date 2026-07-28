@@ -1,0 +1,27 @@
+
+\begin{table}[H]
+\caption{Robustness summary. Positive theory specifications count
+Miller--Madow DELB reductions across 16 pre-specified alternatives.
+Rolling forecasts comprise 12 monthly origins for each of four model
+families. Positive \(\Delta\mathrm{MSE}\) favors the bicycle-aware model.}
+\label{tab:robustness_summary}
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{City} & \textbf{Positive theory} & \textbf{Positive origins} &
+\multicolumn{2}{c}{\textbf{State mean}} &
+\multicolumn{2}{c}{\textbf{Gradient boosting}}\\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & & & \textbf{Positive} & \textbf{Mean \(\Delta\)MSE} &
+\textbf{Positive} & \textbf{Mean \(\Delta\)MSE}\\
+\midrule
+Washington, DC & 16/16 & 23/48 & 66.7\% & 0.001 & 41.7\% & 0.000\\
+New York City & 16/16 & 26/48 & 91.7\% & 0.030 & 100.0\% & 0.076\\
+Vancouver & 16/16 & 20/48 & 66.7\% & 0.006 & 41.7\% & -0.006\\
+\bottomrule
+\end{tabular}
+}
+\end{adjustwidth}
+\end{table}

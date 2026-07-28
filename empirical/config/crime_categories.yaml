@@ -1,0 +1,14 @@
+authoritative_field: crime_type_unified
+allowed_values:
+  - PROPERTY_THEFT
+  - VEHICLE_THEFT
+  - BURGLARY
+primary_outcome:
+  name: ALL_HARMONIZED_PROPERTY_CRIME
+  definition: Sum of the three allowed crime_type_unified categories per city-grid-day.
+secondary_outcomes:
+  - PROPERTY_THEFT
+  - VEHICLE_THEFT
+  - BURGLARY
+raw_field_policy: crime_type_raw is retained only for provenance and quality-control sampling.
+

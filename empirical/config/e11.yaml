@@ -1,0 +1,65 @@
+experiment_id: E11
+experiment_name: manuscript_synthesis
+source_run_pointers:
+  E02: runs/latest_e02_run.txt
+  E04: runs/latest_e04_run.txt
+  E05: runs/latest_e05_run.txt
+  E06: runs/latest_e06_run.txt
+  E07: runs/latest_e07_run.txt
+  E08: runs/latest_e08_run.txt
+  E09: runs/latest_e09_run.txt
+  E10: runs/latest_e10_run.txt
+skipped_experiments: []
+manuscript:
+  generated_section_directory: sections/generated/e11
+  stable_figure_directory: figures/e11
+  output_pdf_directory: output/pdf
+figure_dpi: 300
+selected_figures:
+  - source: E02
+    filename: e02_spatial_patterns.png
+  - source: E02
+    filename: e02_monthly_patterns.png
+  - source: E04
+    filename: e04_primary_bicycle_cmi.pdf
+  - source: E04
+    filename: e04_exact_delb_reduction.pdf
+  - source: E05
+    filename: e05_local_delb_reduction_maps.pdf
+  - source: E05
+    filename: e05_local_moran_clusters.pdf
+  - source: E06
+    filename: e06_mse_improvement.pdf
+  - source: E07
+    filename: e07_predictability_gaps.pdf
+  - source: E07
+    filename: e07_gap_narrowing.pdf
+  - source: E07
+    filename: e07_local_theory_practice.pdf
+  - source: E08
+    filename: e08_crime_type_delb_reduction.pdf
+  - source: E08
+    filename: e08_prediction_improvement_heatmap.pdf
+  - source: E09
+    filename: e09_specification_matrix.pdf
+  - source: E09
+    filename: e09_rolling_origins.pdf
+  - source: E10
+    filename: e10_city_null_distributions.pdf
+  - source: E10
+    filename: e10_distant_lags.pdf
+acceptance:
+  expected_source_experiments: 8
+  expected_cities: 3
+  expected_city_information_rows: 3
+  expected_local_grids: 339
+  expected_model_gap_rows: 12
+  expected_crime_type_rows: 9
+  expected_selected_figures: 16
+  expected_theory_robustness_rows: 144
+  expected_positive_miller_madow_specs: 48
+  expected_city_null_rows: 9
+  expected_city_null_rejections: 0
+  expected_local_joint_null_rows: 339
+  expected_local_joint_null_rejections: 0
+  expected_distant_lag_rows: 6

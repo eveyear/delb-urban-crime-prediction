@@ -1,0 +1,40 @@
+experiment_id: E12
+experiment_name: sparse_nested_state_cmi_simulation
+random_seed: 20260719
+
+dgp:
+  count_distribution: negative_binomial
+  dispersion: 2.5
+  minimum_mean: 0.35
+  maximum_mean: 2.0
+  tail_probability_tolerance: 1.0e-12
+  markov_persistence: 0.85
+
+estimator_grid:
+  sample_sizes: [365, 1095]
+  baseline_state_counts: [4, 16, 64]
+  bicycle_state_counts: [2, 4, 8]
+  balance_regimes: [balanced, skewed]
+  effect_strengths: [0.0, 0.35, 0.7]
+  temporal_structures: [iid, markov]
+  repetitions: 150
+
+randomization_grid:
+  days_per_grid: [365, 1095]
+  grid_count: 6
+  baseline_state_count_per_grid: 16
+  bicycle_state_count: 4
+  balance_regimes: [balanced, skewed]
+  effect_strengths: [0.0, 0.5]
+  temporal_structures: [iid, markov]
+  monte_carlo_repetitions: 30
+  null_repetitions: 99
+  temporal_block_days: 7
+  circular_minimum_shift_days: 31
+  alpha: 0.05
+
+reporting:
+  figure_dpi: 300
+  parquet_compression: zstd
+  identity_tolerance_bits: 1.0e-9
+  figures_are_python_generated: true

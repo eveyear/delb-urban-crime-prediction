@@ -1,0 +1,16 @@
+cities:
+  DC:
+    name: Washington, DC
+    timezone: America/New_York
+    projected_crs: EPSG:32618
+    bicycle_glob: DC/**/*.zip
+  NY:
+    name: New York City
+    timezone: America/New_York
+    projected_crs: EPSG:32618
+    bicycle_glob: NY/**/*.zip
+  VAN:
+    name: Vancouver
+    timezone: America/Vancouver
+    projected_crs: EPSG:32610
+    bicycle_glob: VAN/Mobi_System_Data_20??-??.csv

@@ -1,0 +1,117 @@
+\section{Related Work}
+\label{sec:related_work}
+
+\subsection{Urban Crime Forecasting}
+\label{subsec:related_crime_forecasting}
+
+Crime forecasting seeks to anticipate future incident counts, hotspot status,
+or event risk at operationally relevant locations and times. Existing studies
+compare statistical, machine-learning, recurrent, graph-based, multiscale, and
+transformer models using hotspot accuracy, prediction-accuracy indices,
+precision and recall, F1 scores, and count losses such as mean absolute error
+(MAE), root mean squared error (RMSE), and mean squared error (MSE)
+\citep{kounadi2020review,du2023review,mandalapu2023review,
+alves2018crime,angbera2023model,huang2018deepcrime,deng2023risk,
+jing2024multiscale,wang2025mragnn,butt2025start,cui2026transfer,
+hu2023fusion}. Reported performance depends not only on the forecasting
+algorithm but also on the target definition, spatial and temporal resolution,
+validation period, comparison model, and distribution shift. Multidensity and
+multiscale studies further show that changing the unit of analysis can alter
+the forecasting problem itself \citep{cesario2024multidensity,jing2024multiscale},
+while recent evaluation frameworks identify limited standardization and
+cross-design comparability as persistent concerns \citep{amarante2025steval}.
+Consequently, a lower test error establishes that one specification performs
+better under a particular evaluation design; it does not establish how close
+that specification is to an information-constrained prediction limit.
+The unresolved issue is therefore not a shortage of forecasting models, but
+the absence of a model-independent way to assess whether an added information
+source changes the attainable error benchmark for an integer-valued target.
+
+\subsection{Mobility Data in Crime Analytics}
+\label{subsec:related_mobility_crime}
+
+Routine activity theory and ambient-population research imply that crime
+opportunities depend on the changing presence of potential targets, offenders,
+and guardians, not only on residential population
+\citep{cohen1979routine,malleson2016ambient}. Studies using mobile phones,
+location platforms, subway activity, and taxi flows associate dynamic
+population with crime location or report improved fitted predictions
+\citep{song2019legal,kadar2018mining,kadar2020mobility,wu2022mobility,
+rummens2021mobile,schertz2021street}. A recent systematic review documents
+both the rapid growth and the heterogeneous uses of mobile-phone data in crime
+research \citep{okmi2023mobile}. At finer scales, mobile-phone occupancy has
+been related to outdoor robbery and theft \citep{valente2024routines}, and a
+four-city forecasting study reports gains from combining mobility, crime
+history, and sociodemographic features \citep{albors2025mobility}.
+
+This evidence supports testing mobility as added information, but mobility
+sources are not interchangeable. Digital traces differ in population
+coverage, spatial support, temporal rhythm, directionality, and mode of travel
+\citep{luca2023mobilitysurvey,zhao2024directionality}. Mobile-location data
+can also exhibit scale- and time-dependent representation bias
+\citep{li2024mobilitybias}. We therefore treat shared-bicycle records as a
+high-frequency, spatially resolved, but mode-specific proxy for observed
+public-space activity \citep{xu2023bike,ivanovic2023bike}, not as a census of
+ambient population. Predictive information also does not establish a causal
+effect: recent instrumental-variable evidence illustrates that predictive
+association and causal identification can lead to different conclusions
+\citep{vachuska2025causal}.
+
+Most mobility--crime studies evaluate association patterns or changes in
+fitted prediction scores. Those questions remain useful, but they do not
+separate the intrinsic information value of a mobility source from the
+ability of a particular model to exploit it. They also do not generally
+diagnose whether an apparent gain is induced by sparse states after mobility
+variables are discretized and joined to a fine-scale crime panel. This gap
+motivates the matched baseline--augmented information sets and finite-sample
+calibration used in the present study.
+
+\subsection{Information-Theoretic Prediction Limits}
+\label{subsec:related_information_limits}
+
+Conditional entropy measures uncertainty after admissible information has
+been observed \citep{shannon1948,cover_thomas}. Entropy and Fano-type
+arguments have been used to study potential predictability in human mobility
+\citep{song2010limits}; conditional differential entropy has also been used to
+bound traffic-forecasting performance \citep{li2022traffic}. Fang et al.\
+give general entropy-based variance bounds for continuous estimation and
+prediction errors \citep{fang_variance_bounds}. Recent work has extended this
+continuous line to time-series complexity ranking and entropy-based lower
+bounds on predictive representation dimension
+\citep{ayers2025complexity,hauser2026dmd}. These studies separate achieved
+performance from an information-constrained limit, but their target spaces
+and bound objects do not provide an exact MSE floor for an integer-valued
+outcome.
+
+Crime counts and many other operational targets are integer valued. A
+continuous Gaussian argument cannot be made discrete by replacing
+differential entropy with Shannon entropy: the error lies on a lattice, and
+its maximum-entropy law under a second-moment constraint is a discrete
+Gaussian. Integer maximum-entropy and lattice-correction results are
+established ingredients \citep{massey_integer_entropy,rioul_massey}; general
+Bayes-risk, rate--distortion, and Ziv--Zakai theories also show that lower
+bounds on estimation risk are not new as a class
+\citep{shannon_rate_distortion,chen_bayes_risk,jeong_ziv_zakai}. What remains
+underdeveloped for the present problem is a causal integer-prediction
+formulation that connects an exact lattice MSE floor to the predictor used,
+states necessary and sufficient attainability conditions, and diagnoses why
+the floor is not attained.
+
+We refer to the MSE floor obtained by inverting the exact integer-lattice
+maximum-entropy envelope as the \emph{Discrete Entropy Lower Bound} (DELB).
+The theoretical package combines a universal floor, a predictor-dependent
+refinement, strict attainability conditions, and a split of nonattainment
+into residual history dependence and error-shape mismatch. The contribution
+lies in this unified specialization to integer prediction, not in the
+discrete-Gaussian extremizer, the lattice correction, or a new primitive
+divergence identity.
+
+Taken together, the three literature streams leave a specific applied
+methodological gap. Crime forecasting provides increasingly flexible models,
+and mobility studies provide increasingly detailed urban signals, whereas
+existing entropy bounds do not supply a finite-sample-calibrated,
+integer-lattice benchmark for determining whether such a signal changes
+intrinsic count predictability. DELB and the accompanying calibration
+workflow address this intersection. The comparison is intentionally between
+information sets rather than between algorithm families, and between
+predictive evidence rather than causal effects.

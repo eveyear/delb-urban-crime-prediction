@@ -1,0 +1,30 @@
+\begin{table}[!htbp]
+\caption{Variables, analysis units, and forecast-time availability. ``Yes,
+lagged'' indicates that only information from the previous aggregation
+period was used for one-period-ahead prediction.}
+\label{tab:variable_availability}
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{p{2.5cm}Xp{2.0cm}p{2.0cm}p{2.2cm}}
+\toprule
+\textbf{Variable} & \textbf{Meaning and role} & \textbf{Spatial unit} &
+\textbf{Temporal unit} & \textbf{Available at forecast time}\\
+\midrule
+Crime count & Daily incidents in the three harmonized crime categories;
+unbinned prediction target & 1 km grid & Day & Target, no\\
+Lagged crime & Previous-period crime count, discretized as
+\(\{0,1,2,\geq3\}\); baseline state & 1 km grid & Previous day & Yes, lagged\\
+Bicycle inflow & Arrivals at resolved public endpoints; mobility primitive &
+1 km grid & Previous day & Yes, lagged\\
+Bicycle outflow & Departures from resolved public endpoints; mobility
+primitive & 1 km grid & Previous day & Yes, lagged\\
+Total bicycle flow & Sum of inflow and outflow, discretized using
+training-period thresholds; added-data state & 1 km grid & Previous day &
+Yes, lagged\\
+Calendar state & Day of week, meteorological season, and public-holiday
+status; baseline state & City/grid & Forecast day & Yes\\
+Grid identifier & Fixed spatial state defined before validation and testing;
+baseline state & 1 km grid & Fixed & Yes\\
+\bottomrule
+\end{tabularx}
+\end{table}

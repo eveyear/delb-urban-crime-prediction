@@ -1,0 +1,72 @@
+\subsection{闭式、时间与向量扩展}
+\label{subsec:closed_form_temporal}
+
+\begin{Corollary}[闭式 DELB]
+\label{cor:closed_form_delb}
+定理~\ref{thm:exact_delb} 中每个预测器均满足
+\begin{equation}
+D_t^{(m)}
+\geq
+\left[
+\frac{2^{2H(X_t\mid\mathcal F_{t-m})}}{2\pi e}
+-\frac1{12}
+\right]_+ .
+\label{eq:discrete_mse_bound}
+\end{equation}
+\end{Corollary}
+
+\(1/12\) 是均匀去量化产生的格点修正。该显式表达相对于精确逆格点 DELB
+较保守，通常不可达。
+
+\begin{Proposition}[预测提前期单调性]
+\label{prop:general_horizon_monotonicity}
+若 \(1\leq\ell<m\)，则
+\begin{equation}
+H(X_t\mid\mathcal F_{t-m})
+\geq H(X_t\mid\mathcal F_{t-\ell}),
+\label{eq:general_horizon_entropy}
+\end{equation}
+因而
+\begin{equation}
+\mathcal H_{\mathbb Z}^{-1}[H(X_t\mid\mathcal F_{t-m})]
+\geq
+\mathcal H_{\mathbb Z}^{-1}[H(X_t\mid\mathcal F_{t-\ell})].
+\label{eq:general_horizon_delb}
+\end{equation}
+\end{Proposition}
+
+\begin{Corollary}[平稳一步极限]
+\label{cor:general_stationary_delb}
+对严格平稳整数过程，若
+\(\mathcal F_{t-1}=\sigma(X_0,\ldots,X_{t-1})\)，定义
+\begin{equation}
+\overline H(X)
+=\lim_{t\to\infty}H(X_t\mid X_0,\ldots,X_{t-1}).
+\label{eq:general_entropy_rate}
+\end{equation}
+则
+\begin{equation}
+\liminf_{t\to\infty}
+\mathbb E[(X_t-\widehat X_t)^2]
+\geq
+\mathcal H_{\mathbb Z}^{-1}[\overline H(X)].
+\label{eq:general_stationary_exact_bound}
+\end{equation}
+\end{Corollary}
+
+\begin{Corollary}[整数向量闭式 DELB]
+\label{cor:general_vector_delb}
+对 \(\mathbf X_t,\widehat{\mathbf X}_t\in\mathbb Z^n\)，
+\begin{equation}
+\frac1n\mathbb E\|\mathbf X_t-\widehat{\mathbf X}_t\|_2^2
+\geq
+\left[
+\frac{2^{(2/n)H(\mathbf X_t\mid\mathcal F_{t-m})}}{2\pi e}
+-\frac1{12}
+\right]_+ .
+\label{eq:general_vector_delb}
+\end{equation}
+\end{Corollary}
+
+上述结果分别使用均匀去量化、信息集嵌套和多元高斯最大熵不等式证明，
+完整证明见附录~\ref{app:proofs}。

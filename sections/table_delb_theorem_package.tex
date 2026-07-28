@@ -1,0 +1,49 @@
+\begin{table}[!t]
+\caption{The four-part DELB theorem package and the distinct question
+answered by each component. The contribution is their joint organization
+for causal integer prediction; the underlying maximum-entropy and
+information-projection ingredients remain prior art.}
+\label{tab:delb_theorem_package}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{
+    >{\RaggedRight\arraybackslash}p{0.19\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.28\textwidth}
+    >{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{Component} & \textbf{Mathematical object} &
+\textbf{Prediction question answered}\\
+\midrule
+Exact inverse-lattice floor
+&
+\(\mathcal H_{\mathbb Z}^{-1}
+ [H(X_t\mid\mathcal F_{t-m})]\)
+&
+What MSE floor is imposed by the target uncertainty and the integer lattice,
+independently of the forecasting algorithm?\\
+
+Predictor-dependent refinement
+&
+\(\mathcal H_{\mathbb Z}^{-1}
+ [H(X_t\mid\mathcal F_{t-m})+I(E_t;\mathcal F_{t-m})]\)
+&
+How is the lower bound strengthened for a particular predictor whose error
+still retains information about the available history?\\
+
+Necessary and sufficient attainability conditions
+&
+\(P_E=q_D\) and \(I(E;\mathcal F)=0\)
+&
+When does a predictor attain the universal DELB, rather than merely satisfy
+the inequality?\\
+
+Two-component prediction slack
+&
+\(I(E;\mathcal F)+D_{\mathrm{KL},2}(P_E\Vert q_D)\)
+&
+Is nonattainment attributable to residual history dependence, error-shape
+mismatch, or both?\\
+\bottomrule
+\end{tabularx}
+\end{table}

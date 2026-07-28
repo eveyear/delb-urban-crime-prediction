@@ -1,0 +1,48 @@
+experiment_id: E04
+experiment_name: city_level_bicycle_information_and_delb
+source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+random_seed: 20260718
+target: crime_count_all
+information_sets:
+  crime_lag_field: crime_count_lag1
+  crime_lag_bins: [zero, one, two, three_plus]
+  baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  bicycle_lag_field: bike_total_flow_lag1
+  bicycle_state_field: bicycle_lag_bin
+  bicycle_positive_quantiles: [0.3333333333333333, 0.6666666666666666]
+  bicycle_bins: [zero, low, medium, high]
+domains:
+  - complete_crime_domain
+  - bike_covered_training
+periods:
+  - pooled_2020_2022
+  - year_2020
+  - year_2021
+  - year_2022
+estimation:
+  primary_estimator: miller_madow
+  retain_plugin: true
+  nonnegative_cmi_for_bound: true
+  entropy_floor_bits: 0.0
+bootstrap:
+  block_days: 7
+  repetitions: 1000
+  matrix_chunk_repetitions: 25
+  confidence_level: 0.95
+  resampling_unit: nonoverlapping_calendar_day_block
+numerics:
+  lattice_tail_tolerance: 1.0e-15
+  root_tolerance: 1.0e-12
+acceptance:
+  cmi_identity_tolerance_bits: 1.0e-12
+  bound_order_tolerance: 1.0e-12
+  expected_point_estimates: 24
+  expected_bootstrap_replicates: 24000
+reporting:
+  figure_dpi: 300
+  make_qc_workbook: true

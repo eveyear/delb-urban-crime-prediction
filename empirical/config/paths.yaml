@@ -1,0 +1,8 @@
+project_root: .
+empirical_root: empirical
+crime_raw: data/raw/crime
+bicycle_raw: data/raw/bicycle
+processed_data: empirical/processed_data
+runs: empirical/runs
+paper_assets: empirical/paper_assets
+timezone: Asia/Shanghai

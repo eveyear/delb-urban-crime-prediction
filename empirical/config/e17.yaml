@@ -1,0 +1,55 @@
+experiment_id: E17
+experiment_name: estimator_and_fixed_domain_sensitivity
+source_e02_data: empirical/processed_data/e02/20260718_172231_E02_spatial_temporal_panel
+source_e04_run: empirical/runs/20260718_182751_E04_city_information
+source_e09_run: empirical/runs/20260719_183554_E09_robustness
+source_e10_run: empirical/runs/20260719_190015_E10_placebo_null
+random_seed: 20260718
+target: crime_count_all
+domain: bike_covered_training
+
+information_sets:
+  baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  bicycle_state_field: bicycle_lag_bin
+
+randomization:
+  repetitions: 999
+  designs:
+    - temporal_block_permutation
+    - spatial_series_permutation
+    - circular_shift_surrogate
+  temporal_block_days: 7
+  circular_minimum_shift_days: 31
+  alternative: observed_cmi_greater_than_null
+  p_value: plus_one
+  multiple_testing:
+    - benjamini_hochberg_within_estimator_across_nine_tests
+    - benjamini_hochberg_globally_across_twenty_seven_tests
+
+estimation:
+  estimators:
+    - plugin
+    - miller_madow
+    - jeffreys_dirichlet
+  jeffreys_alpha: 0.5
+
+numerics:
+  lattice_tail_tolerance: 1.0e-15
+  root_tolerance: 1.0e-12
+  bound_interpolation_max_entropy_bits: 8.0
+  e10_reconciliation_tolerance_bits: 1.0e-10
+
+reporting:
+  figure_dpi: 300
+
+acceptance:
+  expected_cities: 3
+  expected_designs: 3
+  expected_estimators: 3
+  expected_replicates_per_estimator: 8991
+  expected_e09_specs_per_city_estimator: 16

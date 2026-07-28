@@ -1,0 +1,53 @@
+\begin{table}[H]
+\caption{用于界定 DELB 理论贡献的主要下界框架比较。“精确”是指对离散
+最大熵包络的精确反演，并不表示 DELB 对任意目标分布都等于 Bayes 风险。}
+\label{tab:core_bound_comparison}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{
+    >{\RaggedRight\arraybackslash}p{0.15\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.16\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.19\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.22\textwidth}
+    >{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{框架} & \textbf{目标与损失} & \textbf{下界对象} &
+\textbf{可达性与预测器作用} & \textbf{与本文 DELB 的关系}\\
+\midrule
+连续熵预测界 \citep{fang_variance_bounds}
+& 实值目标；平方损失
+& 通过高斯熵--方差关系把条件微分熵映射为误差界
+& 等号要求创新具有相应高斯形式和独立性
+& 是连续情形的对应结果，但不提供精确整数格点包络及格点修正\\
+
+Massey 格点界 \citep{massey_integer_entropy,rioul_massey}
+& 整数值变量；方差或二阶矩
+& 离散最大熵以及带 \(1/12\) 修正的保守闭式界
+& 给出格点极值分布，但本身不规定因果预测器、历史依赖强化或侧信息排序
+& 提供既有格点组成；本文不把极值分布或闭式不等式声明为原创\\
+
+Fano 不等式 \citep{cover_thomas,feder_merhav}
+& 有限类别目标；Hamming 损失
+& 把条件熵与分类错误概率联系起来
+& 在正确反函数分支上约束最优分类决策
+& 是损失特定的补充检验，不是 MSE 下界，也不属于 DELB 原创性主张\\
+
+一般 Bayes 风险与率失真界
+\citep{shannon_rate_distortion,chen_bayes_risk}
+& 一般估计对象及给定损失或失真
+& 通过决策或编码论证约束最小风险或可操作失真
+& 在决策类上定义优化；紧致性取决于具体下界和统计实验
+& 范围比 DELB 更广。DELB 是整数平方风险的显式信息论下界，而不是 Bayes
+风险本身\\
+
+本文 DELB 体系
+& 因果整数值目标；平方损失
+& 精确逆格点包络及预测器相关强化
+& 给定预测器达到普适下界，当且仅当其误差为二阶矩匹配的离散高斯且与合法历史
+独立；与最优风险相等还要求最优预测器存在
+& 增加双松弛诊断、新增信息的 CMI 排序及有限样本估计--随机化流程；
+其贡献是统一综合而非新的基础熵不等式\\
+\bottomrule
+\end{tabularx}
+\end{table}

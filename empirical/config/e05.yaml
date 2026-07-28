@@ -1,0 +1,67 @@
+experiment_id: E05
+experiment_name: spatially_localized_bicycle_information_value
+source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+source_e04_run_pointer: runs/latest_e04_run.txt
+random_seed: 20260718
+target: crime_count_all
+domain: bike_covered_training
+information_sets:
+  crime_lag_field: crime_count_lag1
+  crime_lag_bins: [zero, one, two, three_plus]
+  baseline_state:
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  bicycle_lag_field: bike_total_flow_lag1
+  bicycle_state_field: bicycle_lag_bin
+  bicycle_bins: [zero, low, medium, high]
+eligibility:
+  minimum_valid_days: 1095
+  minimum_total_crime_events: 30
+  minimum_positive_bicycle_days: 55
+  maximum_consecutive_zero_bicycle_days: 365
+  minimum_target_states: 2
+  minimum_bicycle_states: 2
+estimation:
+  primary_estimator: miller_madow
+  retain_plugin: true
+  nonnegative_cmi_for_bound: true
+  entropy_floor_bits: 0.0
+bootstrap:
+  block_days: 7
+  repetitions: 1000
+  matrix_chunk_repetitions: 100
+  confidence_level: 0.95
+  resampling_unit: shared_city_nonoverlapping_calendar_day_block
+inference:
+  local_test: one_sided_positive_raw_cmi_normal
+  false_discovery_rate_method: benjamini_hochberg
+  false_discovery_rate_alpha: 0.05
+  require_two_sided_cmi_ci_above_zero: true
+  require_two_sided_delta_l_ci_above_zero: true
+spatial:
+  weights: row_standardized_queen_contiguity
+  permutation_repetitions: 999
+  local_moran_metric_for_primary_map: delta_l_exact_mse
+numerics:
+  lattice_tail_tolerance: 1.0e-15
+  root_tolerance: 1.0e-12
+  bootstrap_bound_interpolation_max_entropy_bits: 8.0
+  bootstrap_bound_interpolation_validation_tolerance_mse: 1.0e-5
+acceptance:
+  expected_covered_grids: 413
+  expected_eligible_grids: 339
+  expected_eligible_by_city:
+    DC: 146
+    NY: 160
+    VAN: 33
+  expected_bootstrap_replicates: 339000
+  expected_global_moran_rows: 9
+  expected_local_moran_rows: 1017
+  cmi_identity_tolerance_bits: 1.0e-12
+  local_to_pooled_reconciliation_tolerance_bits: 1.0e-12
+  bound_order_tolerance: 1.0e-12
+reporting:
+  figure_dpi: 300
+  make_qc_workbook: true

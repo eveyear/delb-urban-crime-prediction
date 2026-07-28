@@ -1,0 +1,45 @@
+%! TEX root = supplement.tex
+\documentclass[applsci,supfile,submit,moreauthors]{Definitions/mdpi}
+
+\usepackage{placeins}
+\setlength{\headheight}{20pt}
+
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+\datereceived{}
+\daterevised{}
+\dateaccepted{}
+\datepublished{}
+
+\Title{Supplementary Materials for ``A Discrete Entropy Lower Bound for Urban
+Crime Count Prediction: Finite-Sample Calibration and Multicity Evaluation''}
+\Author{First Author $^{1}$, Second Author $^{2}$ and Corresponding Author $^{1,}$*}
+\AuthorNames{First Author, Second Author and Corresponding Author}
+\address{$^{1}$ \quad Affiliation 1; author1@example.com\\
+$^{2}$ \quad Affiliation 2; author2@example.com}
+\corres{Correspondence: corresponding.author@example.com}
+
+\input{sections/generated/e11/e11_macros}
+\input{sections/generated/s7/s7_macros}
+\input{sections/generated/e16/e16_macros}
+\input{sections/generated/e17/e17_macros}
+
+\begin{document}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\setcounter{section}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+
+\input{sections/supplement_results}
+
+\end{document}

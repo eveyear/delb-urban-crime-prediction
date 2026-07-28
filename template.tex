@@ -1,0 +1,1589 @@
+%! TEX root = template.tex
+%  LaTeX support: latex@mdpi.com
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[applsci,article,submit,moreauthors]{Definitions/mdpi}
+\usepackage{placeins}
+%\documentclass[preprints,article,submit,moreauthors]{Definitions/mdpi} 
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal. Changing "submit" to "accept" before posting will remove line numbers.
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% accountaudit, acn, acoustics, actuators, addictions, addictprev, adhesives, adolescents, aerobiology, aerospace, agriculture, agriengineering, agrochemicals, agronomy, ai, aichem, aieng, aimater, aimed, aipa, air, aisens, aisoc, algorithms, allergies, alloys, amh, analog, analytica, analytics, anatomia, anesthres, animals, antibiotics, antibodies, antioxidants, applbiosci, appliedchem, appliedmath, appliedphys, applmech, applmicrobiol, applnano, applsci, aps, aquacj, archaeolstud, architecture, arm, arthropoda, asc, asi, astronautics, astronomy, atmosphere, atoms, audiolres, automation, axioms, bacteria, batteries, bdcc, beverages, biochem, bioengineering, biologics, biology, biomass, biomechanics, biomed, biomedicines, biomedinformatics, biomimetics, biomolecules, biophysica, bioresourbioprod, biosensors, biosphere, biotech, birds, blockchains, bloods, blsf, brainsci, breath, buildings, cancers, carbon, cardio, cardiogenetics, cardiovascmed, catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, chemproc, children, chips, cimb, civileng, cleantechnol, climate, clinbioenerg, clinpract, clockssleep, cmd, cmtr, coasts, coatings, colloids, colorants, commodities, complexities, complications, compounds, computation, computers, condensedmatter, conservation, constrmater, cosmetics, covid, crops, cryo, cryptography, crystals, csmf, ctn, culture, curroncol, cyber, dairy, data, ddc, dentistry, dermato, dermatopathology, designs, devices, dhi, diabetology, diagnostics, dietetics, digital, disabilities, diseases, diversity, dna, drones, drugreact, drylands, dynamics, earth, ebj, ecm, ecologies, edm, eesp, electricity, electrochem, electronicmat, electronics, embodiedintell, encyclopedia, endocrines, energies, eng, engproc, entomology, entropy, environments, environremediat, epidemiologia, epigenomes, esa, est, fermentation, fibers, fintech, fire, fishes, fluids, foodeng, foods, forecasting, forensicsci, forests, fossstud, foundations, fractalfract, freshwater, fuels, future, futureinternet, futurepharmacol, futurephys, futuretransp, galaxies, gases, gastroent, gastrointestdisord, gastronomy, gels, genes, geochem, geographies, geohazards, geomatics, geometry, geosciences, geotechnics, geriatrics, germs, glacies, grainsci, grasses, green, greenhealth, gucdd, gynecolcancer, hardware, hazardousmatters, healthcare, healthcmater, hearts, hemato, hematolrep, hep, heritage, higheredu, highthroughput, horticulturae, hospitals, hydrobiology, hydrogen, hydrology, hydrometeorology, hydropower, hygiene, idr, iic, ijem, ijerph, ijgi, ijmd, ijms, ijns, ijom, ijp, ijpb, ijt, ijtm, ijtpp, ijtst, ime, immuno, industries, inflammj, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jaestheticmed, jal, japma, jcdd, jcm, jcp, jcrm, jcs, jcto, jdad, jdb, jdream, jemr, jeta, jfb, jfmk, jfth, jgbg, jgg, jimaging, jlpea, jmahp, jmmp, jmms, jmp, jmse, jne, jnt, jof, joi, joitmc, joma, jop, joptm, jor, jox, jpbi, jphytomed, jpm, jsan, jtaer, jvd, jzbg, kidneydial, kinasesphosphatases, knowledge, labmed, laboratories, lam, land, lasers, legumes, life, lights, limnolrev, lipidology, liquids, livers, logics, logistics, lubricants, lymphatics, machines, macromol, magnetism, magnetochemistry, make, marinedrugs, maritime, materials, materproc, mathematics, mca, mcb, measurements, medicina, medicines, medsci, membranes, merits, metabolites, metals, meteorology, methane, metrics, metrology, micro, microarrays, microbiolres, microelectronics, micromachines, microorganisms, microplastics, microwave, minerals, mining, mmphys, modelling, molbank, molecules, mollusca, mps, msf, mti, multimedia, muscles, nanoenergyadv, nanomanufacturing, nanomaterials, ncrna, ndt, network, neuroglia, neuroimaging, neurolint, neurosci, nitrogen, notspecified, nursrep, nutraceuticals, nutrients, obesities, occuphealth, oceans, ohbm, onco, optics, oral, organics, organoids, osteology, oxygen, pandemics, parasites, parasitologia, particles, pathogens, pathophysiology, pediatrrep, pets, pharmaceuticals, pharmaceutics, pharmacoepidemiology, pharmacy, phc, philosophies, photochem, photonics, photovoltaics, phycology, physchem, physics, physiologia, plants, plasma, platforms, pollutants, polymers, polysaccharides, populations, poultry, powders, precision, precisoncol, preprints, proceedings, processes, prosthesis, proteomes, psf, psychiatryint, psychoactives, purification, quantumrep, quaternary, qubs, radiation, rareearths, rdt, reactions, realestate, receptors, recycling, regeneration, remotesensing, reports, reprodmed, resources, rheumato, rjpm, robotics, rsee, ruminants, safety, sanpp, sca, sci, scipharm, sclerosis, seeds, sensors, separations, sexes, shi, signals, sinusitis, siuj, skins, smartcities, smartfish, sna, societies, software, soilsystems, solar, solids, spectroscj, sports, standards, stats, std, stratsediment, stresses, strokerep, superintelligence, surfaces, surgeries, suschem, sustainability, sustainfoods, sustainpackag, symmetry, synbio, systems, tae, targets, taxonomy, technologies, telecom, test, textiles, thalassrep, therapeutics, thermo, timespace, tomography, toxics, toxins, tph, transplantology, transportation, traumacare, traumas, tri, tropicalmed, universe, urbansci, uro, vaccines, vehicles, venereology, vetsci, vibration, virtualworlds, viruses, vision, waste, water, welding, wem, wevj, wild, wind, women, world, zoonoticdis
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by: 
+% abstract, addendum, article, benchmark, book, bookreview, briefcommunication, briefreport, casereport, changes, clinicopathologicalchallenge, comment, commentary, communication, conceptpaper, conferenceproceedings, correction, conferencereport, creative, datadescriptor, discussion, entry, expressionofconcern, extendedabstract, editorial, essay, erratum, fieldguide, hypothesis, interestingimages, letter, meetingreport, monograph, newbookreceived, obituary, opinion, proceedingpaper, projectreport, reply, retraction, review, perspective, protocol, shortnote, studyprotocol, supfile, systematicreview, technicalnote, viewpoint, guidelines, registeredreport, tutorial,  giantsinurology, urologyaroundtheworld
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%=================================================================
+% MDPI internal commands - do not modify
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2026}
+\copyrightyear{2026}
+%\externaleditor{Firstname Lastname} % More than 1 editor, please add `` and '' before the last editor name
+\datereceived{ } 
+\daterevised{ } % Comment out if no revised date
+\dateaccepted{ } 
+\datepublished{ } 
+%\datecorrected{} % For corrected papers: "Corrected: XXX" date in the original paper.
+%\dateretracted{} % For retracted papers: "Retracted: XXX" date in the original paper.
+%\doinum{} % Used for some special journals, like molbank
+%\pdfoutput=1 % Uncommented for upload to arXiv.org
+%\CorrStatement{yes}  % For updates
+%\longauthorlist{yes} % For many authors that exceed the left citation part
+%\IsAssociation{yes} % For association journals
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
+% cleveref: load \crefname definitions after \begin{document}
+\setlength{\headheight}{20pt}
+
+%=================================================================
+% Working manuscript metadata. Replace all placeholders before submission.
+% The archived Version 1 title was:
+% ``Discrete Entropy Limits of Urban Property-Crime Prediction:
+% The Conditional Information Value of Bicycle Mobility.''
+\Title{A Discrete Entropy Lower Bound for Urban Crime Count Prediction: Finite-Sample Calibration and Multicity Evaluation}
+
+\Author{First Author $^{1}$, Second Author $^{2}$ and Corresponding Author $^{1,}$*}
+\AuthorNames{First Author, Second Author and Corresponding Author}
+
+\address{%
+$^{1}$ \quad Affiliation 1; author1@example.com\\
+$^{2}$ \quad Affiliation 2; author2@example.com}
+
+\corres{Correspondence: corresponding.author@example.com}
+
+\input{sections/generated/e11/e11_macros}
+\input{sections/generated/s7/s7_macros}
+\input{sections/generated/e16/e16_macros}
+\input{sections/generated/e17/e17_macros}
+
+\abstract{Urban crime forecasting increasingly incorporates mobility data,
+but a lower fitted error does not show whether a new source changes an
+intrinsic prediction floor or reflects finite-sample structure. We formulate
+the Discrete Entropy Lower Bound (DELB), which maps conditional Shannon
+entropy through the inverse integer-lattice maximum-entropy envelope to a
+model-independent, entropy-constrained mean-squared-error floor for
+integer-valued prediction. We combine DELB estimation with support
+diagnostics, known-truth simulation, design-conditioned randomization, and
+matched held-out prediction. The multicity evaluation uses
+\TotalCrimeEvents{} crime events, \TotalBicycleTrips{} bicycle trips, and
+\TotalPanelRows{} 1~km grid--day observations from Washington, DC, New York
+City, and Vancouver during 2020--2022. Within the bicycle-covered
+populations, adding one-day-lagged bicycle flow reduced the estimated DELB
+by 7.9\%, 17.3\%, and 18.0\%, respectively. The reductions remained positive
+but attenuated in the complete crime-supported populations. The observed CMI
+did not exceed the prespecified temporal, spatial, circular-shift, or
+baseline-state-matched reference distributions. Semi-synthetic experiments
+supported nominal calibration of the matched reference but showed limited
+power at smaller CMI values, so non-rejection was not interpreted as
+conditional irrelevance. Held-out prediction gains were also model- and
+city-dependent. DELB therefore provides a reproducible data-value assessment
+tool that separates an estimated change in the prediction floor,
+design-calibrated evidence, and realized model performance in smart-city
+count forecasting.}
+
+\keyword{urban crime prediction; urban mobility; smart-city analytics;
+shared bicycle data; discrete entropy lower bound; conditional mutual
+information; finite-sample calibration; spatiotemporal data mining}
+
+\begin{document}
+
+\input{sections/introduction}
+
+% Archived pre-Applied-Sciences introduction retained for comparison.
+\iffalse
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{From Predictive Performance to an Information-Theoretic Lower Bound}
+\label{subsec:intro_prediction_limit}
+
+Predictive modeling addresses two related but fundamentally distinct
+questions: how accurately a particular method forecasts future outcomes,
+and how much prediction error is unavoidable given the information
+available when a forecast is issued. Most empirical forecasting studies
+primarily address the first question by comparing the out-of-sample
+performance of competing models. Such comparisons are essential for
+model selection, but they do not by themselves reveal whether the remaining
+error reflects intrinsic uncertainty or limitations of the fitted predictor.
+
+A model-independent lower bound addresses the latter issue. For a fixed
+target, causal information set, loss function, and predictor class, it is
+determined by the joint distribution of the target and the information
+available at forecast time. It is therefore independent of
+the architecture, optimizer, and finite training sample used to construct
+a predictor. Comparing achieved prediction error with such a model-independent
+bound separates uncertainty intrinsic to the target--information pair from
+error that may remain reducible through improved modeling or estimation.
+
+In this study, \textit{predictability limit} denotes the broader research
+question. The DELB is the information-theoretic MSE lower bound implied by
+conditional uncertainty, integer support, squared-error loss, and the
+explicitly defined class of causal integer-valued predictors. It is not
+the Bayes risk in general. Equality requires an optimal predictor to exist
+and to satisfy the attainability conditions established below. This
+distinction is particularly important for
+crime counts and other operational outcomes that take values on an
+integer lattice, because continuous entropy--variance arguments do
+not directly provide the corresponding discrete error floor.
+We therefore ask:
+
+\emph{RQ1: How can conditional uncertainty be translated into an exact discrete-form,
+    model-independent MSE lower bound for a causal integer-valued
+    stochastic process?}
+
+\subsection{Added Information and Finite-Sample Identification}
+\label{subsec:intro_finite_sample}
+
+Predictability also depends on what is known at forecast time. When side
+information reduces conditional entropy, its population conditional mutual
+information (CMI) with the target orders the corresponding DELB. The question
+is then whether a new data source changes what is predictable, not merely
+whether one fitted model uses it.
+
+Population ordering does not by itself solve finite-sample identification.
+Adding a discretized variable partitions each baseline state and can produce
+sparse or singleton cells. Plug-in and bias-corrected conditional-entropy
+estimators can then exhibit unequal finite-sample errors across the nested
+states. The broader entropy-estimation literature shows that undersampling can
+produce substantial bias and misleadingly narrow uncertainty assessments even
+for nominally corrected estimators \citep{paninski2003,calcagnile2026benchmark}.
+CMI estimation and conditional-independence testing add further dependence on
+data type, neighborhood or binning structure, and null-generation mechanism
+\citep{zan2022cmi,runge2018cmi,li2023nncit}.
+
+A randomization reference distribution recomputes the statistic after a
+specified transformation. Its exactness depends on the
+exchangeability induced by that design \citep{ernst2004permutation}; in sparse
+nested tables, the transformation may also alter support occupancy and the
+finite-sample center. Positive estimated CMI, estimator bias, and separation
+from a design-conditioned randomization reference are distinct
+claims. Our second question is:
+
+\emph{RQ2: How can a population information gain be distinguished from
+finite-sample entropy-estimation bias and a transformation-specific
+randomization reference?}
+
+We compare a baseline crime-history and calendar
+information set with an otherwise matched set augmented by lagged bicycle
+flow. Existing studies mainly ask whether adding mobility changes a fitted
+model's score. Here, the unresolved question is whether the added
+source changes a model-independent error floor and whether an estimated change
+remains distinguishable after finite-sample calibration. The third question
+concerns evidence rather than causation:
+
+\emph{RQ3: Does lagged bicycle mobility provide additional crime-prediction
+information that remains distinguishable after finite-sample and
+randomization calibration?}
+
+\subsection{Contributions and Evidence Strategy}
+\label{subsec:intro_contributions}
+
+This study makes three contributions spanning theory, finite-sample
+inference, and empirical evaluation.
+
+First, we formulate the Discrete Entropy Lower Bound (DELB) for causal
+integer-valued prediction. By inverting the exact integer-lattice
+maximum-entropy envelope, the DELB converts conditional Shannon entropy
+into a universal MSE lower bound for any admissible integer-valued
+predictor. Within a unified theorem package, we further derive a
+predictor-dependent refinement, establish necessary and sufficient
+conditions for attaining the universal bound, and decompose nonattainment
+into two distinct components: residual dependence of the prediction error
+on the available history and mismatch between the error distribution and
+the moment-matched discrete Gaussian. The theoretical contribution lies
+in integrating these elements into a causal prediction framework with
+explicit diagnostic interpretations. We do not claim the discrete-Gaussian
+extremizer, the lattice correction, or the underlying information-projection
+identities as new mathematical primitives.
+
+Second, we develop a finite-sample evidence framework for determining
+whether an estimated reduction in conditional entropy represents genuine
+added predictive information. The framework explicitly distinguishes five
+objects that are often conflated: the population DELB and conditional
+mutual information estimands, their finite-sample estimates, estimator
+behavior under sparse state occupancy, transformation-specific
+randomization references, and achieved out-of-sample prediction error.
+Known-truth simulations, support diagnostics, block resampling, temporal
+and spatial randomization, circular-shift references, and matched
+prediction experiments are combined to evaluate these objects without
+treating any single diagnostic as sufficient evidence of population
+information gain. This framework clarifies why a positive estimated
+CMI or a lower estimated DELB need not imply that the added information
+is distinguishable from finite-sample artifacts.
+
+Third, we apply the framework to harmonized crime and shared-bicycle data
+from Washington, DC, New York City, and Vancouver during 2020--2022.
+The empirical analysis evaluates whether lagged bicycle activity provides
+predictive information about future integer-valued crime counts beyond
+crime history, location, and calendar state. It further examines how DELB
+and CMI estimates vary with spatial resolution, temporal aggregation, and
+sample size. Bicycle-augmented information sets produce lower DELB point
+estimates across the primary city-level comparisons and multiple alternative
+specifications. However, the prespecified randomization designs do not
+distinguish these reductions from transformation-specific finite-sample
+references, and no recent bicycle-specific reduction in the population
+DELB is identified after calibration. This qualified
+result is substantively important: an apparent reduction in estimated
+uncertainty, statistically distinguishable added information, and improved
+realized prediction are separate empirical claims.
+
+The evidence strategy follows the same sequence as the research questions.
+Section~\ref{sec:related_work} positions the study relative to urban crime
+forecasting, mobility-based crime analytics, and information-theoretic
+prediction limits. Section~\ref{sec:theory} develops the population DELB
+and answers RQ1. Section~\ref{sec:data} defines the data, estimands,
+finite-sample diagnostics, randomization designs, and matched prediction
+procedures required for RQ2 and RQ3. Section~\ref{sec:results}
+first establishes the finite-sample behavior of the estimators and then
+evaluates the city-level and multiscale evidence.
+Section~\ref{sec:discussion} returns to the three research questions,
+discusses the scope of the resulting information-theoretic lower bound, and identifies
+the implications for integer-valued prediction more broadly.
+\fi
+
+\iffalse
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Crime Prediction}
+\label{subsec:intro_crime_prediction}
+
+Forecasting when and where crime will occur is an established objective of
+spatial crime analysis. Forecasts may concern future incident counts,
+hotspot membership, crime categories, or event locations, and they are used
+to support the temporal and geographic allocation of limited public-safety
+resources. The available literature spans conventional statistical and
+spatial models as well as increasingly flexible data-driven methods. A
+systematic review of spatial crime forecasting identified hotspot
+classification as the predominant task and documented a rapid expansion in
+the range of algorithms applied to it \citep{kounadi2020review}. This
+methodological development has made it possible to combine historical crime
+records with calendar, socioeconomic, built-environment, and other
+spatiotemporal covariates at progressively finer resolutions.
+
+Representative studies illustrate the movement from statistical learning
+toward more elaborate temporal and spatial representations. Random forests
+have been used to relate urban indicators to crime rates
+\citep{alves2018crime}; boosted-tree and XGBoost-based specifications have
+been incorporated into spatiotemporal crime-prediction systems
+\citep{angbera2023model}; and recurrent architectures, including LSTM-based
+models, have been used to represent evolving crime dependencies
+\citep{huang2018deepcrime}. More recently, transformer-based formulations
+have been proposed to capture longer-range spatiotemporal structure
+\citep{butt2025start}. These examples are important here not because of
+their internal architectures, but because each represents a different
+attempt to reduce forecast error by improving the mapping from an available
+information set to a future crime outcome.
+
+The principal criterion for judging such attempts remains predictive
+performance. In the review by Kounadi et al., prediction accuracy was the
+most frequently reported evaluation measure, followed by the prediction
+accuracy index and the F1 score \citep{kounadi2020review}. Count-forecasting
+studies additionally use measures such as MAE, RMSE, and MSE. These metrics
+are indispensable for comparing models under a common evaluation design,
+but a ranking of observed errors answers only which evaluated model performs
+better. It does not reveal how much uncertainty is intrinsic to the target
+process under the specified predictors, how close the best model is to a
+fundamental limit, or whether further architectural complexity can
+meaningfully reduce the remaining error. Consequently, an accuracy-centered
+literature can document continual model improvement while leaving the
+absolute predictability of crime counts unresolved.
+
+\subsection{From Prediction Accuracy to Predictability Limits}
+\label{subsec:intro_predictability_limits}
+
+A prediction error and a predictability limit are conceptually different.
+The former is achieved by a particular estimator, training sample, and
+optimization procedure. The latter is a property of the joint distribution
+of the prediction target and the information legitimately available when
+the forecast is issued. For a fixed information set and loss function, the
+limit describes a model-independent error floor: changing the forecasting
+algorithm alone cannot cross it. This distinction converts the usual
+question of whether one model outperforms another into a more fundamental
+question: how much of the observed error is irreducible given the available
+information, and how much remains  potentially recoverable by a better
+predictor?
+
+Information theory provides a natural language for this question. Shannon
+entropy ≥ uncertainty in a random variable, while conditional entropy
+measures the uncertainty that remains after an information set is observed
+\citep{shannon1948,cover_thomas}. Entropy-based limits have already clarified
+predictability in other complex systems. Song et al. combined the entropy of
+individual trajectories with Fano-type reasoning to estimate the potential
+predictability of human mobility \citep{song2010limits}. Li et al. used
+conditional differential entropy to study model-independent performance
+boundaries in short-term traffic forecasting \citep{li2022traffic}. At a
+more general level, Fang et al. derived variance bounds for estimation and
+prediction errors of continuous-valued time series from differential-entropy
+arguments \citep{fang_variance_bounds}. Collectively, these studies show why
+accuracy should be interpreted relative to the uncertainty contained in the
+target and its conditioning information.
+
+Crime counts, however, are integer-valued rather than continuous. A
+continuous variance bound cannot be converted into a discrete result by
+mechanically replacing differential entropy with Shannon entropy. The
+continuous Gaussian maximizes differential entropy under a variance
+constraint, whereas an integer-valued error is supported on a lattice and
+has a different maximum-entropy distribution and entropy--moment relation.
+The distinction matters especially for sparse local counts, for which the
+lattice correction is not negligible. To the best of our knowledge, a
+model-independent MSE floor derived from the exact discrete maximum-entropy
+envelope has received limited attention in crime forecasting.
+
+This study therefore introduces the term \emph{Discrete Entropy Lower Bound}
+(DELB) for an MSE lower bound constructed specifically for integer-valued
+prediction errors. The exact bound connects conditional Shannon entropy to
+the maximum-entropy distribution on the integer lattice. The proposed
+four-part theorem package places in one causal prediction statement
+(i) the exact inverse-lattice floor, (ii) a predictor-dependent refinement,
+(iii) necessary and sufficient attainability conditions, and (iv) a
+two-component decomposition of nonattainment. A conservative closed-form
+version exposes the corresponding lattice correction. Once the floor and
+an out-of-sample MSE are estimated under matched information sets, their
+difference defines a \emph{Predictability Gap}. This gap is intended to
+separate estimated irreducible uncertainty from the portion of error that
+current models have not exploited; it is not another model-ranking score.
+The full definitions and finite-sample qualifications are developed in
+Section~\ref{sec:theory}.
+
+\subsection{Bicycle Mobility as Additional Predictive Information}
+\label{subsec:intro_bicycle_information}
+
+Predictability depends not only on the forecasting rule but also on what is
+known at forecast time. This observation is central to the relationship
+between mobility and crime. Routine activity theory links crime
+opportunities to the convergence in space and time of potential offenders,
+suitable targets, and the absence of capable guardians
+\citep{cohen1979routine}. Residential population is therefore an incomplete
+description of the population at risk in places whose users change over the
+day. Research on ambient population has shown that alternative measures of
+the people actually present can materially alter the identification and
+interpretation of urban crime hotspots \citep{malleson2016ambient}.
+
+Digital traces have made these dynamic populations and flows increasingly
+observable. Mobile-phone trajectories indicate that everyday mobility flows
+help explain thieves' target-location choices \citep{song2019legal}.
+Foursquare activity, subway use, and taxi trips have been used to improve
+long-term crime prediction beyond models based on census and
+points-of-interest variables \citep{kadar2018mining}. Directional mobility
+flows derived from location platforms have also been linked to hourly crime
+concentrations in multiple cities \citep{kadar2020mobility}. At shorter
+horizons, adding mobility-flow features to historical crime inputs has
+improved F1 scores across several cities, crime categories, and prediction
+architectures \citep{wu2022mobility}. The common implication is that dynamic
+urban activity can contain predictive information that static residential
+or built-environment measures do not capture.
+
+Bicycle records offer a distinct source of such information. Shared-bicycle
+and bicycle-count data provide high-frequency timestamps and spatially
+resolved origins, destinations, inflows, and outflows. Dockless bike-sharing
+trips have been used to reveal intra-urban mobility structures and daily
+activity patterns \citep{xu2023bike}, while comparisons with bicycle
+counters suggest that sharing-system records can reproduce important
+temporal patterns in overall cycling activity at finer spatial granularity
+\citep{ivanovic2023bike}. In the present study, bicycle flow is consequently
+treated as a \emph{mode-specific, high-frequency proxy for urban mobility
+and public-space activity}. It is not treated as a complete measure of the
+ambient population: bicycle users are a selected subset of urban travelers,
+and service areas, station placement, weather, and operating conditions
+affect observed coverage.
+
+Existing evidence that mobility variables improve a fitted model does not
+identify how much conditional information they add or how they change a
+model-independent error floor. An observed gain may depend on the chosen
+architecture, regularization, feature encoding, or sample split. We instead
+compare a baseline information set with an otherwise matched information
+set augmented by lagged bicycle flows. Conditional mutual information then
+quantifies the remaining association between future crime counts and
+bicycle mobility after crime history and prespecified controls are known,
+and its entropy reduction determines the ordering of the associated DELBs.
+This quantity describes the predictive information value of observed
+mobility; it neither identifies a causal effect of bicycle travel on crime
+nor guarantees that every forecasting model will realize the same empirical
+improvement.
+
+The distinction is especially important when a richer conditioning state is
+sparsely occupied. A positive empirical entropy difference may combine
+population information, unequal finite-sample bias between nested state
+tables, and random error. Moreover, a randomization null is the distribution
+of the same estimator after a specified transformation; its center need not
+be zero when the transformed support remains sparse. Accordingly, the
+population estimand, estimator bias, and transformation-specific null are
+treated as separate inferential layers rather than interchangeable evidence.
+
+\subsection{Contributions}
+\label{subsec:intro_contributions}
+
+Against this background, the study makes four contributions:
+\begin{enumerate}
+    \item We formulate and prove a four-part causal integer-prediction
+    theorem package comprising the exact inverse-lattice DELB, a
+    predictor-dependent refinement, necessary and sufficient attainability
+    conditions, and a two-component prediction-slack diagnostic. The
+    discrete-Gaussian extremizer, exponential-family KL identity, and
+    continuous entropy--error argument are explicitly treated as inherited
+    ingredients rather than separate novelty claims.
+    \item We establish a reproducible finite-sample inference framework that
+    separates the population DELB/CMI estimand, its plug-in or
+    Miller--Madow estimate, estimator bias, the design-conditioned
+    randomization null, and achieved out-of-sample error. Simulations and
+    surrogate-specific support diagnostics quantify why these layers need
+    not agree.
+    \item We connect the count-MSE DELB to the Predictability Gap and to the
+    classical Fano floor for fixed finite labels, while keeping their
+    targets, losses, equality conditions, and numerical scales distinct.
+    \item We evaluate the framework using harmonized property-crime and
+    bicycle-flow panels for Vancouver, Washington, DC, and New York City,
+    reporting both robust point-estimate patterns and the absence of
+    bicycle-specific randomization evidence.
+\end{enumerate}
+\fi
+
+\input{sections/related_work}
+\input{sections/theoretical_framework}
+\input{sections/data_methods}
+\input{sections/results}
+\input{sections/discussion_conclusion}
+
+% The original planning scaffold is retained below for provenance but is
+% excluded from compilation after E11 replaced it with evidence-backed text.
+\iffalse
+
+\section{Study Areas, Data, and Preprocessing}
+\label{sec:data}
+
+\subsection{Study Areas and Observation Period}
+\label{subsec:study_areas}
+
+The empirical analysis covers Vancouver, Washington, DC, and New York City from 1 January 2020 to 31 December 2022. The three cities differ in population, urban form, bicycle-system scale, transportation structure, and theft intensity, providing a heterogeneous setting for cross-city validation.
+
+% TODO: Add official study-area descriptions, population figures, land area,
+% bicycle-system characteristics, and harmonized theft definitions with citations.
+
+\subsection{Crime Data}
+\label{subsec:crime_data}
+
+The crime dataset contains geocoded theft incidents with timestamps and offense classifications. The primary outcome is a harmonized theft category available across all three cities. Where compatible classifications are available, secondary analyses distinguish bicycle theft, theft from vehicles, shoplifting, and other theft.
+
+For each city, document:
+\begin{itemize}
+    \item the official data source and access date;
+    \item the original offense codes and the harmonization rule;
+    \item missing coordinates and timestamps;
+    \item duplicate-removal procedures;
+    \item spatial and temporal coverage;
+    \item reporting changes or known administrative discontinuities.
+\end{itemize}
+
+\subsection{Bicycle Mobility Data}
+\label{subsec:bike_data}
+
+Bicycle records are aggregated into the directional daily spatial measures
+defined in Section~\ref{subsec:bicycle_definitions}. Operationally,
+\begin{align}
+B^{\mathrm{out}}_{c,i,t}&=\text{number of trips departing from unit }i,\\
+B^{\mathrm{in}}_{c,i,t}&=\text{number of trips arriving in unit }i,\\
+B^{\mathrm{total}}_{c,i,t}&=B^{\mathrm{out}}_{c,i,t}+B^{\mathrm{in}}_{c,i,t},\\
+B^{\mathrm{net}}_{c,i,t}&=B^{\mathrm{in}}_{c,i,t}-B^{\mathrm{out}}_{c,i,t}.
+\end{align}
+Total flow is used as the primary mobility variable. Inbound, outbound, and net flows are evaluated as secondary specifications.
+Because total and net flow are deterministic functions of inbound and
+outbound flow, they are not simultaneously added to the same entropy state
+space.
+
+% TODO: State whether the datasets describe shared bicycle trips, counters,
+% docked systems, dockless systems, or a combination, and explain differences
+% in spatial coverage across cities.
+
+\subsection{Calendar, Weather, and Contextual Controls}
+\label{subsec:controls}
+
+The baseline control vector $\mathbf{X}_{c,i,t}$ should include, where available:
+\begin{itemize}
+    \item day of week;
+    \item month or season;
+    \item public-holiday indicator;
+    \item linear or nonlinear time trend;
+    \item temperature;
+    \item precipitation and snowfall;
+    \item city and spatial-unit indicators for pooled models;
+    \item pandemic-period or policy-phase indicators in sensitivity analysis.
+\end{itemize}
+The primary conditional information measure is therefore interpreted as
+\begin{equation}
+I\left(C_t;B_{t-1:t-q}\mid C_{t-1:t-p},\text{calendar},\text{weather}\right),
+\end{equation}
+not as unconditional association between bicycle activity and theft.
+
+\subsection{Spatial Harmonization}
+\label{subsec:spatial_harmonization}
+
+A common projected coordinate system is used within each city. The primary analysis employs regular $1\,\mathrm{km}\times1\,\mathrm{km}$ grid cells clipped to the effective urban study area. A $500\,\mathrm{m}\times500\,\mathrm{m}$ grid is used for spatial-scale robustness, and an optional $2\,\mathrm{km}\times2\,\mathrm{km}$ grid may be added.
+
+Each theft incident is assigned to the grid containing its location. Bicycle origins and destinations are assigned in the same manner. Water bodies, airports, and areas outside the effective bicycle-data coverage are removed or flagged according to a prespecified rule.
+
+% TODO: Replace grid sizes if census tracts or another unit are used. If
+% administrative units are used, justify cross-city comparability and account
+% for unequal areas.
+
+\subsection{Temporal Aggregation and Panel Construction}
+\label{subsec:temporal_aggregation}
+
+The primary temporal unit is one day. A complete grid--day panel is generated so that days with no reported theft or bicycle activity are represented explicitly by zeros. The principal analytical record contains
+\begin{equation}
+\left(c,i,t,C_{c,i,t},B^{\mathrm{in}}_{c,i,t},B^{\mathrm{out}}_{c,i,t},B^{\mathrm{total}}_{c,i,t},\mathbf{X}_{c,i,t}\right).
+\end{equation}
+Weekly aggregation is used as a robustness analysis.
+
+\subsection{Spatial-Unit Eligibility Criteria}
+\label{subsec:eligibility}
+
+Local entropy estimates can be unstable in sparse spatial units. Before examining results, define eligibility criteria such as:
+\begin{itemize}
+    \item at least $T_{\min}$ valid daily observations;
+    \item at least $N_{C,\min}$ theft incidents during 2020--2022;
+    \item nonzero bicycle activity on at least $r_{B,\min}$ percent of observed days;
+    \item sufficient observations in the training and testing periods;
+    \item exclusion of units with severe bicycle-coverage discontinuities.
+\end{itemize}
+Thresholds must be selected before evaluating local effects. Alternative thresholds are reported in the Supplementary Materials.
+
+\subsection{Descriptive Spatial and Temporal Patterns}
+\label{subsec:descriptive_patterns}
+
+This subsection incorporates the completed descriptive analysis, including total theft counts, annual and seasonal changes, temporal regularities, theft heat maps, and comparisons among the three cities. The descriptive results establish the empirical context but are not interpreted as evidence that mobility changes predictability.
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5.0cm][c]{0.92\textwidth}{\centering Placeholder: study areas, spatial units, theft incidents, and bicycle-data coverage.}}
+\caption{Study areas and spatial coverage of theft and bicycle mobility data. Replace the placeholder with the final multi-panel figure.}
+\label{fig:study_areas}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5.0cm][c]{0.92\textwidth}{\centering Placeholder: completed theft heat maps and temporal-pattern figures.}}
+\caption{Spatial and temporal patterns of theft in Vancouver, Washington, DC, and New York City, 2020--2022.}
+\label{fig:descriptive_patterns}
+\end{figure}
+
+\begin{table}[H]
+\caption{Data sources, temporal coverage, spatial coverage, and harmonization decisions.}
+\label{tab:data_sources}
+\begin{tabularx}{\textwidth}{lXXXX}
+\toprule
+\textbf{City} & \textbf{Theft Data} & \textbf{Bicycle Data} & \textbf{Spatial Coverage} & \textbf{Notes}\\
+\midrule
+Vancouver & TODO & TODO & TODO & TODO\\
+Washington, DC & TODO & TODO & TODO & TODO\\
+New York City & TODO & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Methods and Experimental Design}
+\label{sec:methods}
+
+\subsection{Discretization of Count and Mobility Variables}
+\label{subsec:discretization}
+
+The primary prediction target remains the original theft count
+\begin{equation}
+C_{c,i,t}\in\mathbb{Z}_{\geq0};
+\end{equation}
+it is not binned in the main analysis. To obtain a finite, sufficiently
+populated conditioning state, the lagged count is mapped by
+\begin{equation}
+Q_C(C_{c,i,t-\ell})\in\{0,1,2,\geq3\},
+\end{equation}
+with \(\{0,1,\geq2\}\) as a robustness mapping. The primary bicycle-state
+mapping preserves the substantively meaningful zero state and divides
+positive lagged total flow using city-specific training-period quantiles:
+\begin{equation}
+Q_B(B^{\mathrm{total}}_{c,i,t-\ell})
+\in\{0,\text{low},\text{medium},\text{high}\}.
+\end{equation}
+Calendar, weather, and spatial controls are similarly mapped by \(Q_X\)
+when they are not already categorical. All cut points are estimated using
+the training period only and then applied unchanged to validation and test
+periods. City-specific quantile bins constitute the primary specification;
+common normalized bins are used for cross-city robustness. Deterministic
+top-coding of the target itself is evaluated only as a robustness analysis,
+because it yields the conservative entropy ordering in
+Equation~\eqref{eq:top_coded_entropy_order}.
+
+\subsection{Lag Selection and Information Sets}
+\label{subsec:lag_selection}
+
+The primary local entropy specification uses \(p=q=1\) and the
+low-dimensional sigma-algebras
+\begin{align}
+\mathcal{F}^{0}_{c,i,t}
+&=
+\sigma\!\left\{
+Q_C(C_{c,i,t-1}),
+\operatorname{DOW}_t,
+\operatorname{Season}_t,
+Q_X(\mathbf{W}_{c,t})
+\right\},
+\label{eq:empirical_baseline_information}\\
+\mathcal{F}^{B}_{c,i,t}
+&=
+\mathcal{F}^{0}_{c,i,t}
+\vee
+\sigma\!\left\{
+Q_B(B^{\mathrm{total}}_{c,i,t-1})
+\right\}.
+\label{eq:empirical_bicycle_information}
+\end{align}
+Here, \(\mathbf{W}_{c,t}\) denotes the weather controls. These empirical
+states instantiate Equations~\eqref{eq:baseline_information} and
+\eqref{eq:bike_information}. Their parsimonious form limits sparse-cell bias
+in local entropy estimation while retaining the raw count as the outcome.
+
+Robustness specifications should consider:
+\begin{itemize}
+    \item crime lags $p\in\{1,2,3,7\}$;
+    \item bicycle lags $q\in\{1,2,3,7\}$;
+    \item a weekly seasonal lag $C_{t-7}$;
+    \item inbound, outbound, total, and net bicycle flows;
+    \item same-day bicycle activity as a clearly labeled nowcasting analysis.
+\end{itemize}
+
+\subsection{Entropy Estimation}
+\label{subsec:entropy_estimation}
+
+For each city and eligible spatial unit, the outcome atoms in the empirical
+state counts are the observed raw values of \(C_{c,i,t}\); only the
+conditioning variables are mapped into the finite states described above.
+The plug-in estimator is
+\begin{equation}
+\widehat{H}_{\mathrm{PI}}(X)
+=-\sum_{x:\widehat{p}(x)>0}\widehat{p}(x)\log_2\widehat{p}(x).
+\end{equation}
+The primary finite-sample correction may be the Miller--Madow estimator,
+\begin{equation}
+\widehat{H}_{\mathrm{MM}}(X)
+=
+\widehat{H}_{\mathrm{PI}}(X)
++
+\frac{K_X-1}{2N\ln 2},
+\label{eq:miller_madow}
+\end{equation}
+where $K_X$ is the number of observed nonzero-probability states and $N$ is the sample size. A Bayesian Dirichlet estimator is used as an alternative.
+
+Conditional entropy is estimated as
+\begin{equation}
+\widehat{H}(C\mid Y)
+=
+\widehat{H}(C,Y)-\widehat{H}(Y),
+\end{equation}
+and conditional mutual information as
+\begin{equation}
+\widehat{I}(C;B\mid Y)
+=
+\widehat{H}(C\mid Y)-\widehat{H}(C\mid Y,B).
+\label{eq:estimated_cmi}
+\end{equation}
+Because separate bias corrections can occasionally produce small negative estimates, report the raw value for diagnostic purposes and use a prespecified nonnegative projection only when inserting the estimate into a quantity that is theoretically nonnegative. The choice must be stated explicitly.
+
+The exact inverse-envelope DELB is the primary theoretical estimand. For a
+nonnegative conditional-entropy estimate \(\widehat{H}_{+}\), solve
+\begin{equation}
+\frac{
+\widehat{\lambda}D(\widehat{\lambda})
++
+\ln\Theta(\widehat{\lambda})
+}{\ln2}
+=
+\widehat{H}_{+}
+\label{eq:numerical_inverse_envelope}
+\end{equation}
+and set
+\begin{equation}
+\widehat{L}
+=
+D(\widehat{\lambda}).
+\label{eq:estimated_exact_delb}
+\end{equation}
+When \(\widehat{H}_{+}=0\), define \(\widehat{L}=0\). Numerical sums over
+the integer lattice are expanded until their omitted tail mass is below a
+prespecified tolerance. The closed-form value in
+Equation~\eqref{eq:discrete_mse_bound} is reported as a secondary,
+conservative result rather than as an attainable approximation to the exact
+bound.
+
+\subsection{City-Level Information-Theoretic Experiment}
+\label{subsec:city_level_experiment}
+
+\textbf{Objective:} Determine whether lagged bicycle mobility reduces theft uncertainty and the corresponding theoretical MSE lower bound at the city level.
+
+\textbf{Procedure:}
+\begin{enumerate}
+    \item Construct a harmonized grid--day panel for each city.
+    \item Define the baseline and mobility-augmented information sets.
+    \item Estimate \(H(C\mid\mathcal{F}^{0})\), \(H(C\mid\mathcal{F}^{B})\), and \(I(C;Q_B(\mathbf{B}^{(q)})\mid\mathcal{F}^{0})\).
+    \item Calculate the exact \(L^{0}\), \(L^{B}\), \(\Delta L\), and \(R^{L}\) using Equations~\eqref{eq:local_bound_baseline}--\eqref{eq:relative_bound_reduction}; report the closed-form counterparts as secondary results.
+    \item Repeat for each year separately and for the pooled 2020--2022 period.
+    \item Estimate uncertainty using the block-bootstrap method described in Section~\ref{subsec:bootstrap}.
+\end{enumerate}
+
+The analysis may be implemented either by pooling eligible grid--day observations within a city while conditioning on spatial-unit identity, or by aggregating the local estimates using prespecified weights. Both definitions should not be mixed; the chosen city-level estimand must be stated clearly.
+
+\subsection{Spatially Localized Bound-Reduction Experiment}
+\label{subsec:local_experiment}
+
+\textbf{Objective:} Identify where bicycle mobility produces the largest reduction in the theoretical prediction-error lower bound.
+
+For every eligible spatial unit $i$, calculate
+\begin{equation}
+\widehat{I}^{B}_{c,i}
+=
+\widehat{I}\!\left(
+C_{c,i,t};
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\mid\mathcal{F}^{0}_{c,i,t}
+\right),
+\end{equation}
+\begin{equation}
+\widehat{\Delta L}_{c,i}
+=
+\widehat{L}^{0}_{c,i}-\widehat{L}^{B}_{c,i},
+\end{equation}
+and
+\begin{equation}
+\widehat{R}^{L}_{c,i}
+=
+\frac{\widehat{L}^{0}_{c,i}-\widehat{L}^{B}_{c,i}}
+{\widehat{L}^{0}_{c,i}},
+\end{equation}
+where \(\widehat{R}^{L}_{c,i}\) is reported only when
+\(\widehat{L}^{0}_{c,i}>0\).
+
+\textbf{Procedure for each spatial unit:}
+\begin{enumerate}
+    \item Extract its complete daily sequence for 2020--2022.
+    \item Generate lagged crime and bicycle states without crossing missing-date boundaries.
+    \item Apply training-derived discretization thresholds.
+    \item Estimate baseline and mobility-conditioned entropy.
+    \item Convert the entropy estimates into lower bounds.
+    \item Estimate confidence intervals by moving-block bootstrap.
+    \item Apply false-discovery-rate correction across spatial units.
+    \item Map local CMI, absolute reduction, relative reduction, and statistical significance.
+\end{enumerate}
+
+The principal local maps are:
+\begin{enumerate}
+    \item local conditional mutual information $\widehat{I}^{B}_{c,i}$;
+    \item absolute lower-bound reduction $\widehat{\Delta L}_{c,i}$;
+    \item relative lower-bound reduction $\widehat{R}^{L}_{c,i}$;
+    \item statistically significant reduction after false-discovery-rate correction.
+\end{enumerate}
+
+\subsection{Block Bootstrap and Multiple Testing}
+\label{subsec:bootstrap}
+
+Temporal dependence invalidates an independent and identically distributed bootstrap. We therefore use a moving-block or stationary bootstrap. Let $\ell$ denote the block length. The primary analysis uses $\ell=7$ days, with $\ell\in\{7,14,28\}$ evaluated for robustness.
+
+For each city or spatial unit:
+\begin{enumerate}
+    \item Form overlapping blocks of length $\ell$ from the complete time series.
+    \item Sample blocks with replacement until a bootstrap series of length at least $T$ is obtained.
+    \item Truncate the concatenated series to length $T$.
+    \item Recalculate entropy, CMI, and lower-bound statistics.
+    \item Repeat $R=1000$ times, or use $R=500$ during development and $R=1000$ for final results.
+    \item Construct percentile or bias-corrected confidence intervals.
+\end{enumerate}
+
+A spatial unit is classified as having a positive mobility-induced lower-bound reduction when the lower endpoint of its confidence interval for $\Delta L_{c,i}$ exceeds zero. Benjamini--Hochberg correction controls the false discovery rate across local tests within each city.
+
+\subsection{Spatial Clustering and Area Characteristics}
+\label{subsec:spatial_explanation}
+
+Global Moran's $I$ is calculated for $\widehat{I}^{B}_{c,i}$, $\widehat{\Delta L}_{c,i}$, and $\widehat{R}^{L}_{c,i}$ using a prespecified spatial weights matrix. Local Moran's $I$ or Getis--Ord $G_i^{*}$ is used to identify clusters of high and low mobility information value.
+
+To characterize high-value areas with \(L^{0}_{c,i}>0\), estimate an explanatory model of the form
+\begin{equation}
+R^{L}_{c,i}
+=
+\alpha_c
++
+\beta_1\overline{B}_{c,i}
++
+\beta_2\operatorname{Var}(B_{c,i,t})
++
+\beta_3\overline{C}_{c,i}
++
+\boldsymbol{\gamma}^{\top}\mathbf{Z}_{c,i}
++
+\epsilon_{c,i},
+\label{eq:area_characteristics_model}
+\end{equation}
+where $\mathbf{Z}_{c,i}$ may contain station density, population or employment density, land-use mixture, point-of-interest density, transit accessibility, and distance to the central business district. Results are interpreted associationally rather than causally. Spatial-error or spatial-lag specifications may be used when residual spatial dependence is substantial.
+
+\subsection{Predictive Models}
+\label{subsec:predictive_models}
+
+The prediction experiments test whether theoretical information gains translate into out-of-sample performance gains. The following models provide a balance between count-process interpretation and nonlinear predictive flexibility:
+\begin{enumerate}
+    \item seasonal naive baseline;
+    \item Poisson regression;
+    \item negative-binomial regression;
+    \item gradient-boosted decision trees, such as LightGBM or XGBoost.
+\end{enumerate}
+
+For the primary theory--practice comparison, every model uses two matched
+categorical information specifications:
+\begin{align}
+\mathcal{X}^{0}_{c,i,t}
+&=
+\{Q_C(C_{c,i,t-1:t-p}),\operatorname{DOW}_t,
+\operatorname{Season}_t,Q_X(\mathbf{W}_{c,t})\},\\
+\mathcal{X}^{B}_{c,i,t}
+&=
+\mathcal{X}^{0}_{c,i,t}
+\cup
+\{Q_B(B^{\mathrm{total}}_{c,i,t-1:t-q})\}.
+\end{align}
+Inbound, outbound, net, and primitive two-dimensional flow specifications are
+fitted separately and are not redundantly combined with their deterministic
+summaries. Hyperparameters must be selected using only the training and
+validation periods. Predictions compared directly with
+Theorem~\ref{thm:exact_delb} are converted to nonnegative integers using a
+prespecified rounding rule. Continuous conditional-mean predictions and
+models using richer raw covariates may also be evaluated, but their empirical
+MSE is not described as being covered by the matched integer-predictor DELB;
+each richer information set has its own theoretical floor.
+
+\subsection{Temporal Validation Design}
+\label{subsec:validation}
+
+Random train--test splitting is not used. A simple primary split is:
+\begin{itemize}
+    \item training: January 2020--December 2021;
+    \item validation: January 2022--June 2022;
+    \item testing: July 2022--December 2022.
+\end{itemize}
+Because 2020 contains substantial pandemic-related disruption, rolling-origin evaluation is used as a principal robustness design:
+\begin{enumerate}
+    \item train on all observations available before a forecast month;
+    \item predict the next month;
+    \item advance the origin by one month;
+    \item aggregate predictions and errors across all test months.
+\end{enumerate}
+
+\subsection{Prediction Metrics and Theory--Practice Comparison}
+\label{subsec:metrics}
+
+The primary prediction metric is MSE because the theoretical result is an MSE lower bound:
+\begin{equation}
+\operatorname{MSE}
+=
+\frac{1}{N_{\mathrm{test}}}
+\sum_{(i,t)\in\mathcal{T}_{\mathrm{test}}}
+\left(C_{c,i,t}-\widehat{C}_{c,i,t}\right)^2.
+\end{equation}
+Auxiliary metrics include RMSE, MAE, Poisson deviance, and calibration by predicted-count interval. MAPE is not used as a primary metric because theft counts include many zeros.
+
+For each spatial unit, define the empirical improvement
+\begin{equation}
+\Delta\operatorname{MSE}_{c,i}
+=
+\operatorname{MSE}^{0}_{c,i}-\operatorname{MSE}^{B}_{c,i}.
+\label{eq:mse_improvement}
+\end{equation}
+The relationship between theoretical and empirical improvements is evaluated using Spearman correlation, city-specific bootstrap confidence intervals, and pooled regressions with city fixed effects.
+
+Spatial units are classified into four descriptive types:
+\begin{enumerate}
+    \item high $\Delta L$ and high $\Delta\operatorname{MSE}$: informative mobility successfully exploited by the model;
+    \item high $\Delta L$ and low $\Delta\operatorname{MSE}$: information exists but is not fully exploited;
+    \item low $\Delta L$ and high $\Delta\operatorname{MSE}$: possible estimator uncertainty, regularization effects, or model-specific gains;
+    \item low $\Delta L$ and low $\Delta\operatorname{MSE}$: limited local mobility information value.
+\end{enumerate}
+Thresholds for ``high'' and ``low'' must be defined before mapping, for example using city-specific medians or statistical significance criteria.
+
+\subsection{Placebo and Robustness Experiments}
+\label{subsec:robustness_methods}
+
+\subsubsection{Temporal Block Permutation}
+Within each spatial unit, permute bicycle blocks while approximately preserving short-range dependence. Recalculate CMI and bound reduction. The observed result should be compared with the placebo distribution.
+
+\subsubsection{Spatial Permutation}
+Randomly reassign complete bicycle time series among spatial units within the same city. This tests whether the result reflects local matching rather than only a city-wide seasonal mobility pattern.
+
+\subsubsection{Distant-Lag Placebo}
+Replace recent bicycle activity with distant lags, such as $B_{t-14}$ and $B_{t-30}$. Similar effects at implausibly distant lags would indicate residual shared seasonality.
+
+\subsubsection{Surrogate Mobility Series}
+Generate surrogate bicycle series preserving selected marginal and autocorrelation properties but breaking the crime--mobility relationship. Compare observed $\Delta L$ with its surrogate distribution.
+
+\subsubsection{Alternative Scales and Estimators}
+Repeat the analysis using alternative spatial resolutions, daily and weekly
+aggregation, conditioning-state mappings, target top-coding as a separate
+robustness check, lag lengths, eligibility thresholds, entropy estimators,
+and bootstrap block lengths.
+
+\begin{table}[H]
+\caption{Primary experimental specifications and robustness alternatives.}
+\label{tab:experimental_specifications}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Component} & \textbf{Primary Specification} & \textbf{Robustness Alternatives}\\
+\midrule
+Spatial unit & $1\,\mathrm{km}$ grid & $500\,\mathrm{m}$ and optional $2\,\mathrm{km}$ grids\\
+Temporal unit & Day & Week\\
+Target and lag state & Raw count target; lag bins \(0,1,2,\geq3\) & Target top-coding; lag bins \(0,1,\geq2\)\\
+Bike bins & Zero plus tertiles of positive flow & Three bins; quintiles; normalized common bins\\
+Crime lag & $t-1$ & $t-2,t-3,t-7$\\
+Bike lag & $t-1$ & $t-2,t-3,t-7,t-14,t-30$\\
+Entropy estimator & Miller--Madow & Plug-in; Bayesian Dirichlet\\
+Bootstrap block & 7 days & 14 and 28 days\\
+Prediction models & Poisson, negative binomial, boosted trees & Alternative count/tree models\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Results}
+\label{sec:results}
+
+% IMPORTANT: Replace all guidance text in this section with factual results only
+% after the experiments have been completed.
+
+\subsection{Descriptive Patterns of Theft and Bicycle Mobility}
+\label{subsec:results_descriptive}
+
+Report the completed theft-count analysis, temporal regularities, heat maps, and cross-city comparisons. Add descriptive statistics for bicycle activity and discuss differences in spatial coverage. Keep causal interpretation out of this subsection.
+
+\begin{table}[H]
+\caption{Descriptive statistics for the harmonized grid--day panel.}
+\label{tab:descriptive_statistics}
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\toprule
+\textbf{City} & \textbf{Units} & \textbf{Days} & \textbf{Thefts} & \textbf{Mean Count} & \textbf{Mean Bike} & \textbf{Zero Share}\\
+\midrule
+Vancouver & TODO & TODO & TODO & TODO & TODO & TODO\\
+Washington, DC & TODO & TODO & TODO & TODO & TODO & TODO\\
+New York City & TODO & TODO & TODO & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{City-Level Conditional Entropy and Lower Bounds}
+\label{subsec:results_city_entropy}
+
+Report, for each city and period:
+\begin{itemize}
+    \item \(\widehat{H}(C\mid\mathcal{F}^{0})\);
+    \item \(\widehat{H}(C\mid\mathcal{F}^{B})\);
+    \item \(\widehat{I}(C;Q_B(\mathbf{B}^{(q)})\mid\mathcal{F}^{0})\);
+    \item the primary exact values \(\widehat{L}^{0}\) and \(\widehat{L}^{B}\), together with secondary closed-form values;
+    \item absolute and relative lower-bound reductions;
+    \item block-bootstrap confidence intervals.
+\end{itemize}
+
+\begin{table}[H]
+\caption{City-level information-theoretic results. Confidence intervals should be obtained by block bootstrap.}
+\label{tab:city_entropy_results}
+\begin{tabularx}{\textwidth}{lXXXXXX}
+\toprule
+\textbf{City} & \(\widehat{H}(C\mid\mathcal{F}^{0})\) & \(\widehat{H}(C\mid\mathcal{F}^{B})\) & \(\widehat{I}^{B}\) & \(\widehat{L}^{0}\) & \(\widehat{L}^{B}\) & \(\widehat{R}^{L}\)\\
+\midrule
+Vancouver & TODO & TODO & TODO & TODO & TODO & TODO\\
+Washington, DC & TODO & TODO & TODO & TODO & TODO & TODO\\
+New York City & TODO & TODO & TODO & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5.0cm][c]{0.92\textwidth}{\centering Placeholder: city-level conditional entropy, CMI, and lower-bound reduction with confidence intervals.}}
+\caption{City-level effect of bicycle mobility on theft uncertainty and the discrete prediction-error lower bound.}
+\label{fig:city_entropy_bound}
+\end{figure}
+
+\subsection{Spatial Distribution of Mobility Information Value}
+\label{subsec:results_local_maps}
+
+Present the local CMI, absolute lower-bound reduction, relative lower-bound reduction, and significance maps. Report the number and proportion of eligible spatial units with significant positive reductions after false-discovery-rate correction. Describe whether mobility-information hotspots coincide with, surround, or differ from theft-count hotspots.
+
+\begin{figure}[H]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\fbox{\parbox[c][6.0cm][c]{0.95\linewidth}{\centering Placeholder: three-city local conditional mutual information maps.}}
+\end{adjustwidth}
+\caption{Spatial distribution of local conditional mutual information between lagged bicycle mobility and theft, conditional on crime history and controls.}
+\label{fig:local_cmi_maps}
+\end{figure}
+
+\begin{figure}[H]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\fbox{\parbox[c][6.0cm][c]{0.95\linewidth}{\centering Placeholder: three-city relative lower-bound reduction maps.}}
+\end{adjustwidth}
+\caption{Spatial distribution of the relative reduction in the discrete theft prediction-error lower bound after adding bicycle mobility.}
+\label{fig:local_bound_maps}
+\end{figure}
+
+\begin{figure}[H]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\fbox{\parbox[c][6.0cm][c]{0.95\linewidth}{\centering Placeholder: statistically significant local reductions after FDR correction.}}
+\end{adjustwidth}
+\caption{Spatial units with statistically significant mobility-induced lower-bound reductions after false-discovery-rate correction.}
+\label{fig:significant_bound_maps}
+\end{figure}
+
+\subsection{Spatial Clustering and Characteristics of High-Value Areas}
+\label{subsec:results_spatial_explanation}
+
+Report global and local spatial autocorrelation results. Estimate Equation~\eqref{eq:area_characteristics_model} and identify which area characteristics are associated with greater mobility information value. Discuss coefficients as associations rather than causal effects.
+
+\begin{table}[H]
+\caption{Area characteristics associated with relative lower-bound reduction.}
+\label{tab:area_characteristics}
+\begin{tabularx}{\textwidth}{lXXXX}
+\toprule
+\textbf{Variable} & \textbf{Pooled Model} & \textbf{Vancouver} & \textbf{Washington, DC} & \textbf{New York City}\\
+\midrule
+Mean bicycle flow & TODO & TODO & TODO & TODO\\
+Bicycle-flow variance & TODO & TODO & TODO & TODO\\
+Mean theft count & TODO & TODO & TODO & TODO\\
+Station or counter density & TODO & TODO & TODO & TODO\\
+Land-use mixture & TODO & TODO & TODO & TODO\\
+Distance to city center & TODO & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Out-of-Sample Prediction Results}
+\label{subsec:results_prediction}
+
+For each model and city, compare matched crime-only and crime-plus-bike specifications using MSE as the primary metric. Report whether improvements are consistent across time splits and years. Do not interpret a lower theoretical bound as guaranteeing a lower observed MSE for every model.
+
+\begin{table}[H]
+\caption{Out-of-sample prediction performance for crime-only and mobility-augmented models.}
+\label{tab:prediction_results}
+\begin{tabularx}{\textwidth}{llXXXX}
+\toprule
+\textbf{City} & \textbf{Model} & \textbf{MSE: Crime Only} & \textbf{MSE: Crime + Bike} & $\Delta\textbf{MSE}$ & \textbf{MAE Change}\\
+\midrule
+Vancouver & Seasonal naive & TODO & TODO & TODO & TODO\\
+Vancouver & Negative binomial & TODO & TODO & TODO & TODO\\
+Vancouver & Boosted trees & TODO & TODO & TODO & TODO\\
+Washington, DC & Seasonal naive & TODO & TODO & TODO & TODO\\
+Washington, DC & Negative binomial & TODO & TODO & TODO & TODO\\
+Washington, DC & Boosted trees & TODO & TODO & TODO & TODO\\
+New York City & Seasonal naive & TODO & TODO & TODO & TODO\\
+New York City & Negative binomial & TODO & TODO & TODO & TODO\\
+New York City & Boosted trees & TODO & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Consistency between Theoretical and Empirical Improvements}
+\label{subsec:results_theory_practice}
+
+Compare $\widehat{\Delta L}_{c,i}$ with $\widehat{\Delta\operatorname{MSE}}_{c,i}$. Report Spearman correlations, confidence intervals, city-fixed-effect regressions, and the spatial distribution of the four theory--practice categories.
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5.0cm][c]{0.92\textwidth}{\centering Placeholder: scatter plots of local theoretical lower-bound reduction versus actual MSE improvement.}}
+\caption{Relationship between local theoretical lower-bound reduction and empirical out-of-sample MSE improvement.}
+\label{fig:theory_practice_scatter}
+\end{figure}
+
+\begin{figure}[H]
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\fbox{\parbox[c][6.0cm][c]{0.95\linewidth}{\centering Placeholder: four-category theory--practice maps for the three cities.}}
+\end{adjustwidth}
+\caption{Spatial classification of theoretical information gain and empirical prediction improvement.}
+\label{fig:theory_practice_maps}
+\end{figure}
+
+\subsection{Placebo and Robustness Results}
+\label{subsec:results_robustness}
+
+Summarize the principal placebo and robustness findings in the main text and place the full result matrix in the Appendix or Supplementary Materials. The observed CMI and bound reduction should be compared with temporal-permutation, spatial-permutation, and surrogate distributions.
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5.0cm][c]{0.92\textwidth}{\centering Placeholder: observed versus placebo CMI and lower-bound reductions.}}
+\caption{Observed mobility information value compared with temporal, spatial, and surrogate placebo distributions.}
+\label{fig:placebo_results}
+\end{figure}
+
+\begin{table}[H]
+\caption{Summary of robustness analyses.}
+\label{tab:robustness_summary}
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Robustness Dimension} & \textbf{Specification} & \textbf{Main Finding} & \textbf{Interpretation}\\
+\midrule
+Spatial scale & TODO & TODO & TODO\\
+Temporal scale & TODO & TODO & TODO\\
+Entropy estimator & TODO & TODO & TODO\\
+Discretization & TODO & TODO & TODO\\
+Lag length & TODO & TODO & TODO\\
+Temporal placebo & TODO & TODO & TODO\\
+Spatial placebo & TODO & TODO & TODO\\
+Pandemic period & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Main Information-Theoretic Findings}
+Interpret whether bicycle mobility contains information about theft beyond crime history and common temporal and weather drivers. Distinguish unconditional association, conditional information gain, theoretical lower-bound reduction, and actual forecasting improvement.
+
+\subsection{Where Bicycle Mobility Is Most Informative}
+Discuss the geography of local CMI and lower-bound reduction. Compare mobility-information hotspots with theft-count hotspots and explain why the two need not coincide. Relate high-value areas to mobility intensity, volatility, commercial activity, station coverage, and urban structure, while avoiding causal language unless a causal design is added.
+
+\subsection{Theory versus Predictive Practice}
+Discuss areas where $\Delta L$ is large but $\Delta\operatorname{MSE}$ is small. Such areas indicate that relevant information may be present in bicycle data but not extracted by the tested models. Conversely, empirical improvement without a stable estimated bound reduction may reflect finite-sample entropy-estimation error, regularization, or model-specific interactions.
+
+\subsection{Cross-City and Temporal Heterogeneity}
+Interpret differences among Vancouver, Washington, DC, and New York City. Consider bicycle-data coverage, urban morphology, bicycle-system scale, theft composition, reporting practices, and pandemic-related structural change. Analyze 2020, 2021, and 2022 separately before describing a pooled relationship as stable.
+
+\subsection{Methodological Implications}
+Explain how the proposed bound complements conventional predictive evaluation. The framework does not replace forecasting experiments; it separates the information theoretically available under an information set from the extent to which a model uses that information.
+
+\subsection{Limitations}
+At minimum, discuss:
+\begin{itemize}
+    \item finite-sample bias and sparse state spaces;
+    \item sensitivity to discretization and lag selection;
+    \item differences in crime classification and bicycle coverage across cities;
+    \item ecological interpretation of grid-level associations;
+    \item the effect of pandemic-era structural breaks;
+    \item the integer-valued-predictor condition in Theorem~\ref{thm:exact_delb};
+    \item the fact that a lower bound need not be tight;
+    \item lack of causal identification;
+    \item potential underreporting and changes in policing or reporting behavior.
+\end{itemize}
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+Summarize the theoretical result, the city-level information gains, the spatial areas where mobility most reduces the estimated lower bound, and the relationship between theoretical and empirical prediction improvements. Emphasize that the study evaluates how an added mobility information set changes fundamental predictability rather than merely whether one model's accuracy improves. End with concrete future directions, such as multivariate lattice bounds, event-level temporal analysis, richer mobility modes, and prospective validation beyond 2022.
+
+\section{Reproducibility and Computational Implementation}
+\label{sec:reproducibility}
+
+Provide sufficient detail for replication, including:
+\begin{itemize}
+    \item data-source URLs, versions, and access dates;
+    \item complete offense-category mappings;
+    \item coordinate reference systems and grid-construction code;
+    \item entropy-estimation functions and estimator settings;
+    \item bootstrap random seeds and block lengths;
+    \item model hyperparameters and software versions;
+    \item train, validation, and test date ranges;
+    \item scripts for all tables, figures, and maps;
+    \item a machine-readable configuration file containing all analysis choices.
+\end{itemize}
+
+\vspace{6pt}
+
+% Uncomment and complete when supplementary files are prepared.
+%\supplementary{The following supporting information can be downloaded at the journal website: Figure S1: alternative spatial scales; Figure S2: alternative discretization schemes; Table S1: offense harmonization; Table S2: complete entropy-estimator results; Table S3: complete model hyperparameters; Code S1: entropy and bootstrap implementation.}
+
+\fi
+
+\supplementary{The independent Supplementary Materials file contains
+estimator and training-period-frozen analysis-domain sensitivity,
+local and lag-specificity details, sample-size and multiscale analyses,
+crime-type heterogeneity, rolling-origin results, and additional
+descriptive and finite-sample figures.}
+
+\authorcontributions{Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X. and Y.Y.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X. and Y.Y.; visualization, X.X.; supervision, Y.Y.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.}
+
+\funding{This research received no external funding.}
+
+\institutionalreview{Not applicable.}
+
+\informedconsent{Not applicable.}
+
+\dataavailability{The source data are available from the District of
+Columbia, New York City, and Vancouver police open-data portals and from the
+Capital Bikeshare, Citi Bike, and Mobi system-data portals cited in
+Section~\ref{subsec:data_sources} (all accessed 18 July 2026). The
+reproducible analysis project preserves source-file hashes, standardized
+schemas, reason-coded exclusions, configurations, and scripts. Code,
+configurations, tests, manuscript tables, and derived figures are available
+at \url{https://github.com/eveyear/delb-urban-crime-prediction}. Raw and
+processed data are not redistributed; users must obtain them from the cited
+providers and comply with the providers' conditions.}
+
+\acknowledgments{The authors thank the public agencies and bicycle-system
+operators that made the underlying data available.}
+
+\conflictsofinterest{The authors declare no conflicts of interest.}
+
+\abbreviations{Abbreviations}{%
+The following abbreviations are used in this manuscript:\\
+\noindent
+\begin{tabular}{@{}ll}
+CMI & Conditional mutual information\\
+DELB & Discrete Entropy Lower Bound\\
+FDR & False discovery rate\\
+GLM & Generalized linear model\\
+KL & Kullback--Leibler\\
+MAE & Mean absolute error\\
+MSE & Mean squared error\\
+RMSE & Root mean squared error
+\end{tabular}
+}
+
+\appendixtitles{yes}
+\appendixstart
+\appendix
+
+\input{sections/theoretical_proofs}
+\input{sections/empirical_appendix}
+
+% Superseded planning appendix retained only as an uncompiled source record.
+\iffalse
+
+\section{Detailed Data Harmonization}
+\label{app:harmonization}
+
+Insert the full offense-code crosswalk, bicycle-system coverage notes, coordinate transformations, duplicate definitions, missing-data rules, and spatial-unit eligibility thresholds.
+
+\begin{table}[H]
+\caption{Template for the cross-city theft-category harmonization.}
+\label{tab:offense_crosswalk}
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Harmonized Category} & \textbf{Vancouver Codes} & \textbf{Washington, DC Codes} & \textbf{New York City Codes}\\
+\midrule
+All theft & TODO & TODO & TODO\\
+Bicycle theft & TODO & TODO & TODO\\
+Theft from vehicle & TODO & TODO & TODO\\
+Shoplifting & TODO & TODO & TODO\\
+Other theft & TODO & TODO & TODO\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Complete Robustness Matrix}
+\label{app:robustness}
+
+Insert the complete city-by-year-by-scale-by-estimator results. Include estimates, confidence intervals, sample sizes, eligibility counts, and FDR-adjusted significance.
+
+\fi
+
+\begin{adjustwidth}{-\extralength}{0cm}
+\reftitle{References}
+
+% References follow the MDPI ACS-style author--year--volume--pages format.
+\begin{thebibliography}{999}
+
+\bibitem{kounadi2020review}
+Kounadi, O.; Ristea, A.; Araujo, A., Jr.; Leitner, M. A systematic review
+on spatial crime forecasting. \emph{Crime Sci.} \textbf{2020}, \emph{9}, 7.
+\url{https://doi.org/10.1186/s40163-020-00116-7}.
+
+\bibitem{du2023review}
+Du, Y.; Ding, N. A systematic review of multi-scale spatio-temporal crime prediction methods. \emph{ISPRS Int. J. Geo-Inf.} \textbf{2023}, \emph{12}, 209. \url{https://doi.org/10.3390/ijgi12060209}.
+
+\bibitem{mandalapu2023review}
+Mandalapu, V.; Elluri, L.; Vyas, P.; Roy, N. Crime prediction using machine learning and deep learning: A systematic review and future directions. \emph{IEEE Access} \textbf{2023}, \emph{11}, 60153--60170. \url{https://doi.org/10.1109/ACCESS.2023.3286344}.
+
+\bibitem{alves2018crime}
+Alves, L.G.A.; Ribeiro, H.V.; Rodrigues, F.A. Crime prediction through
+urban metrics and statistical learning. \emph{Phys. A} \textbf{2018},
+\emph{505}, 435--443.
+\url{https://doi.org/10.1016/j.physa.2018.03.084}.
+
+\bibitem{angbera2023model}
+Angbera, A.; Chan, H.Y. Model for spatiotemporal crime prediction with
+improved deep learning. \emph{Comput. Inform.} \textbf{2023}, \emph{42},
+568--590. \url{https://doi.org/10.31577/cai_2023_3_568}.
+
+\bibitem{huang2018deepcrime}
+Huang, C.; Zhang, J.; Zheng, Y.; Chawla, N.V. DeepCrime: Attentive
+hierarchical recurrent networks for crime prediction. In
+\emph{Proceedings of the 27th ACM International Conference on Information
+and Knowledge Management}, Torino, Italy, 22--26 October 2018;
+pp. 1423--1432. \url{https://doi.org/10.1145/3269206.3271793}.
+
+\bibitem{deng2023risk}
+Deng, Y.; He, R.-X.; Liu, Y. Crime risk prediction incorporating geographical spatiotemporal dependency into machine learning models. \emph{Inf. Sci.} \textbf{2023}, \emph{646}, 119414. \url{https://doi.org/10.1016/j.ins.2023.119414}.
+
+\bibitem{jing2024multiscale}
+Jing, C.; Lv, X.; Wang, Y.; Qin, M.; Jin, S.; Wu, S.; Xu, G. A deep multi-scale neural networks for crime hotspot mapping prediction. \emph{Comput. Environ. Urban Syst.} \textbf{2024}, \emph{109}, 102089. \url{https://doi.org/10.1016/j.compenvurbsys.2024.102089}.
+
+\bibitem{wang2025mragnn}
+Wang, S.; Zhang, Y.; Piao, X.; Lin, X.; Hu, Y.; Yin, B. MRAGNN: Refining urban spatio-temporal prediction of crime occurrence with multi-type crime correlation learning. \emph{Expert Syst. Appl.} \textbf{2025}, \emph{265}, 125940. \url{https://doi.org/10.1016/j.eswa.2024.125940}.
+
+\bibitem{butt2025start}
+Butt, U.M.; Letchmunan, S.; Ali, M.; Sherazi, H.H.R. START: A
+spatiotemporal autoregressive transformer for enhancing crime prediction
+accuracy. \emph{IEEE Trans. Comput. Soc. Syst.} \textbf{2025}, \emph{12},
+4650--4664. \url{https://doi.org/10.1109/TCSS.2025.3550196}.
+
+\bibitem{cui2026transfer}
+Cui, C.; Zheng, Z.; Du, H.; Wang, W. Dynamic transfer learning with co-occurrence-guided multi-source fusion for urban spatio-temporal crime prediction. \emph{Front. Big Data} \textbf{2026}, \emph{9}, 1697392. \url{https://doi.org/10.3389/fdata.2026.1697392}.
+
+\bibitem{hu2023fusion}
+Hu, K.; Li, L.; Tao, X.; Vel\'asquez, J.D.; Delaney, P. Information fusion in crime event analysis: A decade survey on data, features and models. \emph{Inf. Fusion} \textbf{2023}, \emph{100}, 101904. \url{https://doi.org/10.1016/j.inffus.2023.101904}.
+
+\bibitem{cesario2024multidensity}
+Cesario, E.; Lindia, P.; Vinci, A. Multi-density crime predictor: An approach to forecast criminal activities in multi-density crime hotspots. \emph{J. Big Data} \textbf{2024}, \emph{11}, 1--39. \url{https://doi.org/10.1186/s40537-024-00935-4}.
+
+\bibitem{amarante2025steval}
+Amarante, G.; Pimenta, M.; Andrade, Y.; Senna, M.; Menezes, R.; Faria, A.H.; Vilas-Boas, M.; Martins, F.; et al. STEval: A framework for evaluating spatio-temporal crime prediction models. \emph{Eng. Appl. Artif. Intell.} \textbf{2025}, \emph{162}, 112123. \url{https://doi.org/10.1016/j.engappai.2025.112123}.
+
+\bibitem{shannon1948}
+Shannon, C.E. A mathematical theory of communication. \emph{Bell Syst. Tech. J.} \textbf{1948}, \emph{27}, 379--423, 623--656.
+
+\bibitem{cover_thomas}
+Cover, T.M.; Thomas, J.A. \emph{Elements of Information Theory}, 2nd ed.;
+Wiley-Interscience: Hoboken, NJ, USA, 2006.
+\url{https://doi.org/10.1002/047174882X}.
+
+\bibitem{song2010limits}
+Song, C.; Qu, Z.; Blumm, N.; Barab\'asi, A.-L. Limits of predictability
+in human mobility. \emph{Science} \textbf{2010}, \emph{327}, 1018--1021.
+\url{https://doi.org/10.1126/science.1177170}.
+
+\bibitem{li2022traffic}
+Li, G.; Knoop, V.L.; van Lint, H. Estimate the limit of predictability in
+short-term traffic forecasting: An entropy-based approach.
+\emph{Transp. Res. Part C Emerg. Technol.} \textbf{2022}, \emph{138},
+103607. \url{https://doi.org/10.1016/j.trc.2022.103607}.
+
+\bibitem{fang_variance_bounds}
+Fang, S.; Skoglund, M.; Johansson, K.H.; Ishii, H.; Zhu, Q.
+Generic variance bounds on estimation and prediction errors in time series
+analysis: An entropy perspective. In \emph{Proceedings of the 2019 IEEE
+Information Theory Workshop (ITW)}, Visby, Sweden, 25--28 August 2019;
+pp. 1--5. \url{https://doi.org/10.1109/ITW44776.2019.8989240}.
+
+\bibitem{ayers2025complexity}
+Ayers, J.; Hahnloser, R.; Ulrich, J.; Krapp, L.S.; Nitschke, R.; Stoll, S.;
+Bickel, B.; Furrer, R. Time-series random process complexity ranking using a
+bound on conditional differential entropy. \emph{arXiv} \textbf{2025},
+arXiv:2510.20551. \url{https://doi.org/10.48550/arXiv.2510.20551}.
+
+\bibitem{hauser2026dmd}
+Hauser, T.; H\"olz, J. Entropy based lower dimension bounds for finite-time
+prediction of Dynamic Mode Decomposition algorithms. \emph{arXiv}
+\textbf{2025}, arXiv:2504.20269, revised 22 March 2026.
+\url{https://doi.org/10.48550/arXiv.2504.20269}.
+
+\bibitem{massey_integer_entropy}
+Massey, J.L. On the entropy of integer-valued random variables. In
+\emph{Proceedings of the 1988 Beijing International Workshop on Information
+Theory}, Beijing, China, 4--7 July 1988; pp. C1.1--C1.4.
+
+\bibitem{rioul_massey}
+Rioul, O. Variations on a theme by Massey.
+\emph{IEEE Trans. Inf. Theory} \textbf{2022}, \emph{68}, 2813--2828.
+\url{https://doi.org/10.1109/TIT.2022.3141264}.
+
+\bibitem{shannon_rate_distortion}
+Shannon, C.E. Coding theorems for a discrete source with a fidelity
+criterion. \emph{IRE Natl. Conv. Rec.} \textbf{1959}, \emph{7},
+142--163.
+
+\bibitem{chen_bayes_risk}
+Chen, X.; Guntuboyina, A.; Zhang, Y. On Bayes risk lower bounds.
+\emph{J. Mach. Learn. Res.} \textbf{2016}, \emph{17}, 1--58.
+\url{https://www.jmlr.org/papers/v17/16-185.html}.
+
+\bibitem{jeong_ziv_zakai}
+Jeong, M.; Dytso, A.; Cardone, M. A comprehensive study on Ziv--Zakai
+lower bounds on the MMSE. \emph{IEEE Trans. Inf. Theory} \textbf{2025},
+\emph{71}, 3214--3236.
+\url{https://doi.org/10.1109/TIT.2025.3541987}.
+
+\bibitem{paninski2003}
+Paninski, L. Estimation of entropy and mutual information. \emph{Neural Comput.} \textbf{2003}, \emph{15}, 1191--1253. \url{https://doi.org/10.1162/089976603321780272}.
+
+\bibitem{calcagnile2026benchmark}
+Calcagnile, L.M.; Di Garbo, A.; Galatolo, S. A benchmark for entropy
+estimators. \emph{Entropy} \textbf{2026}, \emph{28}, 311.
+\url{https://doi.org/10.3390/e28030311}.
+
+\bibitem{zan2022cmi}
+Zan, L.; Meynaoui, A.; Assaad, C.K.; Devijver, E.; Gaussier, E. A conditional mutual information estimator for mixed data and an associated conditional independence test. \emph{Entropy} \textbf{2022}, \emph{24}, 1234. \url{https://doi.org/10.3390/e24091234}.
+
+\bibitem{runge2018cmi}
+Runge, J. Conditional independence testing based on a nearest-neighbor estimator of conditional mutual information. \emph{Proc. Mach. Learn. Res.} \textbf{2018}, \emph{84}, 938--947. \url{https://proceedings.mlr.press/v84/runge18a.html}.
+
+\bibitem{li2023nncit}
+Li, S.; Chen, Z.; Zhu, H.; Wang, C.D.; Wen, W. Nearest-neighbor sampling based conditional independence testing. \emph{Proc. AAAI Conf. Artif. Intell.} \textbf{2023}, \emph{37}, 8631--8639. \url{https://doi.org/10.1609/aaai.v37i7.26039}.
+
+\bibitem{ernst2004permutation}
+Ernst, M.D. Permutation methods: A basis for exact inference. \emph{Stat. Sci.} \textbf{2004}, \emph{19}, 676--685. \url{https://doi.org/10.1214/088342304000000396}.
+
+\bibitem{cohen1979routine}
+Cohen, L.E.; Felson, M. Social change and crime rate trends: A routine
+activity approach. \emph{Am. Sociol. Rev.} \textbf{1979}, \emph{44},
+588--608. \url{https://doi.org/10.2307/2094589}.
+
+\bibitem{malleson2016ambient}
+Malleson, N.; Andresen, M.A. Exploring the impact of ambient population
+measures on London crime hotspots. \emph{J. Crim. Justice} \textbf{2016},
+\emph{46}, 52--63.
+\url{https://doi.org/10.1016/j.jcrimjus.2016.03.002}.
+
+\bibitem{song2019legal}
+Song, G.; Bernasco, W.; Liu, L.; Xiao, L.; Zhou, S.; Liao, W. Crime feeds
+on legal activities: Daily mobility flows help to explain thieves' target
+location choices. \emph{J. Quant. Criminol.} \textbf{2019}, \emph{35},
+831--854. \url{https://doi.org/10.1007/s10940-019-09406-z}.
+
+\bibitem{kadar2018mining}
+Kadar, C.; Pletikosa, I. Mining large-scale human mobility data for long-term
+crime prediction. \emph{EPJ Data Sci.} \textbf{2018}, \emph{7}, 26.
+\url{https://doi.org/10.1140/epjds/s13688-018-0150-z}.
+
+\bibitem{kadar2020mobility}
+Kadar, C.; Feuerriegel, S.; Noulas, A.; Mascolo, C. Leveraging mobility
+flows from location technology platforms to test crime pattern theory in
+large cities. \emph{Proc. Int. AAAI Conf. Web Soc. Media} \textbf{2020},
+\emph{14}, 339--350.
+\url{https://doi.org/10.1609/icwsm.v14i1.7304}.
+
+\bibitem{wu2022mobility}
+Wu, J.; Abrar, S.M.; Awasthi, N.; Frias-Martinez, E.; Frias-Martinez, V.
+Enhancing short-term crime prediction with human mobility flows and deep
+learning architectures. \emph{EPJ Data Sci.} \textbf{2022}, \emph{11}, 53.
+\url{https://doi.org/10.1140/epjds/s13688-022-00366-2}.
+
+\bibitem{rummens2021mobile}
+Rummens, A.; Snaphaan, T.; Van de Weghe, N.; Poel, D.; Pauwels, L.; Hardyns, W. Do mobile phone data provide a better denominator in crime rates and improve spatiotemporal predictions of crime? \emph{ISPRS Int. J. Geo-Inf.} \textbf{2021}, \emph{10}, 369. \url{https://doi.org/10.3390/ijgi10060369}.
+
+\bibitem{schertz2021street}
+Schertz, K.E.; Saxon, J.; Cardenas-Iniguez, C.; Bettencourt, L.M.A.; Ding, Y.; Hoffmann, H.; Berman, M.G. Neighborhood street activity and greenspace usage uniquely contribute to predicting crime. \emph{npj Urban Sustain.} \textbf{2021}, \emph{1}, 19. \url{https://doi.org/10.1038/s42949-020-00005-7}.
+
+\bibitem{okmi2023mobile}
+Okmi, M.; Por, L.Y.; Ang, T.F.; Al-Hussein, W.; Ku, C.S. A systematic review of mobile phone data in crime applications: A coherent taxonomy based on data types and analysis perspectives, challenges, and future research directions. \emph{Sensors} \textbf{2023}, \emph{23}, 4350. \url{https://doi.org/10.3390/s23094350}.
+
+\bibitem{valente2024routines}
+Valente, R. Urban routines, spatial occupancy, and their effects on outdoor crime in Barcelona. \emph{Eur. J. Criminol.} \textbf{2024}, \emph{21}, 754--773. \url{https://doi.org/10.1177/14773708241251629}.
+
+\bibitem{albors2025mobility}
+Albors Zumel, A.; Tizzoni, M.; Campedelli, G.M. Deep learning for crime forecasting: The role of mobility at fine-grained spatiotemporal scales. \emph{J. Quant. Criminol.} \textbf{2025}. \url{https://doi.org/10.1007/s10940-025-09629-3}.
+
+\bibitem{luca2023mobilitysurvey}
+Luca, M.; Barlacchi, G.; Lepri, B.; Pappalardo, L. A survey on deep learning for human mobility. \emph{ACM Comput. Surv.} \textbf{2023}, \emph{55}, 1--44. \url{https://doi.org/10.1145/3485125}.
+
+\bibitem{zhao2024directionality}
+Zhao, P.; Wang, H.; Liu, Q.; Yan, X.-Y.; Li, J. Unravelling the spatial directionality of urban mobility. \emph{Nat. Commun.} \textbf{2024}, \emph{15}, 4507. \url{https://doi.org/10.1038/s41467-024-48909-7}.
+
+\bibitem{li2024mobilitybias}
+Li, Z.; Ning, H.; Jing, F.; Lessani, M.N. Understanding the bias of mobile location data across spatial scales and over time: A comprehensive analysis of SafeGraph data in the United States. \emph{PLoS ONE} \textbf{2024}, \emph{19}, e0294430. \url{https://doi.org/10.1371/journal.pone.0294430}.
+
+\bibitem{xu2023bike}
+Xu, X.; Wang, J.; Poslad, S.; Rui, X.; Zhang, G.; Fan, Y. Exploring
+intra-urban human mobility and daily activity patterns from the lens of
+dockless bike-sharing: A case study of Beijing, China.
+\emph{Int. J. Appl. Earth Obs. Geoinf.} \textbf{2023}, \emph{122}, 103442.
+\url{https://doi.org/10.1016/j.jag.2023.103442}.
+
+\bibitem{ivanovic2023bike}
+Ivanovic, S.; Wood, J.; Purves, R. Evaluation of bicycle sharing scheme
+data as a proxy for cycling mobility: How COVID-19 measures influenced
+cycling in Paris. \emph{Transp. Res. Interdiscip. Perspect.} \textbf{2023},
+\emph{22}, 100937. \url{https://doi.org/10.1016/j.trip.2023.100937}.
+
+\bibitem{vachuska2025causal}
+Vachuska, K. Urban mobility and crime: Causal inference using street closures as an instrumental variable. \emph{Front. Big Data} \textbf{2025}, \emph{8}, 1579332. \url{https://doi.org/10.3389/fdata.2025.1579332}.
+
+\bibitem{dc_crime_data}
+Metropolitan Police Department of the District of Columbia. Crime
+Incidents in 2022. Available online:
+\url{https://opendata.dc.gov/datasets/DCGIS::crime-incidents-in-2022}
+(accessed on 18 July 2026).
+
+\bibitem{nypd_crime_data}
+New York City Police Department. NYPD Complaint Data Historic.
+Available online:
+\url{https://data.cityofnewyork.us/d/qgea-i56i}
+(accessed on 18 July 2026).
+
+\bibitem{vpd_crime_data}
+Vancouver Police Department. GeoDASH Open Data. Available online:
+\url{https://geodash.vpd.ca/opendata/}
+(accessed on 18 July 2026).
+
+\bibitem{capital_bikeshare_data}
+Capital Bikeshare. System Data. Available online:
+\url{https://capitalbikeshare.com/system-data}
+(accessed on 18 July 2026).
+
+\bibitem{citibike_data}
+Citi Bike. System Data. Available online:
+\url{https://citibikenyc.com/system-data}
+(accessed on 18 July 2026).
+
+\bibitem{mobi_data}
+Mobi by Rogers. System Data. Available online:
+\url{https://www.mobibikes.ca/en/system-data}
+(accessed on 18 July 2026).
+
+\bibitem{miller1955}
+Miller, G.A. Note on the bias of information estimates. In \emph{Information Theory in Psychology}; Quastler, H., Ed.; Free Press: Glencoe, IL, USA, 1955; pp. 95--100.
+
+\bibitem{benjamini1995}
+Benjamini, Y.; Hochberg, Y. Controlling the false discovery rate: A
+practical and powerful approach to multiple testing. \emph{J. R. Stat. Soc.
+Ser. B} \textbf{1995}, \emph{57}, 289--300.
+\url{https://doi.org/10.1111/j.2517-6161.1995.tb02031.x}.
+
+\bibitem{moran1950}
+Moran, P.A.P. Notes on continuous stochastic phenomena.
+\emph{Biometrika} \textbf{1950}, \emph{37}, 17--23.
+\url{https://doi.org/10.1093/biomet/37.1-2.17}.
+
+\bibitem{feder_merhav}
+Feder, M.; Merhav, N. Relations between entropy and error probability.
+\emph{IEEE Trans. Inf. Theory} \textbf{1994}, \emph{40}, 259--266.
+\url{https://doi.org/10.1109/18.272494}.
+
+\bibitem{csiszar_iprojection}
+Csisz\'ar, I. I-divergence geometry of probability distributions and
+minimization problems. \emph{Ann. Probab.} \textbf{1975}, \emph{3},
+146--158. \url{https://doi.org/10.1214/aop/1176996454}.
+
+\end{thebibliography}
+
+\PublishersNote{}
+\end{adjustwidth}
+\end{document}

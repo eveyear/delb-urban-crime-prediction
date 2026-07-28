@@ -1,0 +1,19 @@
+{
+  "data_inputs": [],
+  "dpi": 300,
+  "generator": "/Users/dangdangdang/Documents/Entropy/entropy_crime_bike_overleaf_v2_delb_fano/empirical/run_problem_chain_figure.py",
+  "outputs": {
+    "pdf": {
+      "path": "figures/problem_chain/unified_problem_chain.pdf",
+      "sha256": "b6de1f9b5b994a692d0276c557ecfef30767601923c7078baac7d77704099b17"
+    },
+    "png": {
+      "path": "figures/problem_chain/unified_problem_chain.png",
+      "sha256": "c6745eca5fbcd1cd6d57923294d4b6b5e104672ebfafb977148f484ea58ba296"
+    },
+    "svg": {
+      "path": "figures/problem_chain/unified_problem_chain.svg",
+      "sha256": "ed88c8fd212f3a1a5178875b5d7ed659f986689909d04e2133ce70bb580f70cc"
+    }
+  }
+}

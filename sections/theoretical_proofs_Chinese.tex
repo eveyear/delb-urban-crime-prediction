@@ -1,0 +1,564 @@
+\section{补充理论与证明}
+\label{app:proofs}
+
+\makeatletter
+\@ifundefined{theHequation}{}{%
+  \renewcommand*{\theHequation}{\thesection.\arabic{equation}}}
+\@ifundefined{theHtheorem}{}{%
+  \renewcommand*{\theHtheorem}{app.\thesection.\arabic{theorem}}}
+\@ifundefined{theHproposition}{}{%
+  \renewcommand*{\theHproposition}{app.\thesection.\arabic{proposition}}}
+\@ifundefined{theHcorollary}{}{%
+  \renewcommand*{\theHcorollary}{app.\thesection.\arabic{corollary}}}
+\@ifundefined{theHlemma}{}{%
+  \renewcommand*{\theHlemma}{app.\thesection.\arabic{lemma}}}
+\@ifundefined{theHremark}{}{%
+  \renewcommand*{\theHremark}{app.\thesection.\arabic{remark}}}
+\makeatother
+
+本附录说明 DELB 与既有下界的关系，陈述补充 Fano 对照，并证明正文中的全部
+理论结果。熵表达式中的对数均以 \(2\) 为底，\(\ln\) 表示自然对数。
+
+\subsection{与既有信息论下界的关系}
+\label{subsec:prior_bound_scope}
+
+DELB 是因果整数预测的专门化与综合，而不是新的基础最大熵定律。
+Shannon 信源编码与率失真论证、Bayes 风险不等式、Ziv--Zakai 界和
+Fano 类误差界处理不同的操作对象
+\citep{shannon1948,shannon_rate_distortion,chen_bayes_risk,
+jeong_ziv_zakai,feder_merhav}。Massey 的整数熵--方差关系及后续改进给出
+格点修正 \citep{massey_integer_entropy,rioul_massey}，Fang 等人给出连续
+条件熵预测论证 \citep{fang_variance_bounds}。近期工作进一步把连续论证用于时间
+序列复杂度排序、用熵推导有限时预测空间的维度下界，并以认证熵值基准测试有限样本
+熵估计器 \citep{ayers2025complexity,hauser2026dmd,calcagnile2026benchmark}。
+表~\ref{tab:prior_bound_matrix} 区分这些组成和邻近目标与本文的四部分预测体系。
+
+\input{sections/generated/s2/table_prior_bound_matrix}
+
+表~\ref{tab:core_bound_comparison} 给出用于说明正文方法定位的紧凑操作比较。
+
+\input{sections/table_core_bound_comparison_Chinese}
+
+作为补充，表~\ref{tab:delb_theorem_package} 区分 DELB 体系回答的四类问题。
+
+\input{sections/table_delb_theorem_package_Chinese}
+
+\begin{Remark}[贡献层次]
+\label{rem:claim_hierarchy}
+本文贡献在于为因果整数预测联合组织精确逆格点底线、预测器相关强化、可达充要条件
+和双松弛分解，并把新增侧信息连接到可复刻的有限样本推断链。离散高斯极值分布、
+KL 恒等式、格点修正和 Fano 不等式仍是继承组成。
+\end{Remark}
+
+\input{sections/theoretical_extensions_Chinese}
+
+\subsection{分类损失下的 Fano 对照}
+\label{subsec:fano_counterpart}
+
+令固定量化器把整数目标映射为
+\begin{equation}
+Y_t=Q(X_t)\in\{1,\ldots,K\},
+\label{eq:fano_quantized_target}
+\end{equation}
+令 \(\widehat Y_t\) 关于 \(\mathcal F_{t-m}\) 可测。记
+\(P_e=\Pr(\widehat Y_t\neq Y_t)\)，并定义
+\begin{equation}
+\phi_K(p)=h_2(p)+p\log_2(K-1),
+\qquad 0\leq p\leq1-\frac1K.
+\label{eq:fano_phi}
+\end{equation}
+
+\begin{Proposition}[Fano 分类误差底线]
+\label{prop:fano_error_floor}
+每个上述分类器均满足
+\begin{equation}
+H(Y_t\mid\mathcal F_{t-m})
+\leq h_2(P_e)+P_e\log_2(K-1),
+\label{eq:fano_conditional_inequality}
+\end{equation}
+从而
+\begin{equation}
+P_e\geq
+\phi_K^{-1}\!\left[H(Y_t\mid\mathcal F_{t-m})\right].
+\label{eq:fano_general_floor}
+\end{equation}
+当 \(K=2\) 时，正确的单调分支给出
+\begin{equation}
+P_e\geq
+h_2^{-1}\!\left[H(Y_t\mid\mathcal F_{t-m})\right],
+\qquad h_2^{-1}:[0,1]\rightarrow[0,1/2].
+\label{eq:fano_binary_floor}
+\end{equation}
+\end{Proposition}
+
+对第~\ref{subsec:methods_information_sets} 节定义的基准和增强信息集，定义
+\begin{equation}
+P_{\mathrm F}^{0}
+=\phi_K^{-1}[H(Y\mid\mathcal F^0)],
+\qquad
+P_{\mathrm F}^{B}
+=\phi_K^{-1}[H(Y\mid\mathcal F^B)].
+\label{eq:fano_mobility_floors}
+\end{equation}
+
+\begin{Corollary}[Fano 底线的侧信息排序]
+\label{cor:mobility_fano_ordering}
+熵下降
+\begin{equation}
+H(Y\mid\mathcal F^0)-H(Y\mid\mathcal F^B)
+=I(Y;Q_B(\mathbf B^{(q)})\mid\mathcal F^0)\geq0
+\label{eq:fano_mobility_cmi}
+\end{equation}
+意味着
+\begin{equation}
+P_{\mathrm F}^{B}\leq P_{\mathrm F}^{0}.
+\label{eq:fano_mobility_floor_order}
+\end{equation}
+\end{Corollary}
+
+这是分类损失下的对照，而不是计数 MSE DELB 的第二次推导。二者的目标、
+损失、等号条件和数值尺度均不同。
+
+\subsection{完整证明}
+
+\subsection{条件整数平移}
+
+\begin{Lemma}[可测整数平移下的熵不变性]
+\label{lem:conditional_translation}
+令 \(X\) 为整数值随机变量，\(\mathcal F\) 为 sigma 代数，
+\(\widehat X\) 为整数值且关于 \(\mathcal F\) 可测。若
+\(E=X-\widehat X\)，则
+\begin{equation}
+H(E\mid\mathcal{F})=H(X\mid\mathcal{F}).
+\label{eq:conditional_translation}
+\end{equation}
+因此，
+\begin{equation}
+H(E)
+=
+H(X\mid\mathcal{F})+I(E;\mathcal{F}).
+\label{eq:error_entropy_identity}
+\end{equation}
+\end{Lemma}
+
+\begin{proof}
+给定 \(\mathcal F\) 中信息的一次实现后，\(\widehat x\) 为固定值，且
+\[
+\Pr(E=k\mid\mathcal{F})
+=
+\Pr(X=k+\widehat{x}\mid\mathcal{F}).
+\]
+映射 \(k\mapsto k+\widehat x\) 是 \(\mathbb Z\) 上的双射，只会重新标记
+条件概率质量函数的原子。Shannon 熵在这种重标记下保持不变。
+对 \(\mathcal F\) 取平均即可得到式~\eqref{eq:conditional_translation}。
+最后，由
+\(I(E;\mathcal{F})=H(E)-H(E\mid\mathcal{F})\)
+得到式~\eqref{eq:error_entropy_identity}。
+\end{proof}
+
+\subsection{整数最大熵分布}
+
+\begin{Lemma}[离散高斯极值分布]
+\label{lem:discrete_gaussian_extremizer}
+对每个 \(D>0\)，定义~\ref{def:integer_entropy_envelope} 的熵包络由
+式~\eqref{eq:general_discrete_gaussian} 的中心离散高斯分布取得，其中
+唯一参数 \(\lambda>0\) 满足 \(D(\lambda)=D\)。其熵由
+式~\eqref{eq:general_discrete_gaussian_entropy} 给出。当 \(D=0\) 时，
+极值分布为零点处的点质量。
+\end{Lemma}
+
+\begin{proof}
+记
+\[
+\Theta(\lambda)
+=
+\sum_{k\in\mathbb{Z}}\exp(-\lambda k^2),
+\qquad
+q_\lambda(k)
+=
+\frac{\exp(-\lambda k^2)}{\Theta(\lambda)}.
+\]
+对任意 \(\lambda>0\) 均可逐项求导，因此
+\[
+\mathbb{E}_{q_\lambda}[Z^2]
+=
+-\frac{\mathrm{d}}{\mathrm{d}\lambda}\ln\Theta(\lambda)
+=D(\lambda).
+\]
+并且
+\[
+\frac{\mathrm{d}D(\lambda)}{\mathrm{d}\lambda}
+=
+-\operatorname{Var}_{q_\lambda}(Z^2)<0.
+\]
+当 \(\lambda\downarrow0\) 时 \(D(\lambda)\to\infty\)，当
+\(\lambda\uparrow\infty\) 时 \(D(\lambda)\to0\)，故每个 \(D>0\)
+对应唯一 \(\lambda\)。
+
+令 \(p\) 为 \(\mathbb Z\) 上任意满足
+\(\mathbb{E}_{p}[Z^2]\leq D\) 的概率质量函数，并选择使
+\(D(\lambda)=D\) 的 \(\lambda\)。由相对熵非负性，
+\begin{align}
+0
+&\leq
+D_{\mathrm{KL}}(p\|q_\lambda)
+=
+\sum_{k\in\mathbb{Z}}p(k)
+\log_2\frac{p(k)}{q_\lambda(k)}
+\nonumber\\
+&=
+-H(p)
++
+\frac{\lambda\mathbb{E}_{p}[Z^2]+\ln\Theta(\lambda)}{\ln2}.
+\label{eq:kl_discrete_gaussian}
+\end{align}
+因此
+\begin{equation}
+H(p)
+\leq
+\frac{\lambda D+\ln\Theta(\lambda)}{\ln2}
+=
+H(q_\lambda).
+\label{eq:integer_max_entropy}
+\end{equation}
+取等号要求
+\[
+D_{\mathrm{KL}}(p\|q_\lambda)=0,
+\qquad
+\mathbb{E}_{p}[Z^2]=D,
+\]
+从而 \(p=q_\lambda\)。
+把 \(q_\lambda\) 直接代入
+\(-\sum_kq_\lambda(k)\log_2q_\lambda(k)\) 即得到
+式~\eqref{eq:general_discrete_gaussian_entropy}。当 \(D=0\) 时，
+约束迫使 \(Z=0\) 几乎必然成立，故熵为零。
+\end{proof}
+
+\subsection{精确 DELB 的证明}
+
+\begin{proof}[定理~\ref{thm:exact_delb} 的证明]
+在引理~\ref{lem:conditional_translation} 中取
+\(\mathcal F=\mathcal F_{t-m}\)，得到
+\begin{equation}
+H(E_t)
+=
+H(X_t\mid\mathcal{F}_{t-m})
++
+I(E_t;\mathcal{F}_{t-m}).
+\label{eq:appendix_error_entropy}
+\end{equation}
+因为 \(E_t\in\mathbb Z\) 且
+\(\mathbb E[E_t^2]=D_t^{(m)}\)，熵包络定义给出
+\[
+H(E_t)\leq\mathcal{H}_{\mathbb{Z}}(D_t^{(m)}).
+\]
+广义逆单调不减，故
+\[
+D_t^{(m)}
+\geq
+\mathcal{H}_{\mathbb{Z}}^{-1}\!\left(H(E_t)\right).
+\]
+结合式~\eqref{eq:appendix_error_entropy} 得到
+式~\eqref{eq:general_predictor_dependent_delb}。再利用互信息非负性并应用
+相同单调逆，得到式~\eqref{eq:general_universal_delb}。
+
+由引理~\ref{lem:discrete_gaussian_extremizer}，预测器相关不等式当且仅当
+\(E_t\) 为二阶矩 \(D_t^{(m)}\) 的中心离散高斯时取等号，其中包括零点
+退化分布。普适不等式取等号还要求
+\(I(E_t;\mathcal F_{t-m})=0\)，即预测误差独立于可用信息。
+\end{proof}
+
+\subsection{精确可达性分解的证明}
+
+\begin{proof}[命题~\ref{prop:attainability_decomposition} 的证明]
+下面的计算把标准最大熵信息投影恒等式专门化为矩匹配离散高斯
+\citep{csiszar_iprojection,cover_thomas}。为使预测特定等号条件和两个
+松弛项自足，仍在此给出完整推导。
+
+先设 \(D>0\)，将矩匹配离散高斯写为
+\[
+q_D(k)
+=
+\frac{\exp(-\lambda_D k^2)}{\Theta(\lambda_D)},
+\qquad
+\mathbb{E}_{q_D}[Z^2]=D.
+\]
+由于每个 \(k\in\mathbb Z\) 都有 \(q_D(k)>0\)，直接展开以 bit 为单位的
+相对熵得
+\begin{align}
+D_{\mathrm{KL},2}(P_E\Vert q_D)
+&=
+\sum_{k\in\mathbb{Z}}P_E(k)
+\log_2\frac{P_E(k)}{q_D(k)}
+\nonumber\\
+&=
+-H(E)
++
+\frac{\lambda_D\mathbb{E}[E^2]
+      +\ln\Theta(\lambda_D)}{\ln2}
+\nonumber\\
+&=
+\mathcal{H}_{\mathbb{Z}}(D)-H(E).
+\label{eq:appendix_shape_slack}
+\end{align}
+最后一步使用 \(\mathbb E[E^2]=D\) 和
+式~\eqref{eq:general_discrete_gaussian_entropy}。引理
+\ref{lem:conditional_translation} 给出
+\[
+H(E)=H(X_t\mid\mathcal{F})+I(E;\mathcal{F}).
+\]
+代入式~\eqref{eq:appendix_shape_slack} 即得
+式~\eqref{eq:predictor_attainability_decomposition}；两端再加
+\(I(E;\mathcal F)\) 即得
+式~\eqref{eq:universal_attainability_decomposition}。
+
+当 \(D=0\) 时，\(E=0\) 几乎必然，故
+\(q_0=P_E=\delta_0\)、\(H(E)=0\)、\(I(E;\mathcal F)=0\)，并由条件
+平移有 \(H(X_t\mid\mathcal F)=0\)。两个等式均退化为 \(0=0\)。
+
+相对熵与互信息均非负。因此，第一个松弛当且仅当 \(P_E=q_D\) 时为零；
+普适松弛当且仅当 \(P_E=q_D\) 且 \(I(E;\mathcal F)=0\) 时为零。
+对离散随机变量，零互信息等价于独立。
+\end{proof}
+
+\subsection{Fano 分类误差结果}
+
+\begin{proof}[命题~\ref{prop:fano_error_floor} 的证明]
+令 \(J=\mathbf 1\{\widehat Y_t\neq Y_t\}\)。由于 \(J\) 由
+\((Y_t,\widehat Y_t)\) 确定，
+\begin{align*}
+H(Y_t\mid\widehat{Y}_t)
+&=
+H(J,Y_t\mid\widehat{Y}_t)\\
+&=
+H(J\mid\widehat{Y}_t)
++
+H(Y_t\mid J,\widehat{Y}_t).
+\end{align*}
+第一项不超过 \(h_2(P_e)\)。当 \(J=0\) 时第二项为零；当 \(J=1\) 时，
+至多剩余 \(K-1\) 个可能标签。因此
+\[
+H(Y_t\mid\widehat{Y}_t)
+\leq
+h_2(P_e)+P_e\log_2(K-1).
+\]
+由于 \(\widehat Y_t\) 关于 \(\mathcal F_{t-m}\) 可测，给定完整信息集
+不会增加熵：
+\[
+H(Y_t\mid\mathcal{F}_{t-m})
+\leq
+H(Y_t\mid\widehat{Y}_t).
+\]
+由此得到式~\eqref{eq:fano_conditional_inequality}。
+
+\(\phi_K\) 在 \([0,1-1/K]\) 上连续严格递增，取值从 \(0\) 到
+\(\log_2K\)。若 \(P_e\leq1-1/K\)，单调求逆得到
+式~\eqref{eq:fano_general_floor}；若 \(P_e>1-1/K\)，因逆函数取值仅在
+\([0,1-1/K]\)，该式自然成立。当 \(K=2\) 时
+\(\log_2(K-1)=0\)，所以 \([0,1/2]\) 上 \(\phi_2=h_2\)，从而得到
+式~\eqref{eq:fano_binary_floor}。
+\end{proof}
+
+\begin{proof}[推论~\ref{cor:mobility_fano_ordering} 的证明]
+根据 \(\mathcal F^B_{c,i,t}\) 的定义，条件互信息恒等式给出
+\[
+H(Y_{c,i,t}\mid\mathcal{F}^{0}_{c,i,t})
+-
+H(Y_{c,i,t}\mid\mathcal{F}^{B}_{c,i,t})
+=
+I\!\left(
+Y_{c,i,t};
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\mid\mathcal{F}^{0}_{c,i,t}
+\right)
+\geq0.
+\]
+\(\phi_K^{-1}\) 在递增分支上单调不减。对两个条件熵应用该函数，得到
+式~\eqref{eq:fano_mobility_floor_order}。命题
+\ref{prop:fano_error_floor} 分别适用于关于任一信息集可测的分类器。
+\end{proof}
+
+\subsection{均匀去量化与闭式界}
+
+\begin{proof}[推论~\ref{cor:closed_form_delb} 的证明]
+令 \(U\sim\operatorname{Unif}[-1/2,1/2)\) 独立于 \(E_t\)，并令
+\(Y=E_t+U\)。在区间 \([k-1/2,k+1/2)\) 上，\(Y\) 的密度等于
+\(\Pr(E_t=k)\)。各区间互不相交且长度为 1，故
+\begin{equation}
+h(Y)=H(E_t).
+\label{eq:dither_entropy_identity}
+\end{equation}
+此外，
+\begin{equation}
+\operatorname{Var}(Y)
+=
+\operatorname{Var}(E_t)+\frac{1}{12}
+\leq
+\mathbb{E}[E_t^2]+\frac{1}{12}
+=
+D_t^{(m)}+\frac{1}{12}.
+\label{eq:dither_variance}
+\end{equation}
+高斯分布在固定方差下最大化微分熵，因此
+\begin{equation}
+H(E_t)
+=h(Y)
+\leq
+\frac{1}{2}\log_2\!\left[
+2\pi e\left(D_t^{(m)}+\frac{1}{12}\right)
+\right].
+\label{eq:dither_gaussian_bound}
+\end{equation}
+整理得
+\[
+D_t^{(m)}
+\geq
+\frac{2^{2H(E_t)}}{2\pi e}-\frac{1}{12}.
+\]
+式~\eqref{eq:appendix_error_entropy} 同时给出预测器相关版本，并在丢弃
+非负互信息项后得到普适版本。最后使用 \(D_t^{(m)}\geq0\) 并取正部，
+即可得到式~\eqref{eq:discrete_mse_bound}。
+\end{proof}
+
+\subsection{时间与向量推论}
+
+\begin{proof}[命题~\ref{prop:general_horizon_monotonicity} 的证明]
+对 \(1\leq\ell<m\)，因果嵌套给出
+\(\mathcal F_{t-m}\subseteq\mathcal F_{t-\ell}\)。因此
+\[
+H(X_t\mid\mathcal{F}_{t-m})
+-
+H(X_t\mid\mathcal{F}_{t-\ell})
+=
+I(X_t;\mathcal{F}_{t-\ell}\mid\mathcal{F}_{t-m})
+\geq0,
+\]
+即式~\eqref{eq:general_horizon_entropy}。
+\(\mathcal H_{\mathbb Z}^{-1}\) 的单调性给出
+式~\eqref{eq:general_horizon_delb}。
+\end{proof}
+
+\begin{proof}[推论~\ref{cor:general_stationary_delb} 的证明]
+由平稳性，
+\[
+H(X_t\mid X_0,\ldots,X_{t-1})
+=
+H(X_0\mid X_{-t},\ldots,X_{-1}).
+\]
+右端随 \(t\) 单调不增并收敛到熵率 \(\overline H(X)\)。
+对每个 \(t\) 应用式~\eqref{eq:general_universal_delb}，再使用由引理
+\ref{lem:discrete_gaussian_extremizer} 的离散高斯参数化所保证的逆熵
+包络连续性与单调性，即得式~\eqref{eq:general_stationary_exact_bound}。
+\end{proof}
+
+\begin{proof}[推论~\ref{cor:general_vector_delb} 的证明]
+令 \(\mathbf E_t=\mathbf X_t-\widehat{\mathbf X}_t\)，令
+\(\mathbf U\) 独立且在 \([-1/2,1/2)^n\) 上均匀分布。单位立方体
+\(\mathbf k+[-1/2,1/2)^n\) 互不相交，所以
+\[
+h(\mathbf{E}_t+\mathbf{U})=H(\mathbf{E}_t).
+\]
+令 \(\boldsymbol\Sigma_E\) 为 \(\mathbf E_t\) 的协方差矩阵。多元高斯
+最大熵不等式和特征值算术--几何平均不等式给出
+\begin{align}
+H(\mathbf{E}_t)
+&\leq
+\frac{1}{2}\log_2\!\left[
+(2\pi e)^n
+\det\!\left(\boldsymbol{\Sigma}_E+\frac{1}{12}\mathbf{I}_n\right)
+\right]
+\nonumber\\
+&\leq
+\frac{n}{2}\log_2\!\left[
+2\pi e
+\left(
+\frac{\operatorname{tr}(\boldsymbol{\Sigma}_E)}{n}
++
+\frac{1}{12}
+\right)
+\right]
+\nonumber\\
+&\leq
+\frac{n}{2}\log_2\!\left[
+2\pi e
+\left(
+\frac{\mathbb{E}\|\mathbf{E}_t\|_2^2}{n}
++
+\frac{1}{12}
+\right)
+\right].
+\label{eq:vector_dither_bound}
+\end{align}
+条件整数向量平移是双射，因此
+\[
+H(\mathbf{E}_t)
+\geq
+H(\mathbf{E}_t\mid\mathcal{F}_{t-m})
+=
+H(\mathbf{X}_t\mid\mathcal{F}_{t-m}).
+\]
+代入式~\eqref{eq:vector_dither_bound}、整理并利用 MSE 非负性，即得
+式~\eqref{eq:general_vector_delb}。必须使用联合条件熵；用边际熵之和替代
+一般会丢失空间依赖。
+\end{proof}
+
+\subsection{犯罪计数与自行车移动的专门化}
+
+犯罪计数结果由在定理~\ref{thm:exact_delb} 中直接代入
+\(X_t=C_{c,i,t}\) 和
+\(\mathcal F_{t-m}=\mathcal F^0_{c,i,t}\) 得到。这证明
+式~\eqref{eq:local_bound_baseline} 与
+\eqref{eq:crime_baseline_exact_bound}；推论~\ref{cor:closed_form_delb}
+证明式~\eqref{eq:crime_baseline_closed_bound}。若目标被截顶，确定性数据
+处理给出式~\eqref{eq:top_coded_entropy_order}。因为
+\(\mathcal H_{\mathbb Z}^{-1}\) 单调不减，代入更小的截顶熵会产生不大于
+原始界的下界，因此对原始计数 MSE 仍是保守有效的。
+
+\begin{proof}[命题~\ref{prop:bicycle_information_value} 的证明]
+由式~\eqref{eq:bike_information}，
+\[
+\mathcal{F}^{B}_{c,i,t}
+=
+\mathcal{F}^{0}_{c,i,t}
+\vee
+\sigma\!\left\{Q_B(\mathbf{B}^{(q)}_{c,i,t})\right\}.
+\]
+条件互信息定义给出
+\begin{align*}
+I\!\left(
+C_{c,i,t};
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\mid\mathcal{F}^{0}_{c,i,t}
+\right)
+&=
+H(C_{c,i,t}\mid\mathcal{F}^{0}_{c,i,t})\\
+&\quad-
+H(C_{c,i,t}\mid\mathcal{F}^{B}_{c,i,t}),
+\end{align*}
+这就是非负的式~\eqref{eq:bicycle_information_gain}。应用单调不减函数
+\(\mathcal H_{\mathbb Z}^{-1}\)，得到
+式~\eqref{eq:bicycle_exact_bound_order}。根据
+式~\eqref{eq:discrete_entropy_power}，
+\[
+\frac{N_d(C\mid\mathcal{F}^{B})}
+{N_d(C\mid\mathcal{F}^{0})}
+=
+2^{\,2[H(C\mid\mathcal{F}^{B})-H(C\mid\mathcal{F}^{0})]}
+=
+2^{-2\Delta H^B},
+\]
+从而得到式~\eqref{eq:cmi_entropy_power_ratio}。
+
+最后，给定 \(\mathcal F^0_{c,i,t}\) 后，
+\(Q_B(\mathbf B^{(q)}_{c,i,t})\) 是
+\(\mathbf B^{(q)}_{c,i,t}\) 的确定性函数。因此条件 Markov 链
+\[
+C_{c,i,t}
+\longrightarrow
+\mathbf{B}^{(q)}_{c,i,t}
+\longrightarrow
+Q_B(\mathbf{B}^{(q)}_{c,i,t})
+\]
+满足条件数据处理不等式，从而证明
+式~\eqref{eq:bicycle_data_processing}。
+\end{proof}

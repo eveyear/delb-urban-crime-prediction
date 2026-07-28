@@ -1,0 +1,26 @@
+experiment_id: E15
+experiment_name: estimand_estimator_randomization_null_diagram
+
+reporting:
+  figure_dpi: 300
+  formats:
+    - pdf
+    - svg
+    - png
+  wide_size_inches:
+    - 7.2
+    - 4.0
+  single_column_size_inches:
+    - 3.5
+    - 7.3
+  figures_are_python_generated: true
+
+acceptance:
+  expected_layouts: 2
+  expected_formats_per_layout: 3
+  required_terms:
+    - Population estimand
+    - Finite-sample estimator
+    - Randomization reference
+    - null mean need not be zero
+    - does not validate or refute DELB/Fano

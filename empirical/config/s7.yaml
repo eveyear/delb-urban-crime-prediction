@@ -1,0 +1,36 @@
+stage_id: S7
+stage_name: final_manuscript_synthesis
+
+source_run_pointers:
+  e12: runs/latest_e12_run.txt
+  e13: runs/latest_e13_run.txt
+  e14: runs/latest_e14_run.txt
+  e15: runs/latest_e15_run.txt
+
+generated_tex_directory: sections/generated/s7
+manuscript_figure_directory: figures/s7
+
+figures:
+  - source: e12/figures/e12_sparse_cmi_main.pdf
+    destination: e12_sparse_cmi_main.pdf
+  - source: e12/figures/e12_bias_rmse_supplement.pdf
+    destination: e12_bias_rmse_supplement.pdf
+  - source: e13/figures/e13_support_null_main.pdf
+    destination: e13_support_null_main.pdf
+  - source: e13/figures/e13_support_metrics_supplement.pdf
+    destination: e13_support_metrics_supplement.pdf
+  - source: e14/figures/e14_fano_main.pdf
+    destination: e14_fano_main.pdf
+  - source: e14/figures/e14_fano_bootstrap.pdf
+    destination: e14_fano_bootstrap.pdf
+  - source: e15/figures/e15_estimand_estimator_null_wide.pdf
+    destination: e15_estimand_estimator_null_wide.pdf
+
+acceptance:
+  expected_source_runs: 4
+  expected_generated_tex_files: 4
+  expected_copied_figures: 7
+  expected_fano_rows: 6
+  expected_oracle_rows: 64
+  expected_estimated_fano_violations: 0
+

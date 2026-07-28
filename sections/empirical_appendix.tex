@@ -1,0 +1,123 @@
+\section{Empirical Harmonization and Audit Details}
+\label{app:empirical_details}
+
+\subsection{Crime-Category Crosswalk}
+\label{app:crime_crosswalk}
+
+Table~\ref{tab:offense_crosswalk} records the source-offense mapping. The
+standardized E01 field is
+\texttt{crime\_\allowbreak type\_\allowbreak unified}. No category was
+remapped during E02--E17. New York's vehicle-theft category includes
+\emph{Petit Larceny of Motor Vehicle} and, when present in the source data,
+\emph{Grand Larceny of Motor Vehicle}.
+
+\begin{table}[H]
+\caption{Source offenses represented by the three harmonized property-crime
+categories.}
+\label{tab:offense_crosswalk}
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\RaggedRight\arraybackslash}p{0.14\linewidth}
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{Unified category} & \textbf{Vancouver} &
+\textbf{New York City} & \textbf{Washington, DC}\\
+\midrule
+Property theft &
+Other Theft; Theft from Vehicle; Theft of Bicycle &
+Petit Larceny &
+Theft--Other; Theft F/Auto\\
+\addlinespace
+Vehicle theft &
+Theft of Vehicle &
+Petit Larceny of Motor Vehicle; Grand Larceny of Motor Vehicle, if present &
+Motor Vehicle Theft\\
+\addlinespace
+Burglary &
+Break and Enter Commercial; Break and Enter Residential/Other &
+Burglary &
+Burglary\\
+\bottomrule
+\end{tabularx}
+\end{adjustwidth}
+\end{table}
+
+\subsection{Experiment Lineage}
+\label{app:experiment_lineage}
+
+The empirical results were produced sequentially:
+\begin{enumerate}[label=\arabic*.,leftmargin=2.4em]
+    \item E01 standardized crime events and bicycle trips, resolved endpoint
+    coordinates, and retained reason-coded exclusions;
+    \item E02 constructed the leakage-safe 1~km daily panels and descriptive
+    figures;
+    \item E03 numerically checked the exact integer entropy envelope and its numerical
+    inverse;
+    \item E04 estimated city-level conditional information and DELB;
+    \item E05 estimated local information value and spatial clustering;
+    \item E06 fitted matched out-of-sample integer predictors;
+    \item E07 formed predictability gaps and local theory--practice
+    comparisons;
+    \item E08 repeated theory and prediction by harmonized crime category;
+    \item E09 evaluated pre-specified theory and rolling-origin robustness;
+    \item E10 calibrated city and local statistics against three null
+    designs and compared recent with distant mobility lags;
+    \item E11 synthesized accepted E02 and E04--E10 outputs into tables,
+    figures, and macros for Version 1;
+    \item E12 simulated plug-in and Miller--Madow CMI under known
+    population truth and E10-style randomization designs;
+    \item E13 reconstructed every E10 surrogate and recorded its support
+    atoms, singleton occupancy, and effective degrees of freedom;
+    \item E14 evaluated oracle and empirical binary and three-level Fano
+    floors;
+    \item E15 generated the estimand--estimator--randomization conceptual
+    figure in single- and double-column layouts;
+    \item S7 read only the accepted E12--E15 outputs, generated LaTeX tables
+    and macros, copied figures after SHA-256 verification, and integrated
+    Version 2;
+    \item E16 constructed nested 500~m, 1~km, and 2~km daily and weekly
+    panels, generated frozen block-thinning indices, estimated DELBs and
+    support diagnostics across five sample fractions, applied area--time
+    normalization, and calibrated all 90 scale--sample cells against three
+    randomization mechanisms; S16.7 generated the manuscript macros and
+    tables and copied 12 figure files after SHA-256 verification;
+    \item E17 applied plugin, Miller--Madow, and observed-support
+    Jeffreys--Dirichlet estimators to the same 999 city-level surrogates,
+    reported false-discovery-rate adjustment within each estimator's nine
+    tests and globally across all 27 tests, and summarized the
+    training-period-frozen analysis-domain sensitivity;
+    \item E18 evaluated a baseline-state-matched restricted randomization
+    with 999 city-level replicates and assessed its Type I error and power
+    on empirical-support semi-synthetic panels.
+\end{enumerate}
+
+All accepted stages passed their registered row, schema, identity, ordering,
+and artifact checks. The final S7 synthesis verified four source-run
+pointers, four generated LaTeX files, seven hash-identical source figures,
+six Fano city--target rows, 64 Fano oracle rows, and zero estimated Fano
+violations.
+
+\subsection{Robustness and Null-Calibration Scope}
+\label{app:robustness_scope}
+
+E09 contains 144 theory rows (16 specifications, three estimators, and
+three cities), 144 monthly rolling model--origin results, and three
+bootstrap block lengths per city. E10 contains 8991 city-level null
+replicates, 1,015,983 local null replicates, 339 joint local screens, and
+matched 14- and 30-day lag diagnostics. These artifacts are retained in
+their accepted run directories. The null designs are treated
+as finite-sample diagnostics rather than causal or exact conditional
+randomization tests. Every article figure, including the E11 workflow, was
+created by a versioned Python entry point and was not manually edited.
+E17 contains 26,973 estimator-specific city-level null statistics
+(8991 per estimator); its Miller--Madow statistics reproduce E10 exactly.
+E18 contains 2997 empirical city-level restricted-randomization replicates
+and 2400 semi-synthetic dataset-level calibration summaries.
+
+Descriptive figures, estimator sensitivity, training-period-frozen
+analysis-domain sensitivity, and the extended local, multiscale,
+crime-type, rolling-origin, and Fano diagnostics are supplied in the
+independent Supplementary Materials file.

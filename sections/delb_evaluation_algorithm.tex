@@ -1,0 +1,64 @@
+\subsection{DELB-Based Evaluation Algorithm}
+\label{subsec:delb_evaluation_algorithm}
+
+\begin{Algorithm}[DELB-based evaluation of an added urban data source]
+\label{alg:delb_evaluation}
+\textbf{Input:} integer target \(C\); baseline state \(\mathcal S^0\);
+added-data state \(B\); training, validation, and test indices; entropy
+estimator; randomization designs; number of repetitions \(R\).\\
+\textbf{Output:} \(\widehat L^0\), \(\widehat L^B\),
+\(\widehat{\Delta L}\), \(\widehat I(C;B\mid\mathcal S^0)\), support
+diagnostics, randomization \(p\)-values, and matched held-out prediction
+errors.
+\begin{enumerate}
+    \item Estimate all discretization thresholds from the training period
+    and freeze them for validation and testing.
+    \item Construct the baseline state \(\mathcal S^0\) and augmented state
+    \(\mathcal S^B=(\mathcal S^0,B)\) on identical eligible observations.
+    \item Estimate \(\widehat H(C\mid\mathcal S^0)\) and
+    \(\widehat H(C\mid\mathcal S^B)\) with the same entropy estimator.
+    \item Numerically evaluate
+    \(\widehat L^j=\mathcal H_{\mathbb Z}^{-1}
+    [\widehat H(C\mid\mathcal S^j)]\), \(j\in\{0,B\}\).
+    \item Compute raw CMI, the absolute and relative estimated DELB
+    reductions, and the support-density, singleton-share, and effective
+    degrees-of-freedom diagnostics.
+    \item For each prespecified randomization design and repetition, transform
+    \(B\), reconstruct \(\mathcal S^B\), and recompute both state support and
+    the complete statistic; then calculate plus-one upper-tail \(p\)-values.
+    \item Fit each prediction model twice with matched samples, training
+    windows, tuning rules, and all non-bicycle inputs: once with
+    \(\mathcal S^0\) and once with \(\mathcal S^B\).
+    \item Compare the estimated DELB change, randomization-calibrated evidence,
+    and held-out MSE change as three separate outputs.
+\end{enumerate}
+\end{Algorithm}
+
+\paragraph{Numerical inversion.}
+For a positive entropy value, the implementation brackets the
+discrete-Gaussian rate \(\lambda\) from an initial value of \(1\) by repeated
+halving or doubling and then applies Brent's method. The root tolerance is
+\(10^{-12}\), with at most 200 iterations. For \(\lambda\geq1\), the
+partition function and second moment are evaluated by direct symmetric
+integer-lattice summation. For \(\lambda<1\), the Poisson-dual theta series
+avoids an unnecessarily wide real-lattice truncation. In both cases the
+support radius is expanded until the analytic bound on the omitted
+two-sided unnormalized tail is at most \(10^{-15}\). Entropy values at or
+below zero map to a DELB of zero. Repeated resampling and randomization paths
+use the configured monotone interpolation grid over 0--8 bits, with direct
+inverse evaluations retained for validation.
+
+\paragraph{Computational cost and parallelization.}
+Let \(N\) be the number of matched observations, \(K_0\) and \(K_B\) the
+numbers of occupied atoms in the two state tables, \(M\) the maximum retained
+half-support of a lattice sum, \(T\leq200\) the number of root evaluations,
+and \(J\) the number of entropy values converted to bounds. State counting
+requires \(O(N)\) time and \(O(K_0+K_B)\) memory; direct bound conversion
+requires \(O(JTM)\) time and \(O(M)\) additional memory. With \(R\)
+randomizations, the serial calibration cost is
+\(O(RN+RJTM)\), excluding model fitting, whose cost depends on the selected
+predictor. Randomizations are independent conditional on their stored seeds.
+The multiscale implementation parallelizes independent city--spatial-scale--
+temporal-scale cells with six thread workers and writes a checkpoint after
+each completed cell; replicate-level outputs and seeds are retained for
+reconciliation.

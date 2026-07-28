@@ -1,0 +1,101 @@
+\section{经验数据协调与审计细节}
+\label{app:empirical_details}
+
+\subsection{犯罪类别对照}
+\label{app:crime_crosswalk}
+
+表~\ref{tab:offense_crosswalk} 记录了 E01 标准化字段
+\texttt{crime\_type\_unified} 中已经存在的映射。E02--E17
+均未重新映射任何类别。纽约的机动车盗窃类别包括
+\emph{Petit Larceny of Motor Vehicle}，并在源数据存在时包括
+\emph{Grand Larceny of Motor Vehicle}。
+
+\begin{table}[H]
+\caption{Source offenses represented by the three harmonized property-crime
+categories.}
+\label{tab:offense_crosswalk}
+\begin{adjustwidth}{-\extralength}{0cm}
+\centering
+\small
+\begin{tabularx}{\linewidth}{>{\RaggedRight\arraybackslash}p{0.14\linewidth}
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{Unified category} & \textbf{Vancouver} &
+\textbf{New York City} & \textbf{Washington, DC}\\
+\midrule
+Property theft &
+Other Theft; Theft from Vehicle; Theft of Bicycle &
+Petit Larceny &
+Theft--Other; Theft F/Auto\\
+\addlinespace
+Vehicle theft &
+Theft of Vehicle &
+Petit Larceny of Motor Vehicle; Grand Larceny of Motor Vehicle, if present &
+Motor Vehicle Theft\\
+\addlinespace
+Burglary &
+Break and Enter Commercial; Break and Enter Residential/Other &
+Burglary &
+Burglary\\
+\bottomrule
+\end{tabularx}
+\end{adjustwidth}
+\end{table}
+
+\subsection{实验谱系}
+\label{app:experiment_lineage}
+
+经验结果按以下顺序产生：
+\begin{enumerate}[label=\arabic*.,leftmargin=2.4em]
+    \item E01 标准化犯罪事件与自行车行程，解析端点坐标，并保留带原因编码的排除记录；
+    \item E02 构建防止信息泄漏的 1~km 日面板和描述性图片；
+    \item E03 数值检查精确整数熵包络及其数值逆；
+    \item E04 估计城市层面的条件信息量与 DELB；
+    \item E05 估计局部信息价值与空间聚集；
+    \item E06 拟合信息集匹配的样本外整数预测器；
+    \item E07 构建 Predictability Gap 和局部理论--实践对照；
+    \item E08 按统一犯罪类别重复理论与预测分析；
+    \item E09 评估预设理论稳健性和滚动起点预测稳健性；
+    \item E10 用三类零假设设计校准城市及局部统计量，并比较近期和远期移动滞后；
+    \item E11 将已验收的 E02 与 E04--E10 产物汇总为版本 1 的表格、图片与宏；
+    \item E12 在总体真实值已知时模拟 plug-in 与 Miller--Madow CMI，并实施 E10 风格的随机化设计；
+    \item E13 重构每一个 E10 替代样本，记录支持原子数、singleton 占用率和有效自由度；
+    \item E14 评估 oracle 及经验二元、三级 Fano 下界；
+    \item E15 生成单栏和双栏的 ``estimand--estimator--randomization'' 概念图；
+    \item S7 仅读取已验收的 E12--E15 产物，生成 LaTeX 表格和宏，在 SHA-256
+    校验后复制图片，并整合形成版本 2；
+    \item E16构建嵌套500~m、1~km、2~km日与周面板，生成冻结区块稀释索引，
+    在五个样本比例上估计DELB与支持度，执行面积--时间标准化，并以三种随机化机制
+    校准全部90个尺度--样本单元；S16.7生成论文宏和表格，并在SHA-256核验后复制
+    12个图片文件；
+    \item E17 在相同的 999 个城市层面替代样本上同时计算 plugin、
+    Miller--Madow 和基于观测支持的 Jeffreys--Dirichlet 估计，在每个估计器内部
+    九项检验及全部 27 项检验上分别进行错误发现率校正，并汇总训练期冻结分析域
+    敏感性；
+    \item E18 采用 999 次城市层面重复评价基准状态匹配受限随机化，并在经验支持
+    半合成面板上评估其第一类错误率与功效。
+\end{enumerate}
+
+所有验收阶段均通过预注册的行数、模式、标识、排序和产物检查。最终 S7
+汇总核验了 4 个源运行指针、4 个生成的 LaTeX 文件、7 幅哈希完全一致的源图片、
+6 个 Fano 城市--目标结果、64 个 Fano oracle 结果，并确认估计 Fano
+违反次数为零。
+
+\subsection{稳健性与零分布校准范围}
+\label{app:robustness_scope}
+
+E09 包含 144 条理论结果（16 个设定、3 个估计量和 3 个城市）、144
+条月度滚动模型--起点结果，以及每个城市 3 种 bootstrap 块长度。E10
+包含 8991 个城市层面零分布重复、1,015,983 个局部零分布重复、339
+个局部联合筛查结果，以及相匹配的 14 日与 30 日滞后诊断。这些产物均保留在各自
+已验收的运行目录中。零假设设计被明确视为有限样本诊断，而不是因果检验或精确条件
+随机化检验。文章全部图片（包括 E11 工作流图）均由版本化 Python
+入口程序生成，未经过人工编辑。
+E17 包含 26,973 个估计器特定的城市层面零统计量（每个估计器 8991 个），其中
+Miller--Madow 统计量与 E10 完全复现。
+E18 包含 2997 个经验城市层面受限随机化重复和 2400 个半合成数据集层面校准汇总。
+
+描述性图片、估计器敏感性、训练期冻结分析域敏感性，以及扩展的局部、多尺度、
+犯罪类型、滚动起点与 Fano 诊断均放入独立补充材料文件。

@@ -1,0 +1,83 @@
+\section{相关工作}
+\label{sec:related_work}
+
+\subsection{城市犯罪预测}
+\label{subsec:related_crime_forecasting}
+
+犯罪预测旨在预报具有实际意义地点与时段的未来事件计数、热点状态或事件风险。
+现有综述一致显示，该领域主要围绕比较性预测性能展开，包括热点准确率、
+prediction-accuracy index、precision、recall、F1 score，以及 MAE、RMSE、MSE
+等计数损失 \citep{kounadi2020review,du2023review,mandalapu2023review}。研究方法
+由统计学习与树集成扩展到循环、图结构、多尺度及 Transformer 模型，从而扩大了
+从历史事件和背景协变量到未来结果的拟合映射集合
+\citep{alves2018crime,angbera2023model,huang2018deepcrime,deng2023risk,
+jing2024multiscale,wang2025mragnn,butt2025start,cui2026transfer}。近期综述也强调
+空间、时间、环境与行为数据的复杂融合 \citep{hu2023fusion}。
+
+报告性能不仅取决于算法，也取决于目标定义、时空分辨率、验证期、对照模型和
+分布漂移。多密度与多尺度研究说明，分析单元变化会改变预测问题本身
+\citep{cesario2024multidensity,jing2024multiscale}；近期评价框架则把标准化不足
+和跨设计可比性有限列为持续问题 \citep{amarante2025steval}。因此，在某一基准内
+性能更好只能说明一个已评估设定在该设计下更优，不能说明其距信息约束预测极限
+还有多远。
+因此，尚未解决的问题并不是缺少新的预测模型，而是缺少一种模型无关方法，用于
+判断新增信息源是否改变整数值目标可达到的误差基准。
+
+\subsection{犯罪分析中的移动数据}
+\label{subsec:related_mobility_crime}
+
+日常活动理论与 ambient population 研究说明，犯罪机会取决于潜在目标、违法者
+和监护者的动态出现，而不仅是居住人口
+\citep{cohen1979routine,malleson2016ambient}。手机、位置平台、地铁和出租车流量
+与犯罪地点相关，或改善了拟合预测
+\citep{song2019legal,kadar2018mining,kadar2020mobility,wu2022mobility,
+rummens2021mobile,schertz2021street}。近期系统综述记录了手机数据在犯罪研究中的
+快速增长及异质用途 \citep{okmi2023mobile}。在更细尺度上，手机人口占用与室外
+抢劫和盗窃相关 \citep{valente2024routines}；一项四城市研究也报告了移动、犯罪
+历史与社会人口变量结合后的预测提升 \citep{albors2025mobility}。
+
+这些发现支持考察新增移动信息，却不意味着所有移动数据可以互换。数字轨迹在人群
+覆盖、空间支持、时间节律、方向性和交通方式上均有差异
+\citep{luca2023mobilitysurvey,zhao2024directionality}，手机位置数据还可能存在随
+尺度和时间变化的代表性偏差 \citep{li2024mobilitybias}。因此，共享自行车记录在
+本文中仅被定义为高频、空间细化但特定交通方式的公共空间活动代理
+\citep{xu2023bike,ivanovic2023bike}，而不是 ambient population 普查。预测信息
+也不等于因果效应；近期工具变量研究显示，预测关联和因果识别可以得出不同结论
+\citep{vachuska2025causal}。
+
+多数移动--犯罪研究评价关联格局或拟合预测评分的变化。这些问题仍然重要，却无法
+把移动数据源的内在信息价值与特定模型利用该数据的能力区分，也通常没有诊断移动
+变量离散化并与细尺度犯罪面板连接后，表面增益是否由稀疏状态诱发。这一缺口构成
+本文匹配基准--增强信息集及有限样本校准设计的直接动机。
+
+\subsection{信息论预测下界}
+\label{subsec:related_information_limits}
+
+条件熵衡量观测合法信息后仍保留的不确定性
+\citep{shannon1948,cover_thomas}。熵与 Fano 类论证已用于研究人类移动的潜在
+可预测性 \citep{song2010limits}；条件微分熵也被用于约束交通预测性能
+\citep{li2022traffic}。Fang 等人进一步给出连续估计与预测误差的一般熵方差界
+\citep{fang_variance_bounds}。近期工作把这一连续路线扩展到时间序列复杂度排序
+和预测表示维数的熵下界 \citep{ayers2025complexity,hauser2026dmd}。这些研究说明
+应当区分实际性能与信息约束极限，但其目标空间和约束对象没有给出整数结果的精确
+MSE 底线。
+
+犯罪计数及许多实际目标是整数值。连续高斯论证不能通过把微分熵替换为 Shannon 熵
+而直接离散化：误差位于格点上，在二阶矩约束下的最大熵分布是离散高斯。整数最大熵
+和格点修正是既有理论组成 \citep{massey_integer_entropy,rioul_massey}；一般
+Bayes risk、率失真和 Ziv--Zakai 理论也说明估计风险下界作为一个类别并非新问题
+\citep{shannon_rate_distortion,chen_bayes_risk,jeong_ziv_zakai}。本文所需但仍未
+充分发展的对象，是一个统一的因果整数预测陈述：把精确格点 MSE 底线与具体预测器
+联系，给出严格的可达充要条件，并诊断底线未达到的原因。
+
+本文把精确整数格点最大熵包络反演所得的 MSE 底线称为
+\emph{离散熵预测误差下界}（DELB）。理论体系结合普适底线、预测器相关强化、严格
+可达条件，以及把不可达分解为残余历史依赖和误差形状失配。本文主张的贡献是这一
+统一的整数预测专门化体系，而不是首次发现离散高斯极值分布、格点修正或某个基础
+散度恒等式。
+
+综合三个文献方向可以得到一个明确的应用方法缺口：犯罪预测研究提供越来越灵活的
+模型，移动研究提供越来越精细的城市信号，但现有熵下界尚未提供经过有限样本校准的
+整数格点基准，用于判断新增信号是否改变计数目标的内在可预测性。DELB 及配套校准
+流程正面处理这一交叉问题。本文刻意比较信息集而不是算法家族，并评价预测证据而
+不是因果效应。

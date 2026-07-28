@@ -1,0 +1,50 @@
+\subsection{基于 DELB 的新增城市数据评价算法}
+\label{subsec:delb_evaluation_algorithm}
+
+\begin{Algorithm}[基于 DELB 的新增城市数据源评价]
+\label{alg:delb_evaluation}
+\textbf{输入：}整数目标 \(C\)、基准状态 \(\mathcal S^0\)、新增数据状态 \(B\)、
+训练/验证/测试索引、熵估计器、随机化设计及重复次数 \(R\)。\\
+\textbf{输出：}\(\widehat L^0\)、\(\widehat L^B\)、
+\(\widehat{\Delta L}\)、\(\widehat I(C;B\mid\mathcal S^0)\)、支持度诊断、
+随机化 \(p\) 值及匹配样本外预测误差。
+\begin{enumerate}
+    \item 仅使用训练期估计全部离散化阈值，并在验证与测试期固定。
+    \item 在完全相同的合格观测上构造基准状态 \(\mathcal S^0\) 和增强状态
+    \(\mathcal S^B=(\mathcal S^0,B)\)。
+    \item 使用同一熵估计器计算 \(\widehat H(C\mid\mathcal S^0)\) 与
+    \(\widehat H(C\mid\mathcal S^B)\)。
+    \item 数值计算
+    \(\widehat L^j=\mathcal H_{\mathbb Z}^{-1}
+    [\widehat H(C\mid\mathcal S^j)]\)，其中 \(j\in\{0,B\}\)。
+    \item 计算原始 CMI、DELB 估计的绝对和相对降幅，以及支持密度、
+    singleton 占比和有效自由度诊断。
+    \item 对每个预设随机化设计和每次重复，变换 \(B\)、重建
+    \(\mathcal S^B\)，并重新计算状态支持及完整统计量；随后计算 plus-one
+    上尾 \(p\) 值。
+    \item 对每种预测模型使用相同样本、训练窗口、调参规则和全部非自行车输入
+    进行两次拟合：一次使用 \(\mathcal S^0\)，一次使用 \(\mathcal S^B\)。
+    \item 将 DELB 估计变化、随机化校准证据和测试集 MSE 变化作为三个独立
+    输出比较。
+\end{enumerate}
+\end{Algorithm}
+
+\paragraph{数值反演。}
+对于正熵值，实现从 \(\lambda=1\) 开始反复减半或加倍以包围离散高斯率参数的根，
+随后使用 Brent 方法求解。根容差为 \(10^{-12}\)，最多迭代 200 次。
+当 \(\lambda\geq1\) 时，通过直接对称整数格点求和计算配分函数和二阶矩；
+当 \(\lambda<1\) 时，使用 Poisson 对偶 theta 级数，避免在实格点上使用过宽
+截断。两种情形均扩展支撑半径，直至遗漏双侧未归一化尾和的解析上界不超过
+\(10^{-15}\)。小于或等于零的熵映射为零 DELB。重复重采样与随机化路径使用
+配置的 0--8 bit 单调插值网格，并保留直接反演结果用于验证。
+
+\paragraph{计算复杂度与并行。}
+令 \(N\) 为匹配观测数，\(K_0\) 与 \(K_B\) 为两个状态表的非空原子数，
+\(M\) 为格点求和保留的最大半支撑，\(T\leq200\) 为根函数计算次数，\(J\)
+为需要转换为下界的熵值数量。状态计数需要 \(O(N)\) 时间和
+\(O(K_0+K_B)\) 内存；直接下界转换需要 \(O(JTM)\) 时间及 \(O(M)\)
+附加内存。使用 \(R\) 次随机化时，串行校准成本为
+\(O(RN+RJTM)\)，不包括依赖具体预测器的模型拟合成本。在保存的随机种子
+条件下，各随机化相互独立。多尺度实现使用 6 个线程并行处理独立的
+城市--空间尺度--时间尺度单元，每完成一个单元即写入 checkpoint，同时保留
+重复级输出和随机种子用于核对。

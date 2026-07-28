@@ -1,0 +1,50 @@
+experiment_id: E01
+experiment_name: standardized_events_and_station_reconciliation
+chunk_size: 250000
+parquet:
+  compression: zstd
+  compression_level: 3
+  row_group_size: 250000
+expected_counts:
+  crime_physical_rows: 503192
+  crime_retained_rows: 503157
+  crime_excluded_rows: 35
+  bicycle_physical_rows: 87307570
+  bicycle_nonblank_rows: 87231041
+  bicycle_retained_rows: 87208600
+  bicycle_outside_source_month_rows: 22441
+  bicycle_blank_rows: 76529
+station_resolution:
+  movement_threshold_m: 100
+  vancouver_current:
+    path: data/raw/bicycle/VAN/station_information_current.csv
+    sha256: 2af49da0a366a9752f1d3334dc357dee1f1b14cfecb84093ec7737056b23cf35
+    snapshot_status: current_snapshot_retrofit
+  vancouver_historical:
+    path: empirical/reference_data/vancouver_station_information_historical.csv
+    optional: true
+  non_public_patterns:
+    - workshop
+    - yard
+    - service
+    - demo
+    - testing
+    - storage
+    - production
+    - temporary
+    - valet
+    - smoove
+    - ready to deploy
+    - bike check
+crime:
+  allowed_types:
+    - PROPERTY_THEFT
+    - VEHICLE_THEFT
+    - BURGLARY
+  authoritative_type_field: crime_type_unified
+  source_id_fields:
+    NY: CMPLNT_NUM
+bicycle:
+  keep_nonpositive_duration_for_endpoint_flows: true
+  retain_repeated_rows_without_source_id: true
+  source_month_basis: started_at_local

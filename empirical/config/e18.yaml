@@ -1,0 +1,32 @@
+experiment_id: E18
+experiment_name: restricted_randomization_and_semi_synthetic_calibration
+source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+source_e04_run_pointer: runs/latest_e04_run.txt
+random_seed: 20260728
+
+information_sets:
+  baseline_state: [grid_id, crime_lag_bin, day_of_week, season, is_holiday]
+
+restricted_randomization:
+  block_days: 7
+  repetitions: 999
+  minimum_blocks_per_stratum: 5
+  minimum_movable_share: 0.80
+  balance_threshold: 0.10
+
+semi_synthetic:
+  representative_grids_per_city: 6
+  days: 365
+  monte_carlo_repetitions: 50
+  randomization_repetitions: 99
+  target_cmi_bits: [0.0, 0.02, 0.05, 0.10]
+  dispersion_multipliers: [1.0, 0.5]
+  mean_shrinkage: 20.0
+
+inference:
+  alpha: 0.05
+  multiple_testing: benjamini_hochberg
+
+reporting:
+  figure_dpi: 300
+  parquet_compression: zstd

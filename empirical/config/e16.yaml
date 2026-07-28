@@ -1,0 +1,195 @@
+experiment_id: E16
+experiment_name: three_axis_scale_analysis
+current_stage: S16.1_design_freeze
+status: design_frozen_not_executed
+
+source_policy:
+  preserve_e01_e15: true
+  source_e01_data_pointer: processed_data/e01/latest_e01_data.txt
+  source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+  source_e04_run_pointer: runs/latest_e04_run.txt
+  raw_data_read_only: true
+  rebuild_each_spatiotemporal_scale_from_standardized_events: true
+  prohibit_rescaling_existing_bounds: true
+
+randomness:
+  master_seed: 20260722
+  sample_fraction_repetitions: 50
+  save_all_sample_indices: true
+  save_all_seeds: true
+
+study:
+  cities: [DC, NY, VAN]
+  date_start: 2020-01-01
+  date_end: 2022-12-31
+  target: crime_count_all
+  primary_domain: bike_covered_training
+  matched_baseline_and_bicycle_samples: true
+
+spatial_scales:
+  resolutions_m: [500, 1000, 2000]
+  nominal_cell_area_km2:
+    500: 0.25
+    1000: 1.0
+    2000: 4.0
+  anchor: global_projected_crs_origin
+  primary_comparison_domain: complete_nested_common_core
+  primary_domain_definition: >
+    Within each city, retain complete 2 km parents whose four constituent
+    accepted 1 km reference cells are present; compare those 2 km cells with
+    the corresponding 1 km cells and all sixteen 500 m children. This keeps
+    nominal cell areas exact and the cross-scale footprint nested.
+  robustness_comparison_domain: native_scale_domain
+  boundary_policy: >
+    Partial 2 km parents are excluded from the primary common-core comparison
+    and retained only in native-domain robustness tables with their effective
+    included area explicitly recorded.
+
+temporal_scales:
+  resolutions: [day, week]
+  duration_days:
+    day: 1
+    week: 7
+  weekly_anchor: ISO_Monday
+  incomplete_week_policy: exclude
+  lag_definition: one_previous_aggregation_period
+
+sample_size_scales:
+  fractions: [0.20, 0.40, 0.60, 0.80, 1.00]
+  estimand_notation: "L^j(A,tau)"
+  estimator_notation: "Lhat^j_N(A,tau)"
+  primary_design:
+    name: fixed_coverage_block_thinning
+    purpose: isolate_finite_sample_stability
+    daily_sampling_unit: complete_7_day_block_with_all_grids
+    weekly_sampling_unit: complete_4_week_block_with_all_grids
+    strata: [year, season]
+    nested_fractions_within_repetition: true
+    repetitions_below_full_sample: 50
+    full_sample_repetitions: 1
+  robustness_design:
+    name: expanding_historical_window
+    purpose: application_realistic_accumulation_with_possible_distribution_drift
+    chronological_nested_windows: true
+    repetitions: 1
+  prohibited_metrics:
+    - delb_divided_by_sample_size
+    - cmi_divided_by_sample_size
+    - error_floor_per_observation
+
+information_sets:
+  common:
+    crime_lag_field: previous_period_crime_count
+    crime_lag_bins: [zero, one, two, three_plus]
+    bicycle_lag_field: previous_period_bike_total_flow
+    bicycle_bins: [zero, low, medium, high]
+    bicycle_positive_quantiles: [0.3333333333333333, 0.6666666666666666]
+  daily_baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  weekly_baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - season
+    - contains_holiday
+  bicycle_state_field: bicycle_lag_bin
+  binning_primary: fixed_from_full_2020_2021_training_reference_within_city_and_scale
+  binning_robustness: refit_within_each_available_sample_without_test_information
+
+estimands:
+  baseline_exact_delb: "L0(A,tau)=HZ_inverse[H(C_A_tau|F0_A_tau)]"
+  bicycle_exact_delb: "LB(A,tau)=HZ_inverse[H(C_A_tau|FB_A_tau)]"
+  exact_delb_reduction: "DeltaL(A,tau)=L0(A,tau)-LB(A,tau)"
+  relative_reduction: "RL(A,tau)=DeltaL(A,tau)/L0(A,tau), only when L0>0"
+  bicycle_cmi_bits: "DeltaH(A,tau)=I(C_A_tau;B_A_tau|F0_A_tau)"
+  primary_entropy_estimator: miller_madow
+  retained_entropy_estimators: [plugin, miller_madow]
+  exact_bound_primary: true
+  closed_form_bound_secondary: true
+  nonnegative_cmi_for_bound_only: true
+
+normalization:
+  count_level_bound_is_primary: true
+  intensity_mse_floor: "Lint^j=L^j/(A*tau)^2"
+  intensity_rmse_floor: "Rint^j=sqrt(L^j)/(A*tau)"
+  intensity_delb_reduction: "DeltaLint=(L0-LB)/(A*tau)^2"
+  relative_reduction_invariant_under_scaling: true
+  area_unit: km2
+  time_unit: day
+  intensity_mse_unit: crime2_per_km4_day2
+  intensity_rmse_unit: crimes_per_km2_day
+  scope_condition: >
+    The normalized bound applies to the deterministically scaled count target
+    C/(A*tau) and correspondingly scaled integer-valued count predictor. It is
+    not asserted for an unrestricted real-valued density predictor.
+
+finite_sample_diagnostics:
+  report:
+    - observed_joint_support_atoms
+    - singleton_observation_share
+    - effective_degrees_of_freedom
+    - plugin_minus_miller_madow
+    - repeated_thinning_median
+    - repeated_thinning_interval
+    - full_sample_block_bootstrap_interval
+  stability_metric: "abs(Lhat_N-Lhat_Nmax)/max(Lhat_Nmax,epsilon)"
+  stability_epsilon: 1.0e-12
+  stability_interpretation: numerical_convergence_to_full_sample_estimate_not_error_to_truth
+  block_bootstrap:
+    primary_block_days: 28
+    robustness_block_days: [7, 14]
+    full_sample_repetitions: 1000
+    confidence_level: 0.95
+
+randomization_budget_reserved_for_S16_6:
+  all_90_cells_screening_repetitions: 199
+  canonical_thinning_replicate: 1
+  canonical_thinning_rule: lowest_prespecified_S16_3_replicate_not_result_selected
+  key_scales:
+    - {spatial_resolution_m: 500, temporal_resolution: day}
+    - {spatial_resolution_m: 1000, temporal_resolution: day}
+    - {spatial_resolution_m: 2000, temporal_resolution: week}
+  key_scale_repetitions: 999
+  designs: [temporal_block, spatial_series, circular_shift]
+  selection_rule: prespecified_not_result_selected
+  temporal_block_periods:
+    day: 7
+    week: 4
+  circular_minimum_separation_days: 31
+  circular_minimum_separation_periods:
+    day: 31
+    week: 5
+  statistic: miller_madow_conditional_mutual_information_bits
+  alternative: observed_greater_than_randomization_reference
+  p_value_rule: plus_one
+  false_discovery_rate_alpha: 0.05
+  adjustment_families:
+    - all_270_scale_fraction_design_tests
+    - within_city_and_null_design
+  worker_processes: 6
+  checkpoint_unit: city_spatial_temporal_cell
+
+reporting:
+  figures_are_python_generated: true
+  figure_formats: [pdf, svg, png]
+  figure_dpi: 300
+  save_plot_inputs: true
+  save_figure_hashes: true
+  save_intermediate_results: true
+
+acceptance_S16_1:
+  expected_spatial_scales: 3
+  expected_temporal_scales: 2
+  expected_sample_fractions: 5
+  expected_cities: 3
+  expected_primary_design_cells: 90
+  require_population_estand_sample_estimator_separation: true
+  require_squared_area_time_mse_normalization: true
+  prohibit_L_over_N: true
+  require_matched_information_set_samples: true
+  require_python_generated_figures: true
+  no_data_processing_in_this_stage: true
+  no_manuscript_changes_in_this_stage: true

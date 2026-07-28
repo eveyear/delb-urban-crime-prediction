@@ -1,0 +1,52 @@
+experiment_id: E02
+experiment_name: spatial_temporal_panel_and_descriptive_analysis
+source_e01_pointer: runs/latest_e01_run.txt
+date_range:
+  start: 2020-01-01
+  end: 2022-12-31
+domain:
+  definition: training_crime_occupied_grid
+  training_start: 2020-01-01
+  training_end: 2021-12-31
+  rationale: >
+    Use only grid membership observable before validation and test periods.
+    Bicycle endpoints outside the crime-supported jurisdiction are retained in
+    reason-coded reconciliation tables but excluded from the primary panel.
+spatial:
+  resolution_m: 1000
+  anchor: global_projected_crs_origin
+  grid_id_format: "{city}_R{resolution}_E{x_index}_N{y_index}"
+temporal:
+  resolution: day
+  local_calendar_dates: true
+  crime_date_field: event_date
+  bicycle_outflow_date_field: start_date
+  bicycle_inflow_date_field: end_date
+panel:
+  include_zero_grid_days: true
+  primary_crime_target: ALL_HARMONIZED_PROPERTY_CRIME
+  crime_categories:
+    - PROPERTY_THEFT
+    - VEHICLE_THEFT
+    - BURGLARY
+  bicycle_measures:
+    - inbound
+    - outbound
+    - total
+    - net
+  primary_lags:
+    - 1
+validation:
+  train_start: 2020-01-01
+  train_end: 2021-12-31
+  validation_start: 2022-01-01
+  validation_end: 2022-06-30
+  test_start: 2022-07-01
+  test_end: 2022-12-31
+parquet:
+  compression: zstd
+  compression_level: 3
+  row_group_size: 250000
+reporting:
+  figure_dpi: 300
+  make_qc_workbook: true

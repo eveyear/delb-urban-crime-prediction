@@ -1,0 +1,74 @@
+\subsection{Closed-Form, Temporal, and Vector Extensions}
+\label{subsec:closed_form_temporal}
+
+\begin{Corollary}[Closed-form DELB]
+\label{cor:closed_form_delb}
+Every predictor in Theorem~\ref{thm:exact_delb} satisfies
+\begin{equation}
+D_t^{(m)}
+\geq
+\left[
+\frac{2^{2H(X_t\mid\mathcal F_{t-m})}}{2\pi e}
+-\frac1{12}
+\right]_+ .
+\label{eq:discrete_mse_bound}
+\end{equation}
+\end{Corollary}
+
+The \(1/12\) term is the lattice correction produced by uniform
+dequantization. This explicit expression is conservative relative to the
+exact inverse-lattice DELB and is not generally attainable.
+
+\begin{Proposition}[Forecast-horizon monotonicity]
+\label{prop:general_horizon_monotonicity}
+If \(1\leq\ell<m\), then
+\begin{equation}
+H(X_t\mid\mathcal F_{t-m})
+\geq H(X_t\mid\mathcal F_{t-\ell}),
+\label{eq:general_horizon_entropy}
+\end{equation}
+and therefore
+\begin{equation}
+\mathcal H_{\mathbb Z}^{-1}[H(X_t\mid\mathcal F_{t-m})]
+\geq
+\mathcal H_{\mathbb Z}^{-1}[H(X_t\mid\mathcal F_{t-\ell})].
+\label{eq:general_horizon_delb}
+\end{equation}
+\end{Proposition}
+
+\begin{Corollary}[Stationary one-step limit]
+\label{cor:general_stationary_delb}
+For a strictly stationary integer process with
+\(\mathcal F_{t-1}=\sigma(X_0,\ldots,X_{t-1})\), define
+\begin{equation}
+\overline H(X)
+=\lim_{t\to\infty}H(X_t\mid X_0,\ldots,X_{t-1}).
+\label{eq:general_entropy_rate}
+\end{equation}
+Then
+\begin{equation}
+\liminf_{t\to\infty}
+\mathbb E[(X_t-\widehat X_t)^2]
+\geq
+\mathcal H_{\mathbb Z}^{-1}[\overline H(X)].
+\label{eq:general_stationary_exact_bound}
+\end{equation}
+\end{Corollary}
+
+\begin{Corollary}[Integer-vector closed-form DELB]
+\label{cor:general_vector_delb}
+For \(\mathbf X_t,\widehat{\mathbf X}_t\in\mathbb Z^n\),
+\begin{equation}
+\frac1n\mathbb E\|\mathbf X_t-\widehat{\mathbf X}_t\|_2^2
+\geq
+\left[
+\frac{2^{(2/n)H(\mathbf X_t\mid\mathcal F_{t-m})}}{2\pi e}
+-\frac1{12}
+\right]_+ .
+\label{eq:general_vector_delb}
+\end{equation}
+\end{Corollary}
+
+The proofs use uniform dequantization, information-set nesting, and the
+multivariate Gaussian maximum-entropy inequality, respectively, and are
+given in Appendix~\ref{app:proofs}.

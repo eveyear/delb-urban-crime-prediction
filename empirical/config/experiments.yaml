@@ -1,0 +1,28 @@
+random_seed: 20260718
+primary:
+  spatial_resolution_m: 1000
+  temporal_resolution: day
+  crime_lags: [1]
+  bicycle_lags: [1]
+  crime_lag_bins: [0, 1, 2, "3+"]
+  bicycle_bins: [zero, positive_tertile_1, positive_tertile_2, positive_tertile_3]
+  entropy_estimator: miller_madow
+  bootstrap_block_days: 7
+  bootstrap_repetitions_development: 500
+  bootstrap_repetitions_final: 1000
+robustness:
+  spatial_resolution_m: [500, 2000]
+  diagnostic_resolution_m: [250]
+  temporal_resolution: [week]
+  crime_lags: [2, 3, 7]
+  bicycle_lags: [2, 3, 7, 14, 30]
+  entropy_estimators: [plugin, bayesian_dirichlet]
+  bootstrap_block_days: [14, 28]
+validation:
+  train_start: 2020-01-01
+  train_end: 2021-12-31
+  validation_start: 2022-01-01
+  validation_end: 2022-06-30
+  test_start: 2022-07-01
+  test_end: 2022-12-31
+

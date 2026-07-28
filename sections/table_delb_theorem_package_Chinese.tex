@@ -1,0 +1,42 @@
+\begin{table}[!htbp]
+\caption{DELB 四部分定理体系及各部分回答的不同问题。贡献在于针对因果整数
+预测的联合组织；基础最大熵和信息投影结果仍属于既有理论。}
+\label{tab:delb_theorem_package}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{
+    >{\RaggedRight\arraybackslash}p{0.19\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.28\textwidth}
+    >{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{组成} & \textbf{数学对象} & \textbf{回答的预测问题}\\
+\midrule
+精确逆格点底线
+&
+\(\mathcal H_{\mathbb Z}^{-1}
+ [H(X_t\mid\mathcal F_{t-m})]\)
+&
+目标不确定性和整数格点对所有算法施加何种 MSE 下界？\\
+
+预测器相关强化
+&
+\(\mathcal H_{\mathbb Z}^{-1}
+ [H(X_t\mid\mathcal F_{t-m})+I(E_t;\mathcal F_{t-m})]\)
+&
+特定预测器的误差仍保留历史信息时，下界如何加强？\\
+
+可达充要条件
+&
+\(P_E=q_D\) 且 \(I(E;\mathcal F)=0\)
+&
+预测器何时达到普适 DELB，而不仅仅是满足该不等式？\\
+
+双松弛诊断
+&
+\(I(E;\mathcal F)+D_{\mathrm{KL},2}(P_E\Vert q_D)\)
+&
+不可达来自残余历史依赖、误差形状失配，还是二者兼有？\\
+\bottomrule
+\end{tabularx}
+\end{table}

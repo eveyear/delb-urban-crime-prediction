@@ -1,0 +1,69 @@
+\begin{table}[!t]
+\caption{Comparison of the principal lower-bound frameworks used to locate
+the DELB contribution. ``Exact'' refers to inversion of the discrete
+maximum-entropy envelope, not equality with Bayes risk for every target
+distribution.}
+\label{tab:core_bound_comparison}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{
+    >{\RaggedRight\arraybackslash}p{0.15\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.16\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.19\textwidth}
+    >{\RaggedRight\arraybackslash}p{0.22\textwidth}
+    >{\RaggedRight\arraybackslash}X}
+\toprule
+\textbf{Framework} & \textbf{Target and loss} &
+\textbf{Bound object} & \textbf{Attainability and predictor role} &
+\textbf{Relation to the present DELB}\\
+\midrule
+Continuous entropy prediction bound \citep{fang_variance_bounds}
+& Real-valued target; squared error
+& Conditional differential entropy mapped through the Gaussian
+entropy--variance relation
+& Equality requires an innovation with the appropriate Gaussian form and
+independence properties
+& Continuous analogue; it does not supply the exact integer-lattice
+envelope or its lattice correction\\
+
+Massey lattice bound \citep{massey_integer_entropy,rioul_massey}
+& Integer-valued variable; variance or second moment
+& Discrete maximum entropy and the conservative \(1/12\)-corrected
+closed form
+& Characterizes the lattice extremizer, but does not by itself specify a
+causal predictor, its history-dependent refinement, or side-information
+ordering
+& Supplies established lattice ingredients; neither the extremizer nor the
+closed-form inequality is claimed as new\\
+
+Fano inequality \citep{cover_thomas,feder_merhav}
+& Finite-alphabet target; Hamming loss
+& Conditional entropy related to classification-error probability
+& Concerns the optimal classification decision on the appropriate inverse
+branch
+& A complementary loss-specific check; it is not an MSE bound and is not
+part of the DELB novelty claim\\
+
+General Bayes-risk and rate--distortion bounds
+\citep{shannon_rate_distortion,chen_bayes_risk}
+& General estimand and specified loss or distortion
+& Minimum decision risk or operational distortion, often through
+hypothesis testing or coding arguments
+& Defined through optimization over a decision class; tightness depends on
+the particular bound and statistical experiment
+& Broader than DELB. DELB is an explicit information-theoretic lower bound
+on integer-valued squared-error risk, not Bayes risk itself\\
+
+Present DELB package
+& Causal integer-valued target; squared error
+& Exact inverse lattice envelope, with a predictor-dependent refinement
+& A given predictor attains the universal bound exactly when its error is
+moment-matched discrete Gaussian and independent of the admissible history;
+equality with optimal risk also requires an optimizing predictor to exist
+& Adds the two-slack diagnostic, CMI ordering for new information, and a
+finite-sample estimation--randomization workflow; it is a synthesis rather
+than a new primitive entropy inequality\\
+\bottomrule
+\end{tabularx}
+\end{table}

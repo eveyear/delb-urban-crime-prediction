@@ -1,0 +1,72 @@
+experiment_id: E10
+experiment_name: placebo_and_null_calibration
+source_e02_data_pointer: processed_data/e02/latest_e02_data.txt
+source_e04_run_pointer: runs/latest_e04_run.txt
+source_e05_run_pointer: runs/latest_e05_run.txt
+source_e09_run_pointer: runs/latest_e09_run.txt
+random_seed: 20260718
+target: crime_count_all
+domain: bike_covered_training
+
+information_sets:
+  baseline_state:
+    - grid_id
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  local_baseline_state:
+    - crime_lag_bin
+    - day_of_week
+    - season
+    - is_holiday
+  bicycle_state_field: bicycle_lag_bin
+  primary_crime_lag_days: 1
+  primary_bicycle_lag_days: 1
+  bicycle_threshold_source: accepted_e04_training_only
+
+frozen_null_matrix:
+  repetitions: 999
+  temporal_block_permutation:
+    block_days: 7
+    unit: independently_within_grid
+    complete_blocks_permuted: true
+    terminal_remainder_fixed: true
+  spatial_series_permutation:
+    unit: complete_grid_time_series
+    restriction: within_city_and_analysis_domain
+  circular_shift_surrogate:
+    unit: independently_within_grid
+    minimum_absolute_shift_days: 31
+    preserves: [grid_marginal_distribution, circular_autocorrelation]
+  distant_lag_placebos_days: [14, 30]
+
+inference:
+  alternative: observed_cmi_greater_than_null
+  randomization_p_value: plus_one
+  multiple_testing: benjamini_hochberg
+  false_discovery_rate_alpha: 0.05
+  city_adjustment_family: all_city_by_null_design_tests
+  local_adjustment_family: within_city_and_null_design
+  local_joint_screen: significant_under_all_three_null_designs
+
+numerics:
+  lattice_tail_tolerance: 1.0e-15
+  root_tolerance: 1.0e-12
+  bound_interpolation_max_entropy_bits: 8.0
+  source_reconciliation_tolerance_bits: 1.0e-10
+
+acceptance:
+  expected_cities: 3
+  expected_null_designs: 3
+  expected_city_null_rows: 8991
+  expected_eligible_local_grids: 339
+  expected_local_null_rows: 1015983
+  expected_distant_city_rows: 6
+  expected_distant_local_rows: 678
+  minimum_randomization_p_value: 0.001
+
+reporting:
+  figure_dpi: 300
+  make_qc_workbook: true
+  figures_are_python_generated: true

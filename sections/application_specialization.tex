@@ -1,0 +1,81 @@
+\subsection{Crime-Count and Bicycle-Information Specialization}
+\label{subsec:theory_application_appendix}
+
+Using the variables defined above, the baseline entropy and bounds are
+\begin{align}
+H^0_{c,i,t}
+&=H(C_{c,i,t}\mid\mathcal F^0_{c,i,t}),
+\label{eq:crime_baseline_entropy}\\
+L^0_{c,i,t}
+&=\mathcal H_{\mathbb Z}^{-1}[H^0_{c,i,t}],
+\label{eq:local_bound_baseline}\\
+\mathbb E[(C_{c,i,t}-\widehat C_{c,i,t})^2]
+&\geq L^0_{c,i,t}.
+\label{eq:crime_baseline_exact_bound}
+\end{align}
+The closed-form counterpart is
+\begin{equation}
+\mathbb E[(C_{c,i,t}-\widehat C_{c,i,t})^2]
+\geq
+\left[\frac{2^{2H^0_{c,i,t}}}{2\pi e}-\frac1{12}\right]_+ .
+\label{eq:crime_baseline_closed_bound}
+\end{equation}
+If \(Q_C\) top-codes the target, deterministic processing gives
+\begin{equation}
+H(Q_C(C)\mid\mathcal F)\leq H(C\mid\mathcal F).
+\label{eq:top_coded_entropy_order}
+\end{equation}
+
+For the bicycle-augmented information set,
+\begin{align}
+H^B_{c,i,t}
+&=H(C_{c,i,t}\mid\mathcal F^B_{c,i,t}),
+\label{eq:crime_bicycle_entropy}\\
+L^B_{c,i,t}
+&=\mathcal H_{\mathbb Z}^{-1}[H^B_{c,i,t}],
+\label{eq:local_bound_bike}
+\end{align}
+with the analogous closed-form bound
+\begin{equation}
+\mathbb E[(C_{c,i,t}-\widehat C^B_{c,i,t})^2]
+\geq
+\left[\frac{2^{2H^B_{c,i,t}}}{2\pi e}-\frac1{12}\right]_+ .
+\label{eq:crime_bicycle_closed_bound}
+\end{equation}
+
+\begin{Proposition}[Conditional information value of bicycle mobility]
+\label{prop:bicycle_information_value}
+The conditional entropy reduction is
+\begin{equation}
+\Delta H^B_{c,i,t}
+=H^0_{c,i,t}-H^B_{c,i,t}
+=I(C_{c,i,t};Q_B(\mathbf B^{(q)}_{c,i,t})
+\mid\mathcal F^0_{c,i,t})\geq0,
+\label{eq:bicycle_information_gain}
+\end{equation}
+so
+\begin{equation}
+L^B_{c,i,t}\leq L^0_{c,i,t}.
+\label{eq:bicycle_exact_bound_order}
+\end{equation}
+\end{Proposition}
+
+For the discrete entropy-power shorthand
+\begin{equation}
+N_d(C\mid\mathcal F)=2^{2H(C\mid\mathcal F)},
+\label{eq:discrete_entropy_power}
+\end{equation}
+\begin{equation}
+\frac{N_d(C\mid\mathcal F^B)}
+{N_d(C\mid\mathcal F^0)}
+=2^{-2\Delta H^B}.
+\label{eq:cmi_entropy_power_ratio}
+\end{equation}
+Finally,
+\begin{equation}
+I(C;Q_B(\mathbf B)\mid\mathcal F^0)
+\leq I(C;\mathbf B\mid\mathcal F^0)
+\label{eq:bicycle_data_processing}
+\end{equation}
+formalizes the information loss from binning or feature compression. The
+proofs are given in Appendix~\ref{app:proofs}.

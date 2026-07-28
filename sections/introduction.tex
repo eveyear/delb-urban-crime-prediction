@@ -1,0 +1,141 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{The Data-Value Problem in Urban Crime Count Forecasting}
+\label{subsec:intro_data_value}
+
+Urban crime forecasting increasingly combines historical incidents with
+mobility traces, calendar variables, environmental measurements, and other
+dynamic urban data. These sources can enrich the representation of activity
+around a location, but they also require acquisition, cleaning, spatial
+alignment, maintenance, and governance. For a city agency or an analyst, the
+relevant question is therefore not only whether a fitted model obtains a
+lower test error after a new source is added. It is also whether that source
+reduces uncertainty about future crime counts beyond information already
+available from location, crime history, and the calendar.
+
+These two questions are not equivalent. A change in held-out error depends on
+the fitted model, hyperparameter search, training sample, target definition,
+and validation period. It may reflect useful new information, a better match
+between the added variables and one model class, or sampling variation. In
+contrast, a model-independent prediction benchmark is determined by the joint
+distribution of the target and the information available when a forecast is
+issued. Comparing achieved error with such a benchmark can help distinguish
+uncertainty intrinsic to the target--information pair from error that may
+remain reducible through improved modeling.
+
+Crime count forecasting makes this distinction practically important.
+Incident counts are nonnegative integers, are often zero at fine spatial and
+temporal resolutions, and are evaluated under losses such as mean squared
+error (MSE). Existing crime-prediction studies have developed statistical,
+machine-learning, recurrent, graph-based, multiscale, and transformer models
+\citep{kounadi2020review,du2023review,mandalapu2023review,
+alves2018crime,angbera2023model,huang2018deepcrime,deng2023risk,
+jing2024multiscale,wang2025mragnn,butt2025start,cui2026transfer,
+hu2023fusion}. Their comparative results are essential for model selection,
+but they do not identify how much error is unavoidable under a specified
+information set. This limitation becomes more consequential when a costly
+new urban data source appears to improve one or more fitted models.
+
+We study this problem using shared-bicycle activity as a candidate source of
+additional information. Bicycle trips provide high-frequency and spatially
+resolved observations of one form of public-space activity. They do not,
+however, constitute a census of the ambient population, and a predictive
+association with crime does not establish a causal effect. The empirical
+question is deliberately narrower: does lagged bicycle flow add
+prediction-relevant information for future crime counts, and can an estimated
+gain be distinguished from finite-sample artifacts?
+
+\subsection{From Integer-Valued Uncertainty to Calibrated Evidence}
+\label{subsec:intro_calibrated_evidence}
+
+Conditional entropy provides a natural measure of the uncertainty remaining
+after the forecast-time information set has been observed
+\citep{shannon1948,cover_thomas}. Existing entropy-based prediction bounds,
+however, are mainly formulated for continuous outcomes or classification
+losses. A continuous Gaussian entropy--variance argument cannot be transferred
+to integer-valued crime counts by simply replacing differential entropy with
+Shannon entropy. The prediction error lies on an integer lattice, and the
+relevant maximum-entropy envelope under a second-moment constraint is
+discrete.
+
+To address this support mismatch, we formulate the Discrete Entropy Lower
+Bound (DELB). DELB maps conditional Shannon entropy through the inverse
+integer-lattice maximum-entropy envelope to a model-independent,
+entropy-constrained MSE floor for causal integer-valued predictors. The bound
+is exact in its discrete-envelope form, although equality with the optimal
+integer-predictor risk requires the stated attainability conditions. The
+framework also includes a predictor-dependent refinement and separates two
+sources of nonattainment: residual dependence of the prediction error on the
+available history and mismatch between the error distribution and the
+moment-matched discrete Gaussian.
+
+A population ordering is only the first layer of the applied problem. Adding
+a discretized mobility variable refines the baseline state space, often
+creating sparse or singleton cells. Conditional-entropy and conditional
+mutual information (CMI) estimators can then have different finite-sample
+errors in the baseline and augmented state tables
+\citep{paninski2003,calcagnile2026benchmark}. A positive estimated CMI, or a
+lower estimated DELB, may consequently arise even when the added variable has
+no population information value. Moreover, a randomization reference is
+conditioned on its transformation design; it need not be centered at zero
+when that design changes support occupancy
+\citep{ernst2004permutation,zan2022cmi,runge2018cmi,li2023nncit}.
+
+The evaluation must therefore keep four objects separate: the population
+DELB and CMI estimands, their finite-sample estimates, evidence relative to a
+prespecified randomization reference, and realized out-of-sample prediction
+error. We connect these layers using known-truth simulations, support
+diagnostics, block resampling, temporal and spatial randomization,
+circular-shift references, and matched prediction models. This design does
+not turn a transformation-specific diagnostic into a causal or exact
+conditional-independence test. Its purpose is to determine whether the
+observed statistic is distinguishable from finite-sample behavior under each
+explicit reference design.
+
+\subsection{Research Questions and Contributions}
+\label{subsec:intro_contributions}
+
+The study addresses three linked research questions:
+
+\begin{enumerate}
+    \item \textit{How can conditional uncertainty be translated into a
+    discrete-form, model-independent MSE lower bound for causal
+    integer-valued prediction?}
+    \item \textit{How can an estimated information gain be separated from
+    sparse-state estimation bias and a transformation-specific randomization
+    reference?}
+    \item \textit{Does lagged bicycle mobility provide additional information
+    for urban crime count prediction that remains distinguishable after
+    finite-sample calibration?}
+\end{enumerate}
+
+The corresponding contributions are application oriented. First, we
+introduce DELB as a model-independent benchmark for integer-valued urban count
+prediction, provide its attainability diagnostics, and give an implementable
+numerical inversion procedure. Second, we develop a finite-sample-calibrated
+workflow that distinguishes estimated information gain, support-induced
+bias, design-conditioned randomization evidence, and realized prediction
+improvement. Third, we conduct a harmonized multicity evaluation using crime
+and shared-bicycle data from Washington, DC, New York City, and Vancouver
+during 2020--2022. The evaluation examines city-level and local estimates,
+spatial and temporal scale, sample size, alternative estimators, and matched
+held-out prediction.
+
+The empirical conclusion is intentionally qualified. Adding lagged bicycle
+flow lowers the estimated DELB in the primary city-level comparisons, but the
+reductions are not distinguishable from the prespecified temporal, spatial,
+or circular-shift references after calibration. Realized prediction changes
+are model- and city-dependent. Rather than treating this result as a failed
+application, the study uses it to illustrate why lower estimated
+uncertainty, calibrated information gain, and improved predictive performance
+must be reported as separate claims when evaluating new smart-city data.
+
+Section~\ref{sec:related_work} reviews urban crime forecasting, mobility data
+in crime analytics, and information-theoretic prediction limits.
+Section~\ref{sec:theory} presents the DELB methodology. Section~\ref{sec:data}
+defines the multicity data and experimental design. Section~\ref{sec:results}
+first summarizes the multicity application and then reports the finite-sample,
+city-level, multiscale, and prediction evidence.
+Section~\ref{sec:discussion} discusses practical implications, inferential
+scope, and limitations.

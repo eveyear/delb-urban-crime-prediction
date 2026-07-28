@@ -1,0 +1,37 @@
+# Raw and derived data
+data/
+empirical/raw_data/
+empirical/processed_data/
+empirical/reference_data/
+empirical/runs/
+empirical/paper_assets/
+
+# Local build and archive directories
+out/
+output/
+tmp/
+archive/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+
+# Python and operating-system caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+node_modules/
+
+# Bundled local snapshots are not needed when source files are present
+figure_code/*.zip
+
+# Local IDE settings
+.idea/
+.vscode/

@@ -1,0 +1,261 @@
+\section{方法：离散熵下界}
+\label{sec:theory}
+
+\subsection{一般整数值预测设定}
+\label{subsec:notation}
+
+设 \(\{X_t\}_{t\in\mathbb{Z}}\) 为整数值随机过程：
+\begin{equation}
+X_t\in\mathbb{Z}.
+\label{eq:general_integer_process}
+\end{equation}
+对于 \(m\) 步预测（\(m\geq1\)），令 \(\mathcal{F}_{t-m}\) 表示发布
+预测时恰好可用的全部观测所生成的 sigma 代数。因果整数值预测器是一个
+从下列明确受限决策类中选取的随机变量：
+\begin{equation}
+\mathcal A_{\mathbb Z}(\mathcal F_{t-m})
+=
+\left\{
+f(\mathcal F_{t-m}):
+f\ \text{可测},\
+f(\mathcal F_{t-m})\in\mathbb Z,\
+\mathbb E[(X_t-f(\mathcal F_{t-m}))^2]<\infty
+\right\},
+\label{eq:general_predictor}
+\end{equation}
+并且 \(\widehat X_t\in\mathcal A_{\mathbb Z}(\mathcal F_{t-m})\)。
+预测误差及均方误差（MSE）定义为
+\begin{equation}
+E_t=X_t-\widehat X_t,
+\qquad
+D_t^{(m)}=\mathbb{E}[E_t^2].
+\label{eq:general_error_mse}
+\end{equation}
+全文熵表达式均使用以 \(2\) 为底的对数，因此熵的单位为 bit。
+
+\begin{Assumption}
+\label{ass:general_regularity}
+对本文考虑的每个时点和提前期，均有
+\(H(X_t\mid\mathcal{F}_{t-m})<\infty\) 且
+\(\mathbb{E}[E_t^2]<\infty\)。预测信息集满足因果性，并且当
+\(1\leq\ell<m\) 时，
+\(\mathcal{F}_{t-m}\subseteq\mathcal{F}_{t-\ell}\)。
+\end{Assumption}
+
+对于概率质量函数为 \(p(v)\) 的离散随机变量 \(V\)，
+\begin{equation}
+H(V)=-\sum_vp(v)\log_2p(v),
+\label{eq:shannon_entropy}
+\end{equation}
+条件互信息（CMI）满足
+\begin{equation}
+I(V;W\mid Y)=H(V\mid Y)-H(V\mid Y,W).
+\label{eq:cmi_definition}
+\end{equation}
+必须区分总体量 \(H(X_t\mid\mathcal F_{t-m})\) 与其有限样本估计：
+前者定义下文的信息论下界，后者是第~\ref{sec:methods} 和
+\ref{sec:results} 节处理的推断对象。
+
+\subsection{精确 DELB 与预测器相关强化}
+\label{subsec:discrete_bound}
+
+连续熵--方差论证依赖高斯分布的最大微分熵性质
+\citep{fang_variance_bounds}。整数误差位于格点上，因而不能把微分熵
+机械替换为 Shannon 熵。相应的极值对象是整数格点最大熵包络
+\citep{massey_integer_entropy}。
+
+\begin{Definition}[整数最大熵包络]
+\label{def:integer_entropy_envelope}
+对 \(D\geq0\)，定义
+\begin{equation}
+\mathcal H_{\mathbb Z}(D)
+=
+\sup_{\substack{P_Z:\,Z\in\mathbb Z\\\mathbb E[Z^2]\leq D}}H(Z),
+\label{eq:integer_entropy_envelope}
+\end{equation}
+其广义逆为
+\begin{equation}
+\mathcal H_{\mathbb Z}^{-1}(h)
+=
+\inf\{D\geq0:\mathcal H_{\mathbb Z}(D)\geq h\}.
+\label{eq:integer_entropy_inverse}
+\end{equation}
+\end{Definition}
+
+当 \(D>0\) 时，包络由中心化离散高斯达到：
+\begin{equation}
+q_\lambda(k)
+=
+\frac{\exp(-\lambda k^2)}{\Theta(\lambda)},
+\qquad
+\Theta(\lambda)=\sum_{j\in\mathbb Z}\exp(-\lambda j^2),
+\quad k\in\mathbb Z,
+\label{eq:general_discrete_gaussian}
+\end{equation}
+其中选择 \(\lambda>0\) 使
+\begin{equation}
+D=D(\lambda)
+=-\frac{\mathrm d}{\mathrm d\lambda}\ln\Theta(\lambda).
+\label{eq:general_discrete_gaussian_moment}
+\end{equation}
+其熵为
+\begin{equation}
+H_\lambda
+=
+\frac{\lambda D(\lambda)+\ln\Theta(\lambda)}{\ln2}.
+\label{eq:general_discrete_gaussian_entropy}
+\end{equation}
+式~\eqref{eq:general_discrete_gaussian_moment} 与
+\eqref{eq:general_discrete_gaussian_entropy} 给出本文数值实现所使用的
+一维反演。
+
+\begin{Theorem}[精确离散熵预测误差下界]
+\label{thm:exact_delb}
+在假设~\ref{ass:general_regularity} 下，每个因果整数值预测器均满足
+\begin{align}
+D_t^{(m)}
+&\geq
+\mathcal H_{\mathbb Z}^{-1}\!\left[
+H(X_t\mid\mathcal F_{t-m})
++I(E_t;\mathcal F_{t-m})
+\right]
+\label{eq:general_predictor_dependent_delb}\\
+&\geq
+\mathcal H_{\mathbb Z}^{-1}\!\left[
+H(X_t\mid\mathcal F_{t-m})
+\right].
+\label{eq:general_universal_delb}
+\end{align}
+第二行称为离散熵预测误差下界（DELB）。
+\end{Theorem}
+
+式~\eqref{eq:general_universal_delb} 在总体层面回答 RQ1：目标不确定性
+与整数格点共同施加一个与预测算法无关的 MSE 底线。式
+\eqref{eq:general_predictor_dependent_delb} 保留
+\(I(E_t;\mathcal F_{t-m})\)，因而对特定预测器给出更强的界。完整证明见
+附录~\ref{app:proofs}。边界情形以及闭式、时间、平稳与向量推论在下文陈述，
+其完整证明仍保留在附录中。
+
+为区分 DELB 与最小决策风险，在同一因果整数值预测器类中定义最优风险
+\begin{equation}
+R_{\mathbb Z}^{*}(\mathcal F)
+=
+\inf_{\widehat X\in\mathcal A_{\mathbb Z}(\mathcal F)}
+\mathbb E[(X-\widehat X)^2].
+\label{eq:integer_optimal_risk}
+\end{equation}
+则每个合法整数值预测器均满足
+\begin{equation}
+L_{\mathrm{DELB}}(\mathcal F)
+\leq
+R_{\mathbb Z}^{*}(\mathcal F)
+\leq
+\mathbb E[(X-\widehat X)^2].
+\label{eq:delb_bayes_risk_hierarchy}
+\end{equation}
+因此，DELB 的“精确”是指离散熵包络及其反演的精确形式，并不表示 DELB
+在一般情形下等于最优风险。若式~\eqref{eq:integer_optimal_risk} 的下确界
+由某个预测器达到，则 \(L_{\mathrm{DELB}}=R_{\mathbb Z}^{*}\) 当且仅当
+风险最小预测器满足下文可达条件。若下确界未被达到，上述层级仍然成立，但数值
+下确界相等不能解释为存在一个实际预测器达到 DELB。
+
+\subsection{可达性与双松弛分解}
+\label{subsec:attainability}
+
+\begin{Proposition}[熵域中的精确可达性分解]
+\label{prop:attainability_decomposition}
+简记 \(\mathcal F=\mathcal F_{t-m}\)、\(E=E_t\) 和
+\(D=\mathbb E[E^2]\)。当 \(D>0\) 时，令 \(q_D\) 为二阶矩等于 \(D\)
+的中心化离散高斯；当 \(D=0\) 时，令 \(q_0\) 为零点处的点质量。则
+\begin{align}
+\mathcal H_{\mathbb Z}(D)
+-\left[H(X_t\mid\mathcal F)+I(E;\mathcal F)\right]
+&=
+D_{\mathrm{KL},2}(P_E\Vert q_D),
+\label{eq:predictor_attainability_decomposition}\\
+\mathcal H_{\mathbb Z}(D)-H(X_t\mid\mathcal F)
+&=
+\underbrace{I(E;\mathcal F)}_{\text{历史依赖松弛}}
++
+\underbrace{D_{\mathrm{KL},2}(P_E\Vert q_D)}_
+{\text{形状失配松弛}},
+\label{eq:universal_attainability_decomposition}
+\end{align}
+其中 \(D_{\mathrm{KL},2}\) 表示以 bit 为单位的相对熵。
+\end{Proposition}
+
+预测器相关下界可达，当且仅当 \(P_E=q_D\)。普适 DELB 可达，当且仅当
+还满足
+\begin{equation}
+I(E_t;\mathcal F_{t-m})=0.
+\label{eq:general_innovation_independence}
+\end{equation}
+因此，误差既须服从二阶矩匹配的离散高斯，也须与合法历史信息独立。零相关或
+二阶残差白噪声并不足够。式~\eqref{eq:universal_attainability_decomposition}
+中的两项诊断总体层面两种不同的不可达来源；二者都不是第
+\ref{subsec:methods_prediction} 节定义的经验 Predictability Gap。
+
+附录~\ref{subsec:prior_bound_scope} 将 DELB 与既有及近期邻近下界进行比较，并明确
+列出本文不作出的原创性主张。把该比较和补充推论放入附录，使主文集中于可实施下界、
+可达性诊断和新增信息排序。
+
+\begin{Remark}[边界与损失条件]
+\label{rem:general_boundary_cases}
+由于 \(\mathcal H_{\mathbb Z}^{-1}(0)=0\)，若信息几乎必然决定 \(X_t\)，
+则 DELB 为零；条件无关的侧信息不改变下界。若没有整数支撑和平方损失，
+Shannon 熵本身不能定义 MSE 底线；格点包络是定理~\ref{thm:exact_delb}
+的构成部分。
+\label{rem:support_and_loss}
+\end{Remark}
+
+\subsection{新增侧信息与 CMI 排序}
+\label{subsec:side_information}
+
+令 \(\mathcal F_t^0\) 为基准因果信息集，\(S_t\) 为发布预测时已经观测到的
+新增侧信息，并定义
+\begin{equation}
+\mathcal F_t^S=\mathcal F_t^0\vee\sigma(S_t).
+\label{eq:generic_augmented_information}
+\end{equation}
+总体不确定性的下降恰为
+\begin{equation}
+\Delta H^S_t
+=
+H(X_t\mid\mathcal F_t^0)-H(X_t\mid\mathcal F_t^S)
+=
+I(X_t;S_t\mid\mathcal F_t^0)\geq0.
+\label{eq:generic_information_gain}
+\end{equation}
+因此，相应的普适底线
+\begin{equation}
+L_t^0=\mathcal H_{\mathbb Z}^{-1}
+\!\left[H(X_t\mid\mathcal F_t^0)\right],
+\qquad
+L_t^S=\mathcal H_{\mathbb Z}^{-1}
+\!\left[H(X_t\mid\mathcal F_t^S)\right]
+\label{eq:generic_side_information_bounds}
+\end{equation}
+满足
+\begin{equation}
+L_t^S\leq L_t^0.
+\label{eq:generic_side_information_ordering}
+\end{equation}
+
+式~\eqref{eq:generic_information_gain}--\eqref{eq:generic_side_information_ordering}
+定义用于回答 RQ2 与 RQ3 的总体 estimand。它们并不意味着 CMI 估计无偏，
+也不意味着设计条件下的随机化分布以零为中心，更不保证有限样本预测器能够实现
+总体底线下降。这些是不同的经验问题。确定性压缩 \(Q(S_t)\) 只能损失条件信息：
+\begin{equation}
+I(X_t;Q(S_t)\mid\mathcal F_t^0)
+\leq
+I(X_t;S_t\mid\mathcal F_t^0).
+\label{eq:generic_data_processing}
+\end{equation}
+
+附录~\ref{app:proofs} 给出完整证明、DELB 与既有信息论下界的关系，以及分类损失
+补充结果。第~\ref{sec:methods} 节将一般对象
+\((X_t,\mathcal F_t^0,S_t)\) 映射为犯罪计数、合法控制变量与滞后自行车移动。
+
+正文四部分具有不同操作作用：普适 DELB 定义基准，预测器相关项与双松弛分解
+诊断不可达，CMI 在总体层面对信息集排序。第~\ref{sec:methods} 节进一步给出应用
+这些量所需的有限样本估计、校准和匹配预测流程。

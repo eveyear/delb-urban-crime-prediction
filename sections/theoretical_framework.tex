@@ -1,0 +1,289 @@
+\section{Methodology: Discrete Entropy Lower Bound}
+\label{sec:theory}
+
+\subsection{General Integer-Valued Prediction Setting}
+\label{subsec:notation}
+
+Let \(\{X_t\}_{t\in\mathbb{Z}}\) be an integer-valued stochastic process,
+\begin{equation}
+X_t\in\mathbb{Z}.
+\label{eq:general_integer_process}
+\end{equation}
+For an \(m\)-step forecast, \(m\geq1\), let
+\(\mathcal{F}_{t-m}\) denote the sigma-algebra containing exactly the
+observations available when the forecast is issued. A causal integer-valued
+predictor is selected from the explicitly restricted decision class
+\begin{equation}
+\mathcal A_{\mathbb Z}(\mathcal F_{t-m})
+=
+\left\{
+f(\mathcal F_{t-m}):
+f\ \text{is measurable},\
+f(\mathcal F_{t-m})\in\mathbb Z,\
+\mathbb E[(X_t-f(\mathcal F_{t-m}))^2]<\infty
+\right\},
+\label{eq:general_predictor}
+\end{equation}
+and \(\widehat X_t\in\mathcal A_{\mathbb Z}(\mathcal F_{t-m})\).
+Its prediction error and mean squared error (MSE) are
+\begin{equation}
+E_t=X_t-\widehat X_t,
+\qquad
+D_t^{(m)}=\mathbb{E}[E_t^2].
+\label{eq:general_error_mse}
+\end{equation}
+All logarithms have base \(2\); entropy is measured in bits.
+
+\begin{Assumption}
+\label{ass:general_regularity}
+For every time and horizon considered,
+\(H(X_t\mid\mathcal{F}_{t-m})<\infty\) and
+\(\mathbb{E}[E_t^2]<\infty\). Forecast information sets are causal and
+nested:
+\(\mathcal{F}_{t-m}\subseteq\mathcal{F}_{t-\ell}\) whenever
+\(1\leq\ell<m\).
+\end{Assumption}
+
+For a discrete random variable \(V\) with mass function \(p(v)\),
+\begin{equation}
+H(V)=-\sum_vp(v)\log_2p(v),
+\label{eq:shannon_entropy}
+\end{equation}
+and conditional mutual information (CMI) satisfies
+\begin{equation}
+I(V;W\mid Y)=H(V\mid Y)-H(V\mid Y,W).
+\label{eq:cmi_definition}
+\end{equation}
+The distinction between a population quantity such as
+\(H(X_t\mid\mathcal F_{t-m})\) and its finite-sample estimate is essential:
+the former defines the lower bound below, whereas the latter is an inferential
+object studied in Sections~\ref{sec:methods} and \ref{sec:results}.
+
+\subsection{Exact DELB and Predictor-Dependent Refinement}
+\label{subsec:discrete_bound}
+
+Continuous entropy--variance arguments rely on the fact that a Gaussian
+maximizes differential entropy \citep{fang_variance_bounds}. An
+integer-valued error lies on a lattice, so differential entropy cannot be
+replaced mechanically by Shannon entropy. The relevant extremal object is
+the integer-lattice maximum-entropy envelope
+\citep{massey_integer_entropy}.
+
+\begin{Definition}[Integer maximum-entropy envelope]
+\label{def:integer_entropy_envelope}
+For \(D\geq0\), define
+\begin{equation}
+\mathcal H_{\mathbb Z}(D)
+=
+\sup_{\substack{P_Z:\,Z\in\mathbb Z\\\mathbb E[Z^2]\leq D}}H(Z),
+\label{eq:integer_entropy_envelope}
+\end{equation}
+with generalized inverse
+\begin{equation}
+\mathcal H_{\mathbb Z}^{-1}(h)
+=
+\inf\{D\geq0:\mathcal H_{\mathbb Z}(D)\geq h\}.
+\label{eq:integer_entropy_inverse}
+\end{equation}
+\end{Definition}
+
+For \(D>0\), the envelope is attained by the centered discrete Gaussian
+\begin{equation}
+q_\lambda(k)
+=
+\frac{\exp(-\lambda k^2)}{\Theta(\lambda)},
+\qquad
+\Theta(\lambda)=\sum_{j\in\mathbb Z}\exp(-\lambda j^2),
+\quad k\in\mathbb Z,
+\label{eq:general_discrete_gaussian}
+\end{equation}
+where \(\lambda>0\) is selected so that
+\begin{equation}
+D=D(\lambda)
+=-\frac{\mathrm d}{\mathrm d\lambda}\ln\Theta(\lambda).
+\label{eq:general_discrete_gaussian_moment}
+\end{equation}
+Its entropy is
+\begin{equation}
+H_\lambda
+=
+\frac{\lambda D(\lambda)+\ln\Theta(\lambda)}{\ln2}.
+\label{eq:general_discrete_gaussian_entropy}
+\end{equation}
+Equations~\eqref{eq:general_discrete_gaussian_moment} and
+\eqref{eq:general_discrete_gaussian_entropy} define the one-dimensional
+numerical inversion used in this study.
+
+\begin{Theorem}[Exact discrete entropy prediction-error lower bound]
+\label{thm:exact_delb}
+Under Assumption~\ref{ass:general_regularity}, every causal integer-valued
+predictor satisfies
+\begin{align}
+D_t^{(m)}
+&\geq
+\mathcal H_{\mathbb Z}^{-1}\!\left[
+H(X_t\mid\mathcal F_{t-m})
++I(E_t;\mathcal F_{t-m})
+\right]
+\label{eq:general_predictor_dependent_delb}\\
+&\geq
+\mathcal H_{\mathbb Z}^{-1}\!\left[
+H(X_t\mid\mathcal F_{t-m})
+\right].
+\label{eq:general_universal_delb}
+\end{align}
+The second line is the discrete entropy prediction-error lower bound
+(DELB).
+\end{Theorem}
+
+Equation~\eqref{eq:general_universal_delb} gives the population-level answer
+to RQ1: target uncertainty and the integer lattice impose an MSE floor
+independently of the forecasting algorithm.
+Equation~\eqref{eq:general_predictor_dependent_delb} is stronger for a
+particular predictor because it retains the residual information quantified
+by \(I(E_t;\mathcal F_{t-m})\). The proof is provided in
+Appendix~\ref{app:proofs}. Boundary cases and the closed-form, temporal,
+stationary, and vector consequences are stated below; their proofs remain in
+the appendix.
+
+To distinguish the DELB from minimum decision risk, define the optimal risk
+within this same causal integer-valued predictor class by
+\begin{equation}
+R_{\mathbb Z}^{*}(\mathcal F)
+=
+\inf_{\widehat X\in\mathcal A_{\mathbb Z}(\mathcal F)}
+\mathbb E[(X-\widehat X)^2].
+\label{eq:integer_optimal_risk}
+\end{equation}
+For every admissible integer-valued predictor,
+\begin{equation}
+L_{\mathrm{DELB}}(\mathcal F)
+\leq
+R_{\mathbb Z}^{*}(\mathcal F)
+\leq
+\mathbb E[(X-\widehat X)^2].
+\label{eq:delb_bayes_risk_hierarchy}
+\end{equation}
+Thus, the exactness of the DELB concerns the discrete entropy envelope and
+its inversion. It does not make the DELB identical to optimal risk. If the
+infimum in Equation~\eqref{eq:integer_optimal_risk} is attained, equality
+\(L_{\mathrm{DELB}}=R_{\mathbb Z}^{*}\) holds if and only if a minimizing
+predictor satisfies the attainability conditions below. Without attainment
+of the infimum, the hierarchy remains valid, but equality of numerical
+infima must not be interpreted as the existence of a predictor that attains
+the DELB.
+
+\subsection{Attainability and the Two-Slack Decomposition}
+\label{subsec:attainability}
+
+\begin{Proposition}[Exact entropy-domain attainability decomposition]
+\label{prop:attainability_decomposition}
+Abbreviate \(\mathcal F=\mathcal F_{t-m}\), \(E=E_t\), and
+\(D=\mathbb E[E^2]\). For \(D>0\), let \(q_D\) be the centered discrete
+Gaussian with second moment \(D\); for \(D=0\), let \(q_0\) be the point mass
+at zero. Then
+\begin{align}
+\mathcal H_{\mathbb Z}(D)
+-\left[H(X_t\mid\mathcal F)+I(E;\mathcal F)\right]
+&=
+D_{\mathrm{KL},2}(P_E\Vert q_D),
+\label{eq:predictor_attainability_decomposition}\\
+\mathcal H_{\mathbb Z}(D)-H(X_t\mid\mathcal F)
+&=
+\underbrace{I(E;\mathcal F)}_{\text{history-dependence slack}}
++
+\underbrace{D_{\mathrm{KL},2}(P_E\Vert q_D)}_
+{\text{shape-mismatch slack}},
+\label{eq:universal_attainability_decomposition}
+\end{align}
+where \(D_{\mathrm{KL},2}\) is the Kullback--Leibler (KL) divergence in bits.
+\end{Proposition}
+
+The predictor-specific bound is attained if and only if \(P_E=q_D\).
+The universal DELB is attained if and only if \(P_E=q_D\) and
+\begin{equation}
+I(E_t;\mathcal F_{t-m})=0.
+\label{eq:general_innovation_independence}
+\end{equation}
+The error must be moment-matched discrete Gaussian and independent of the
+admissible history. Zero correlation or second-order residual
+whiteness is insufficient. The two terms in
+Equation~\eqref{eq:universal_attainability_decomposition} diagnose different
+population sources of nonattainment; neither is the empirical
+Predictability Gap introduced in Section~\ref{subsec:methods_prediction}.
+
+Appendix~\ref{subsec:prior_bound_scope} compares the DELB with established
+and recent neighboring bounds, including the explicit originality claims not
+made here. Keeping that comparison and the supplementary corollaries in the
+appendix allows the main text to focus on the implementable bound, its
+attainability diagnostics, and added-information ordering.
+
+\begin{Remark}[Boundary and loss conditions]
+\label{rem:general_boundary_cases}
+Because \(\mathcal H_{\mathbb Z}^{-1}(0)=0\), information that determines
+\(X_t\) almost surely produces a zero DELB. Conditionally irrelevant side
+information leaves it unchanged. Shannon entropy alone does not define an
+MSE floor without integer support and squared-error loss; the lattice
+envelope is an essential component of Theorem~\ref{thm:exact_delb}.
+\label{rem:support_and_loss}
+\end{Remark}
+
+\subsection{Added Side Information and CMI Ordering}
+\label{subsec:side_information}
+
+Let \(\mathcal F_t^0\) be a baseline causal information set and let \(S_t\)
+be additional side information observed when the forecast is issued. Define
+\begin{equation}
+\mathcal F_t^S=\mathcal F_t^0\vee\sigma(S_t).
+\label{eq:generic_augmented_information}
+\end{equation}
+The population uncertainty reduction is exactly
+\begin{equation}
+\Delta H^S_t
+=
+H(X_t\mid\mathcal F_t^0)-H(X_t\mid\mathcal F_t^S)
+=
+I(X_t;S_t\mid\mathcal F_t^0)\geq0.
+\label{eq:generic_information_gain}
+\end{equation}
+Because the inverse envelope is nondecreasing, the corresponding universal floors
+\begin{equation}
+L_t^0=\mathcal H_{\mathbb Z}^{-1}
+\!\left[H(X_t\mid\mathcal F_t^0)\right],
+\qquad
+L_t^S=\mathcal H_{\mathbb Z}^{-1}
+\!\left[H(X_t\mid\mathcal F_t^S)\right]
+\label{eq:generic_side_information_bounds}
+\end{equation}
+satisfy
+\begin{equation}
+L_t^S\leq L_t^0.
+\label{eq:generic_side_information_ordering}
+\end{equation}
+
+Equations~\eqref{eq:generic_information_gain}--
+\eqref{eq:generic_side_information_ordering} define the population estimand
+for RQ2 and RQ3. They do not imply that an estimated CMI is
+unbiased, that a design-conditioned randomization distribution is centered
+at zero, or that a finite-sample predictor will realize the population
+reduction. These are separate empirical questions. Deterministic
+coarsening \(Q(S_t)\) cannot increase conditional information:
+\begin{equation}
+I(X_t;Q(S_t)\mid\mathcal F_t^0)
+\leq
+I(X_t;S_t\mid\mathcal F_t^0).
+\label{eq:generic_data_processing}
+\end{equation}
+
+Appendix~\ref{app:proofs} gives the complete proofs, places the DELB relative
+to established information-theoretic bounds, and states the supplementary
+classification-loss result. Section~\ref{sec:methods} maps the generic objects
+\((X_t,\mathcal F_t^0,S_t)\) to crime counts, admissible controls, and lagged
+bicycle mobility.
+
+The four main-text components have distinct operational roles: the universal
+DELB defines the benchmark, the predictor-dependent term and two-slack
+decomposition diagnose nonattainment, and CMI orders information sets at the
+population level. Section~\ref{sec:methods} supplies the finite-sample
+estimation, calibration, and matched-prediction workflow needed to apply
+these quantities.

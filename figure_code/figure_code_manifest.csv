@@ -1,0 +1,21 @@
+latex_asset,figure_label,canonical_python,source_experiment,notes
+figures/problem_chain/unified_problem_chain.pdf,fig:problem_chain,empirical/run_problem_chain_figure.py,manuscript,Unified question-to-evidence diagram
+figures/e11/e11_analysis_workflow.pdf,fig:analysis_workflow,empirical/src/entropy_crime_bike/e11_manuscript_synthesis.py,E11,Analysis workflow
+figures/e11/e02_spatial_patterns.pdf,fig:spatial_patterns,empirical/src/entropy_crime_bike/manuscript_figure_layout.py,E02-layout,Equal-size six-panel revision using accepted E02 table
+figures/e11/e02_monthly_patterns.png,fig:monthly_patterns,empirical/src/entropy_crime_bike/report_e02.py,E02,Monthly descriptive patterns
+figures/s7/e15_estimand_estimator_null_wide.pdf,fig:three_layers,empirical/src/entropy_crime_bike/e15_concept_diagram.py,E15,Estimand-estimator-reference diagram
+figures/s7/e12_sparse_cmi_main.pdf,fig:e12_sparse_simulation,empirical/src/entropy_crime_bike/e12_cmi_simulation.py,E12,Sparse-state CMI simulation
+figures/s7/e13_support_null_main.pdf,fig:e13_support_null,empirical/src/entropy_crime_bike/e13_support_null.py,E13,Support and null-centering results
+figures/e11/e04_primary_bicycle_cmi.pdf,fig:city_cmi,empirical/src/entropy_crime_bike/e04_city_information.py,E04,City CMI estimates
+figures/e11/e04_exact_delb_reduction.pdf,fig:city_delb,empirical/src/entropy_crime_bike/e04_city_information.py,E04,City DELB estimates
+figures/e11/e05_local_delb_reduction_maps.pdf,fig:local_delb_maps,empirical/src/entropy_crime_bike/manuscript_figure_layout.py,E05-layout,Equal-size three-panel revision using accepted E02/E05 tables
+figures/e11/e10_city_null_distributions.pdf,fig:city_nulls,empirical/src/entropy_crime_bike/e10_placebo.py,E10,City randomization distributions
+figures/e11/e10_distant_lags.pdf,fig:distant_lags,empirical/src/entropy_crime_bike/e10_placebo.py,E10,Distant-lag comparison
+figures/e11/e06_mse_improvement.pdf,fig:mse_improvement,empirical/src/entropy_crime_bike/e06_predictive_models.py,E06,Held-out MSE changes
+figures/e11/e07_gap_narrowing.pdf,fig:gap_narrowing,empirical/src/entropy_crime_bike/e07_theory_practice.py,E07,Predictability-gap changes
+figures/s7/e14_fano_main.pdf,fig:e14_fano,empirical/src/entropy_crime_bike/e14_fano_validation.py,E14,Fano validation
+figures/e11/e08_crime_type_delb_reduction.pdf,fig:crime_type_delb,empirical/src/entropy_crime_bike/e08_crime_type_heterogeneity.py,E08,Crime-type heterogeneity
+figures/e11/e09_rolling_origins.pdf,fig:rolling_origins,empirical/src/entropy_crime_bike/e09_robustness.py,E09,Rolling-origin results
+figures/s7/e12_bias_rmse_supplement.pdf,fig:e12_bias_supplement,empirical/src/entropy_crime_bike/e12_cmi_simulation.py,E12,Supplementary estimator diagnostics
+figures/s7/e13_support_metrics_supplement.pdf,fig:e13_support_supplement,empirical/src/entropy_crime_bike/e13_support_null.py,E13,Supplementary support diagnostics
+figures/s7/e14_fano_bootstrap.pdf,fig:e14_bootstrap_supplement,empirical/src/entropy_crime_bike/e14_fano_validation.py,E14,Supplementary Fano bootstrap diagnostics
