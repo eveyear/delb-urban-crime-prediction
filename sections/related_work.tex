@@ -5,27 +5,50 @@
 \label{subsec:related_crime_forecasting}
 
 Crime forecasting seeks to anticipate future incident counts, hotspot status,
-or event risk at operationally relevant locations and times. Existing studies
-compare statistical, machine-learning, recurrent, graph-based, multiscale, and
-transformer models using hotspot accuracy, prediction-accuracy indices,
-precision and recall, F1 scores, and count losses such as mean absolute error
-(MAE), root mean squared error (RMSE), and mean squared error (MSE)
-\citep{kounadi2020review,du2023review,mandalapu2023review,
-alves2018crime,angbera2023model,huang2018deepcrime,deng2023risk,
-jing2024multiscale,wang2025mragnn,butt2025start,cui2026transfer,
-hu2023fusion}. Reported performance depends not only on the forecasting
+or event risk at operationally relevant locations and times. \rev{This variation
+in target is accompanied by variation in scale and model design. Reviews of
+spatial forecasting \citep{kounadi2020review} and multiscale methods
+\citep{du2023review} frame the geographic and temporal choices, while a
+machine- and deep-learning review \citep{mandalapu2023review} surveys the
+algorithmic choices. Their different scopes help explain why reported
+forecast scores are difficult to compare without a common target and
+evaluation design.}
+
+\rev{The models themselves show how the field has addressed those choices. Urban
+metrics enter statistical learning as contextual predictors
+\citep{alves2018crime}. Attentive recurrent networks model temporal structure
+\citep{huang2018deepcrime}; a spatiotemporal deep-learning model
+\citep{angbera2023model} and geographically informed risk models
+\citep{deng2023risk} extend the representation of spatiotemporal dependence.
+Multiscale hotspot mapping \citep{jing2024multiscale} and graph-based learning
+of correlations among crime types \citep{wang2025mragnn} address different
+forms of spatial and cross-category structure. More recent transformer
+prediction \citep{butt2025start} and transfer with multi-source fusion
+\citep{cui2026transfer} broaden the model and data choices; a survey of crime
+event analysis documents the range of fusion strategies
+\citep{hu2023fusion}. Across these families, performance is reported through
+hotspot accuracy, prediction-accuracy indices, precision and recall, F1
+scores, and count losses such as mean absolute error (MAE), root mean
+squared error (RMSE), and mean squared error (MSE).}
+Reported performance depends not only on the forecasting
 algorithm but also on the target definition, spatial and temporal resolution,
 validation period, comparison model, and distribution shift. Multidensity and
 multiscale studies further show that changing the unit of analysis can alter
 the forecasting problem itself \citep{cesario2024multidensity,jing2024multiscale},
 while recent evaluation frameworks identify limited standardization and
 cross-design comparability as persistent concerns \citep{amarante2025steval}.
-Consequently, a lower test error establishes that one specification performs
+Closely related urban-computing studies illustrate the same design dependence:
+recent work models long-horizon traffic with contextual knowledge
+\citep{huo2025traffic}, adapts shared-bicycle demand models to spatial and
+temporal heterogeneity \citep{zhao2025bike}, and provides a unified toolbox
+for constructing and comparing spatiotemporal prediction services
+\citep{fang2025uctb}.
+Thus, a lower test error establishes that one specification performs
 better under a particular evaluation design; it does not establish how close
 that specification is to an information-constrained prediction limit.
-The unresolved issue is therefore not a shortage of forecasting models, but
-the absence of a model-independent way to assess whether an added information
-source changes the attainable error benchmark for an integer-valued target.
+The unresolved issue is not a shortage of forecasting models, but the absence
+of a model-independent way to assess whether an added information source
+changes the attainable error benchmark for an integer-valued target.
 
 \subsection{Mobility Data in Crime Analytics}
 \label{subsec:related_mobility_crime}
@@ -33,11 +56,15 @@ source changes the attainable error benchmark for an integer-valued target.
 Routine activity theory and ambient-population research imply that crime
 opportunities depend on the changing presence of potential targets, offenders,
 and guardians, not only on residential population
-\citep{cohen1979routine,malleson2016ambient}. Studies using mobile phones,
-location platforms, subway activity, and taxi flows associate dynamic
-population with crime location or report improved fitted predictions
-\citep{song2019legal,kadar2018mining,kadar2020mobility,wu2022mobility,
-rummens2021mobile,schertz2021street}. A recent systematic review documents
+\citep{cohen1979routine,malleson2016ambient}. \rev{Song et al.\ relate daily
+mobility flows to crime targets \citep{song2019legal}; Kadar and Pletikosa
+use large-scale mobility data for long-term prediction
+\citep{kadar2018mining}; and Kadar et al.\ use location-platform flows to
+examine crime pattern theory \citep{kadar2020mobility}. Wu et al.\ combine
+mobility flows with deep learning for short-term prediction
+\citep{wu2022mobility}; Rummens et al.\ test mobile-phone denominators and
+forecasts \citep{rummens2021mobile}; and Schertz et al.\ examine neighborhood
+street activity \citep{schertz2021street}.} A recent systematic review documents
 both the rapid growth and the heterogeneous uses of mobile-phone data in crime
 research \citep{okmi2023mobile}. At finer scales, mobile-phone occupancy has
 been related to outdoor robbery and theft \citep{valente2024routines}, and a
@@ -49,7 +76,10 @@ sources are not interchangeable. Digital traces differ in population
 coverage, spatial support, temporal rhythm, directionality, and mode of travel
 \citep{luca2023mobilitysurvey,zhao2024directionality}. Mobile-location data
 can also exhibit scale- and time-dependent representation bias
-\citep{li2024mobilitybias}. We therefore treat shared-bicycle records as a
+\citep{li2024mobilitybias}. More broadly, a recent survey of foundation
+models for the Internet of Things identifies context awareness, efficiency,
+and safety as distinct criteria for incorporating sensor information
+\citep{wei2026iot}. We therefore treat shared-bicycle records as a
 high-frequency, spatially resolved, but mode-specific proxy for observed
 public-space activity \citep{xu2023bike,ivanovic2023bike}, not as a census of
 ambient population. Predictive information also does not establish a causal
@@ -58,10 +88,10 @@ association and causal identification can lead to different conclusions
 \citep{vachuska2025causal}.
 
 Most mobility--crime studies evaluate association patterns or changes in
-fitted prediction scores. Those questions remain useful, but they do not
-separate the intrinsic information value of a mobility source from the
-ability of a particular model to exploit it. They also do not generally
-diagnose whether an apparent gain is induced by sparse states after mobility
+fitted prediction scores. These questions remain useful, but they do not
+separate the information value of a mobility source under a specified target
+and information set from the ability of a particular model to exploit it.
+Nor do they generally diagnose whether an apparent gain is induced by sparse states after mobility
 variables are discretized and joined to a fine-scale crime panel. This gap
 motivates the matched baseline--augmented information sets and finite-sample
 calibration used in the present study.
@@ -74,14 +104,14 @@ been observed \citep{shannon1948,cover_thomas}. Entropy and Fano-type
 arguments have been used to study potential predictability in human mobility
 \citep{song2010limits}; conditional differential entropy has also been used to
 bound traffic-forecasting performance \citep{li2022traffic}. Fang et al.\
-give general entropy-based variance bounds for continuous estimation and
+derive general entropy-based variance bounds for continuous estimation and
 prediction errors \citep{fang_variance_bounds}. Recent work has extended this
 continuous line to time-series complexity ranking and entropy-based lower
 bounds on predictive representation dimension
 \citep{ayers2025complexity,hauser2026dmd}. These studies separate achieved
 performance from an information-constrained limit, but their target spaces
-and bound objects do not provide an exact MSE floor for an integer-valued
-outcome.
+and bound objects do not directly provide the integer-lattice MSE lower bound
+required here.
 
 Crime counts and many other operational targets are integer valued. A
 continuous Gaussian argument cannot be made discrete by replacing
@@ -90,28 +120,40 @@ its maximum-entropy law under a second-moment constraint is a discrete
 Gaussian. Integer maximum-entropy and lattice-correction results are
 established ingredients \citep{massey_integer_entropy,rioul_massey}; general
 Bayes-risk, rate--distortion, and Ziv--Zakai theories also show that lower
-bounds on estimation risk are not new as a class
-\citep{shannon_rate_distortion,chen_bayes_risk,jeong_ziv_zakai}. What remains
-underdeveloped for the present problem is a causal integer-prediction
-formulation that connects an exact lattice MSE floor to the predictor used,
-states necessary and sufficient attainability conditions, and diagnoses why
-the floor is not attained.
+bounds on estimation risk are not new as a class. \rev{Shannon formulated
+rate--distortion bounds \citep{shannon_rate_distortion}; Chen et al.\ studied
+Bayes-risk bounds \citep{chen_bayes_risk}; and Jeong et al.\ examined
+Ziv--Zakai bounds on MMSE \citep{jeong_ziv_zakai}.} What remains
+underdeveloped for the present problem is an operational framework for
+non-anticipating integer prediction that connects an explicit lattice MSE
+floor to the predictor used, states necessary and sufficient attainability
+conditions, diagnoses why the floor is not attained, values added
+information, and calibrates its finite-sample estimate.
 
-We refer to the MSE floor obtained by inverting the exact integer-lattice
+We refer to the MSE lower bound obtained by inverting the exact integer-lattice
 maximum-entropy envelope as the \emph{Discrete Entropy Lower Bound} (DELB).
 The theoretical package combines a universal floor, a predictor-dependent
 refinement, strict attainability conditions, and a split of nonattainment
-into residual history dependence and error-shape mismatch. The contribution
-lies in this unified specialization to integer prediction, not in the
-discrete-Gaussian extremizer, the lattice correction, or a new primitive
-divergence identity.
+into residual history dependence and error-shape mismatch. To our knowledge,
+these components have not previously been connected to incremental
+information valuation and finite-sample calibration in a single operational
+workflow for integer-valued urban forecasting. The contribution lies in this
+integration and specialization, not in the discrete-Gaussian extremizer, the
+lattice correction, or a new primitive divergence identity.
 
-Taken together, the three literature streams leave a specific applied
-methodological gap. Crime forecasting provides increasingly flexible models,
+Table~\ref{tab:core_bound_comparison} makes the distinction operational by
+comparing target, loss, support, and the role of each framework in the present
+study.
+
+\input{sections/table_core_bound_comparison}
+
+Across these three literature streams, a specific applied methodological gap
+remains. Crime forecasting provides increasingly flexible models,
 and mobility studies provide increasingly detailed urban signals, whereas
 existing entropy bounds do not supply a finite-sample-calibrated,
-integer-lattice benchmark for determining whether such a signal changes
-intrinsic count predictability. DELB and the accompanying calibration
+integer-lattice benchmark for determining whether such a signal changes the
+information-constrained lower bound under a specified count target and information
+set. DELB and the accompanying calibration
 workflow address this intersection. The comparison is intentionally between
 information sets rather than between algorithm families, and between
 predictive evidence rather than causal effects.

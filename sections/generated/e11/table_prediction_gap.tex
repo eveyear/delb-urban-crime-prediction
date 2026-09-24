@@ -1,28 +1,29 @@
 
-\begin{table}[H]
-\caption{Matched held-out integer-prediction MSE and predictability-gap results for July--December 2022. Positive \(\Delta\mathrm{MSE}\) denotes lower error after adding bicycle information; gap narrowing equals \(\Delta\mathrm{MSE}-\Delta L\).}
+\begin{table}[!htbp]
+\caption{Matched held-out integer-prediction MSE, DELB, and Predictability Gap results for July--December 2022. The paired DELB column reports the baseline and bicycle-augmented lower bounds as \(L^0/L^B\). Positive \(\Delta\mathrm{MSE}\) denotes lower error after adding bicycle information. Gap narrowing is \(\Delta G=\Delta\mathrm{MSE}-\Delta L\): a positive value indicates that the model moved closer to the lower bound, whereas a negative value indicates that the estimated lower bound decreased more than the model MSE. Differences were calculated from unrounded values and then rounded for display.}
 \label{tab:prediction_gap_results}
 \begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\begin{tabular}{llrrrrr}
+\raggedleft
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llrrrrrr@{}}
 \toprule
 \textbf{City} & \textbf{Model} & \(\boldsymbol{\mathrm{MSE}^0}\) &
-\(\boldsymbol{\mathrm{MSE}^B}\) & \(\boldsymbol{\Delta\mathrm{MSE}}\) &
+\(\boldsymbol{\mathrm{MSE}^B}\) & \(\boldsymbol{L^0/L^B}\) &
+\(\boldsymbol{\Delta\mathrm{MSE}}\) &
 \(\boldsymbol{\Delta L}\) & \textbf{Gap narrowing}\\
 \midrule
-Washington, DC & State mean & 0.500 & 0.499 & 0.001 & 0.015 & -0.014\\
-Washington, DC & Poisson GLM & 0.493 & 0.499 & -0.006 & 0.015 & -0.021\\
-Washington, DC & Negative-binomial GLM & 0.493 & 0.493 & 0.000 & 0.015 & -0.015\\
-Washington, DC & Poisson gradient boosting & 0.495 & 0.496 & 0.000 & 0.015 & -0.016\\
-New York City & State mean & 2.089 & 2.055 & 0.035 & 0.034 & 0.001\\
-New York City & Poisson GLM & 1.904 & 1.941 & -0.037 & 0.034 & -0.070\\
-New York City & Negative-binomial GLM & 1.907 & 1.947 & -0.039 & 0.034 & -0.073\\
-New York City & Poisson gradient boosting & 1.901 & 1.839 & 0.062 & 0.034 & 0.029\\
-Vancouver & State mean & 1.663 & 1.651 & 0.012 & 0.051 & -0.038\\
-Vancouver & Poisson GLM & 1.629 & 1.627 & 0.002 & 0.051 & -0.049\\
-Vancouver & Negative-binomial GLM & 1.614 & 1.622 & -0.008 & 0.051 & -0.059\\
-Vancouver & Poisson gradient boosting & 1.665 & 1.669 & -0.004 & 0.051 & -0.054\\
+Washington, DC & State mean & \rev{0.5002} & \rev{0.4993} & 0.107/0.092 & \rev{0.0009} & 0.015 & -0.014\\
+Washington, DC & Poisson GLM & \rev{0.4933} & \rev{0.4994} & 0.107/0.092 & \rev{-0.0062} & 0.015 & -0.021\\
+Washington, DC & Negative-binomial GLM & \rev{0.4931} & \rev{0.4932} & 0.107/0.092 & \rev{-0.0001} & 0.015 & -0.015\\
+Washington, DC & Poisson gradient boosting & \rev{0.4952} & \rev{0.4956} & 0.107/0.092 & \rev{-0.0004} & 0.015 & -0.016\\
+New York City & State mean & \rev{2.0893} & \rev{2.0545} & 0.263/0.230 & \rev{0.0348} & 0.034 & 0.001\\
+New York City & Poisson GLM & \rev{1.9043} & \rev{1.9410} & 0.263/0.230 & \rev{-0.0367} & 0.034 & -0.070\\
+New York City & Negative-binomial GLM & \rev{1.9073} & \rev{1.9465} & 0.263/0.230 & \rev{-0.0392} & 0.034 & -0.073\\
+New York City & Poisson gradient boosting & \rev{1.9010} & \rev{1.8388} & 0.263/0.230 & \rev{0.0623} & 0.034 & 0.029\\
+Vancouver & State mean & \rev{1.6632} & \rev{1.6507} & 0.259/0.208 & \rev{0.0125} & 0.051 & -0.038\\
+Vancouver & Poisson GLM & \rev{1.6287} & \rev{1.6266} & 0.259/0.208 & \rev{0.0021} & 0.051 & -0.049\\
+Vancouver & Negative-binomial GLM & \rev{1.6138} & \rev{1.6218} & 0.259/0.208 & \rev{-0.0080} & 0.051 & -0.059\\
+Vancouver & Poisson gradient boosting & \rev{1.6654} & \rev{1.6690} & 0.259/0.208 & \rev{-0.0035} & 0.051 & -0.054\\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{adjustwidth}
 \end{table}

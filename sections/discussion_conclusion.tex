@@ -1,93 +1,49 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{The DELB as an Integer-Valued Predictability Benchmark}
+\subsection{What the DELB Measures}
 \label{subsec:discussion_rq1}
 
-The first contribution of this study is an exact entropy-constrained MSE
-lower bound for causal integer-valued prediction. Conditional Shannon
-entropy is mapped through the inverse integer-lattice maximum-entropy
-envelope, producing a model-independent benchmark for every admissible
-integer-valued predictor under the specified information set and
-squared-error loss.
+The DELB is an information-constrained MSE lower bound for non-anticipating
+integer-valued prediction under a specified target, information set, forecast
+horizon, and squared-error loss. It maps conditional Shannon entropy through
+the inverse integer-lattice maximum-entropy envelope and therefore provides a
+model-independent benchmark for every admissible integer-valued predictor.
+Theorem~\ref{thm:exact_delb} states its relation to the infimum risk and the
+conditions for equality. The predictor-dependent refinement and
+two-component decomposition then separate residual error--history dependence
+from error-distribution shape mismatch.
 
-The DELB should be interpreted carefully. It is exact in its discrete-envelope
-form, but it does not
-automatically equal the full Bayes risk. Universal attainment additionally
-requires the prediction error to be independent of the admissible history
-and to follow the moment-matched centered discrete-Gaussian distribution.
-The predictor-dependent refinement accounts for residual dependence between
-the error and the information set, while the two-slack decomposition
-distinguishes this history-dependence component from error-distribution
-shape mismatch.
-
-More precisely, the comparison is with the infimum risk over measurable,
-integer-valued, causal predictors having finite MSE under the stated
-information set. The DELB does not exceed this optimal risk. If the
-infimum is attained, equality holds only when an optimizing predictor
-satisfies both attainment conditions. If no optimizer exists, numerical
-equality of the two infima must not be described as attainment by a
-predictor.
-
-This distinction gives the DELB a diagnostic role beyond that of a scalar
-benchmark. A large gap between achieved MSE and the universal DELB may
-reflect remaining exploitable dependence, an unsuitable error distribution,
-finite-sample model limitations, or some combination of these factors.
-Consequently, the bound identifies a theoretically available region of
-performance rather than guaranteeing that a practical estimator can reach
-it.
-
-The theorem is independent of the crime and bicycle application.
-Numerical inversion and simulation verify the computational
-implementation of the lattice envelope and its boundary cases, but the
-theorem itself follows analytically. Likewise, the Fano analysis provides
-a classification-loss counterpart and is not a second validation of the DELB.
-
-
-
-\subsection{Finite-Sample Information Gain Requires Its Own Inferential Layer}
+\subsection{Why Estimated Information Is Not Calibrated Evidence}
 \label{subsec:discussion_rq2}
 
-At the population level, adding side information reduces conditional
-entropy by exactly its CMI with the target given the baseline information.
-Monotonicity of the inverse lattice envelope then orders the corresponding
-DELBs. This population statement is straightforward; estimating it from
-sparse conditional states is not.
+At the population level, adding side information reduces conditional entropy
+by its CMI with the target given the baseline information, and monotonicity
+of the inverse lattice envelope orders the corresponding DELBs. Estimating
+that ordering from sparse nested states is a separate inferential problem.
+The known-truth simulations showed that positive plug-in and
+Miller--Madow CMI estimates can arise when population CMI is zero. Dividing
+each baseline state into weakly occupied joint states makes the estimate
+depend on sample size and support geometry; standard corrections reduce some
+of this behavior but do not remove it.
 
-The known-truth simulations show that positive estimated CMI can
-arise under zero population CMI. Adding a discretized variable divides each
-baseline state into a larger number of joint states, many of which may be
-weakly occupied or observed only once. Standard corrections reduce some
-of this bias but do not remove the dependence of the estimate on state-space
-geometry and sample size.
+Estimator sensitivity produced the same substantive caution. Plug-in,
+Miller--Madow, and observed-support Jeffreys--Dirichlet estimators preserved
+positive DELB-reduction point estimates across the prespecified
+specifications, yet none separated the observed city-level CMI from its
+reference distribution. The Jeffreys result regularizes probabilities on
+observed support and does not reconstruct unobserved states.
 
-The estimator sensitivity analysis leads to the same caution. Plugin,
-Miller--Madow, and observed-support Jeffreys--Dirichlet estimates produced
-positive DELB reductions for all 16 prespecified specifications in each
-city. Yet E17 found no rejection under any estimator, whether false
-discovery rates were controlled within its nine city--null-design tests
-or across all 27 estimator--city--design tests. The Jeffreys result is a
-sensitivity check over observed support, not a reconstruction of
-unobserved states.
+A transformation-based reference must likewise be distinguished from
+population CMI and estimator bias. Each transformation changes the data
+structure, after which the statistic and its support are recomputed. Its
+reference center may therefore be positive. The support diagnostics showed
+that effective conditional degrees of freedom and transformation-induced
+support changes tracked this centering. These associations are diagnostic,
+not a universal bias formula. Valid interpretation remains specific to the
+estimator, sample, support, and transformation design.
 
-A second distinction concerns randomization. A transformation-based
-reference distribution is generated by repeatedly changing the observed
-data structure and recomputing both the statistic and its support.
-Its center therefore need not be zero and should not be interpreted as
-either population CMI or a direct estimate of estimator bias. Valid
-interpretation is specific to the estimator, transformation, sample,
-and support produced by the randomization design.
-
-The empirical support diagnostics reinforce this point. Effective
-conditional degrees of freedom were strongly associated with the
-reference-distribution center, and changes in support under randomization
-were associated with differences between observed and reference CMI. These
-findings do not provide a universal analytic bias formula, but they show
-why comparing an estimated CMI directly with zero can be misleading
-in sparse nested panels.
-
-
-The resulting evidence hierarchy is therefore:
+These results lead to the following evidence chain:
 \begin{equation}
 \begin{gathered}
 \text{population DELB/CMI}
@@ -102,256 +58,174 @@ The resulting evidence hierarchy is therefore:
 \end{gathered}
 \label{eq:discussion_inference_chain}
 \end{equation}
-Each stage answers a different question. A positive estimate describes
-the observed partition; a randomization comparison evaluates a specified
-null mechanism; and held-out prediction evaluates a particular fitted model.
-None can substitute automatically for the others.
+A positive estimate describes the observed partition, a randomization
+comparison evaluates a specified reference mechanism, and held-out
+prediction evaluates a fitted model. The truth-referenced scale--sample
+experiment further showed that sample size changes estimation error and
+detection probability while the population DELB remains fixed. It did not
+identify a universal sample-length or scale-free detectability threshold.
 
+\rev{The lower-cardinality sensitivity makes the role of state design
+concrete. Reducing the spatial partition greatly improved occupancy and
+revealed a statistically distinguishable but very small New York difference.
+Washington and Vancouver remained centered on their matched references. The
+appropriate conclusion is therefore neither that all positive estimates are
+artifacts nor that the primary magnitudes are confirmed: finite-sample
+identifiability changes with the conditioning-state resolution.}
 
-\subsection{What the Bicycle--Crime Analysis Does and Does Not Establish}
+\subsection{Interpretation of the Bicycle-Mobility Results}
 \label{subsec:discussion_rq3}
 
-The urban results contain a strong descriptive pattern. Adding lagged
-bicycle state reduced estimated conditional entropy and the corresponding
-DELB in every city, every full-sample spatial--temporal scale, all 16
-alternative theoretical specifications, and all exploratory crime categories.
-The local estimates also showed spatial clustering in Washington, DC and
-Vancouver. These results indicate that bicycle-augmented state partitions
-consistently separate crime-count distributions more finely in the observed
-samples.
+The bicycle-augmented state yielded lower conditional-entropy and DELB point
+estimates in every city. The reductions were substantially smaller in the
+complete crime-supported deployment populations than in bicycle-covered
+areas, especially in New York City and Vancouver. Coverage is therefore an
+integral part of the target population, beyond its role in missing-data
+handling.
 
-The training-period-frozen analysis-domain comparison preserved the
-direction of this pattern but changed its magnitude. Expanding from the
-training-period bicycle-covered domain to the complete training-period
-crime domain attenuated CMI and DELB reductions most strongly in New York
-and Vancouver. The estimate therefore depends on the spatial target
-population fixed before validation and testing; this domain contrast has
-no causal interpretation.
+\rev{The primary grid-identity randomization analyses did not isolate a signal
+specific to recent, geographically matched bicycle activity: no primary
+city-level or multiscale comparison survived the relevant calibration, and
+distant lags produced similar estimates. The lower-cardinality sensitivity
+identified only the small New York difference reported above. Because the matched-reference experiments had
+limited power for small signals, non-rejection limits source-specific
+attribution but does not establish that bicycle mobility is conditionally
+irrelevant.}
 
-The calibrated evidence was substantially weaker. None of the city-level
-or local comparisons distinguished the observed CMI from all prespecified
-temporal, spatial, and circular-shift references. Distant bicycle lags
-yielded estimates comparable with the one-day lag, and none of the 270
-multiscale randomization tests survived FDR correction. Thus, the present
-design does not isolate an information contribution specific to recent,
-geographically aligned bicycle mobility.
+\rev{The coordinate-source sensitivity further limits a blanket reading of
+the Washington, DC primary null result. Excluding station-reference-located
+endpoints increased its estimated CMI and DELB reduction and produced
+circular-shift separation in a post hoc analysis, while temporal and spatial
+references remained non-separating. This dependence on endpoint provenance
+and reference design merits independent validation; it should not be
+interpreted as confirmation of a city-wide mobility effect. New York City
+was unchanged under the source-only restriction, and Vancouver lacks the
+source coordinates needed for that comparison.}
 
-This finding should not be interpreted as proof that bicycle activity is
-conditionally irrelevant to crime. The transformations are diagnostic
-rather than exact conditional randomization procedures that preserve the
-complete mobility distribution within every baseline state. Bicycle
-use contains slow seasonal patterns, system-wide operational changes,
-weather responses, pandemic-period shifts, and other common temporal
-structure. These components can remain present in both recent and
-transformed mobility series.
+\rev{Coverage explains most of the contrast between the bicycle-covered and
+deployment populations. New York and Vancouver covered only about one quarter
+of the crime-supported grid--days, and coverage-weighted CMI closely
+approximated the complete-domain estimate. The remaining differences are the
+observation-share-weighted CMIs outside the frozen footprint. Bicycle activity
+was observed there in 2022, but the decomposition cannot attribute a specific
+share of those differences to that year or identify a causal mechanism.}
 
-The baseline-state-matched restricted randomization reached the same
-non-rejection while preserving grid and calendar strata more closely.
-Its semi-synthetic Type I error was compatible with the nominal level, but
-power remained low at CMI magnitudes comparable with the smaller empirical
-signals. The added experiment therefore strengthens the calibration audit,
-not a claim that mobility is conditionally irrelevant.
-
-A more precise interpretation is therefore that the positive estimated
-DELB reductions cannot, under the current calibration, be uniquely
-attributed to recent bicycle-specific activity. This is a limit on
-empirical attribution rather than a rejection of mobility information
-in general.
-
-
-
-\subsection{Theoretical Opportunity and Realized Prediction Are Different}
+\subsection{Prediction Opportunity versus Model Realization}
 \label{subsec:discussion_prediction}
 
-The held-out analyses illustrate why a population lower bound and a
-fitted model's error must be evaluated separately. Adding information
-can lower the best entropy-constrained error benchmark even when a
-particular estimator cannot exploit that information from a finite sample.
-Conversely, a model may improve by using seasonal or proxy structure
-without establishing a bicycle-specific population CMI.
+The held-out results illustrate why a lower information-constrained bound and
+lower realized error are different outcomes. Added information may enlarge
+the theoretically available opportunity even when a finite-sample estimator
+cannot exploit it. Conversely, a model may improve by using seasonal or proxy
+structure without establishing bicycle-specific population CMI.
 
-This distinction appeared clearly in the results. Bicycle-augmented DELBs
-declined in all cities, whereas held-out improvements varied across models
-and locations. Only two New York models reduced realized MSE by more than
-the estimated DELB reduction and therefore narrowed the Predictability Gap.
-The Fano comparison showed the same phenomenon under classification loss:
-every estimated augmented floor declined, while the statewise modal
-classifier worsened in all comparisons as unseen augmented states became
-more frequent.
+This pattern was visible across cities and model families. Estimated
+DELBs declined in every city, but held-out improvements were selective, and
+only two New York City models narrowed the Predictability Gap. Under
+classification loss, every estimated augmented Fano floor declined while the
+statewise modal classifier worsened as unseen augmented states became more
+frequent. Neither pattern violates its lower bound.
 
-The Predictability Gap is consequently useful as a matched accounting
-quantity rather than as an independent universal metric. Both MSE and
-DELB must use the same target, forecast horizon, information set,
-evaluation sample, and loss. A negative change in the gap does not
-violate the lower bound; it indicates that the fitted model did not
-realize the additional theoretical opportunity implied by the estimated
-information state.
+The Predictability Gap functions as a matched accounting quantity whose MSE
+and DELB components must use the
+same target, forecast horizon, information set, evaluation sample, and loss.
+A negative gap change means that the tested model did not realize the added
+estimated opportunity; it does not invalidate the DELB.
 
-\subsection{Practical Implications for Urban Data and Forecasting Systems}
-\label{subsec:practical_implications}
+\rev{The empirical decomposition further shows that residual error--history
+dependence is larger than marginal error-shape mismatch for every evaluated
+model. Closing the observed gap would therefore primarily require predictors
+that better use the declared forecast-time state, although the decomposition
+does not identify which new model will do so.}
 
-For urban analytics teams, the results support a staged data-value
-assessment rather than a binary decision based on one fitted model.
-Table~\ref{tab:practical_decision_framework} translates the evidence layers
-into four operational questions. DELB first measures whether a candidate
-source changes the estimated model-independent opportunity set. Support
-diagnostics and randomization then assess whether that change is
-distinguishable under explicit finite-sample references. Matched held-out
-models finally determine whether an available forecasting system can use
-the source in the deployment population.
+\subsection{Scope, Limitations, and Transferability}
+\label{subsec:limitations}
+
+For urban analytics teams, the framework supports staged data-value
+assessment before procurement or deployment decisions based on one fitted model.
+Table~\ref{tab:practical_decision_framework} translates the evidence chain
+into four operational questions: whether the estimated floor changes,
+whether finite-sample support is adequate, whether the statistic separates
+from design-matched references, and whether matched models realize a held-out
+benefit.
 
 \input{sections/table_practical_decision_framework}
 
-This sequence matters for procurement and engineering. A positive DELB
-reduction can justify retaining a data source for further evaluation, but
-not paying for, integrating, or operationalizing it on that basis alone.
-In the present application, the large bicycle-domain reductions in New
-York City and Vancouver attenuated in the complete crime-supported
-populations, and the calibrated tests did not isolate a bicycle-specific
-signal. Coverage, state support, and calibration should therefore be
-treated as properties of the data product, not as post hoc sensitivity
-checks.
+Any subsequent deployment assessment should remain city-, model-, and
+population-specific, retain a baseline model and frozen holdout, monitor both
+\(\Delta\operatorname{MSE}\) and \(\Delta G\), and reassess benefits under
+rolling evaluation.
 
-Deployment decisions should also remain model and city specific. The
-New York state-mean and gradient-boosting models narrowed the
-Predictability Gap, whereas the remaining city--model combinations did
-not. A practical pipeline should consequently preserve a baseline model,
-evaluate the added source on a frozen holdout period, monitor both
-\(\Delta\operatorname{MSE}\) and \(\Delta G\), and withdraw the added
-feature when its benefit does not persist under rolling evaluation.
-The DELB is useful here as an opportunity budget: it identifies how much
-the estimated floor moved, while the gap shows whether the fitted system
-converted that movement into realized accuracy.
+Several limitations bound this application. Bicycle trips provide a
+mode-specific activity trace with incomplete coverage of the ambient population;
+coverage, adoption, operations, weather, and recording differ by city.
+Crime records depend on reporting, classification, and jurisdiction, and
+2020--2022 includes pandemic-related structural change. Aggregate
+grid--day associations do not support individual inference or a causal
+effect of bicycle activity on crime.
+
+\rev{Comparable forecast-time weather fields were not available in the
+frozen harmonized panel, so weather and daylight were not controlled. Adding
+city-specific sources after inspecting results would weaken comparability;
+this omission is reported as a limitation rather than addressed by a
+partial-city analysis. Bicycle flow may therefore carry weather- or
+daylight-related information beyond the coarse calendar state. Since those
+variables can be obtained separately, the present estimates cannot establish
+that maintaining a bicycle feed is preferable to using less costly
+environmental data for the same forecasting decision. Annual CMI varied
+across 2020--2022, especially in New
+York and Vancouver, so the pandemic-era estimates should not be treated as
+stationary or directly transferable to later operating regimes.}
+
+The randomization designs do not preserve the exact mobility distribution
+within every baseline state. The known-truth and power experiments cover
+finite fixed-design families, and the support regressions are descriptive
+rather than analytic corrections. Some fixed-support CMI targets were
+unattainable; matched-reference power was limited for small signals; and
+minimum-detectable-CMI interpolation is grid based. Spatial and temporal
+aggregation also changes the target distribution and MSE unit, so the
+multiscale results do not establish a universal scale law.
+
+Future work should focus on three issues: partial pooling for sparse states,
+randomization designs that better preserve the conditional mobility
+distribution, and evaluation with broader mobility and environmental data.
+The workflow is also transferable to demand, epidemiological, traffic, and
+service-arrival counts when the target, information set, and calibration
+design are clearly specified.
 
 These implications concern forecasting-system evaluation, not operational
-policing decisions. The analysis is aggregate, noncausal, and based on a
-mode-specific mobility proxy. It does not identify individuals, locations
-that should receive enforcement, or the effect of bicycle activity on
-crime. Any public-sector use would require separate fairness, privacy,
-governance, and causal-impact assessment beyond the scope of the DELB
-workflow.
+policing decisions. Any public-sector deployment requires separate fairness,
+privacy, governance, and causal-impact assessment.
 
-
-
-\subsection{Methodological Contribution and Scope}
-\label{subsec:discussion_contributions}
-
-The theoretical contribution is not a new discovery of the discrete-Gaussian
-extremizer, the lattice correction, the information-projection identity,
-or Fano's inequality. It is the integration of established ingredients into
-a four-part framework for causal integer-valued prediction:
-
-\begin{enumerate}
-\item an exact inverse-lattice MSE lower bound;
-\item a predictor-dependent refinement;
-\item necessary and sufficient attainment conditions; and
-\item a two-component decomposition of nonattainment.
-\end{enumerate}
-The empirical contribution is the connection of this population theory
-to a reproducible finite-sample evidence strategy. This connection is
-important because entropy-based prediction limits are often estimated
-precisely in settings where the state space is large relative to the
-available sample. Without support diagnostics and design-matched calibration,
-apparent reductions in a theoretical floor may be overstated as verified
-information gain.
-
-The DELB is narrower than general Bayes-risk or rate--distortion theory.
-It assumes integer-valued targets, squared-error loss, and a discrete
-representation of the conditioning state. This narrower scope permits
-an explicit lattice envelope and interpretable equality conditions,
-but it also makes entropy estimation vulnerable to sparse support.
-The same trade-off is likely to arise in demand forecasting,
-epidemiological counts, traffic incidents, service arrivals,
-and other integer-valued systems.
-
-
-
-\subsection{Limitations and Future Directions}
-\label{subsec:limitations}
-
-Several limitations concern the empirical data. Shared-bicycle trips are a
-mode-specific trace of public-space activity rather than a census of
-ambient population. Coverage depends on service boundaries, station
-locations, adoption, system rebalancing, weather, endpoint completeness,
-and recording practices. Crime data are also affected by victim reporting,
-police classification, and jurisdiction-specific definitions. The 2020--2022
-period includes pandemic-related structural change, and associations at
-the 1 km grid--day level do not support individual-level inference.
-
-Other limitations arise from the inferential design. The randomization
-procedures do not preserve the exact conditional distribution of mobility
-within every baseline state and therefore should be interpreted as
-transformation-specific diagnostics rather than exact
-conditional-independence tests. The known-truth simulation
-spans a finite factorial family, and the support regressions
-are descriptive diagnostics rather than analytic bias corrections.
-The E18 semi-synthetic study used six representative grids, 365 days,
-50 Monte Carlo datasets per cell, and 99 randomizations per dataset.
-Its binomial intervals are correspondingly wide, several requested CMI
-levels were not attainable on the fixed empirical support, and its low
-power prevents interpreting empirical non-rejection as evidence of no
-conditional information.
-The pretest Fano distribution may differ from the test-period population.
-For the multiscale randomization analysis below the full sample,
-computation was restricted to one prespecified thinning path, although
-estimator stability was examined over 50 paths.
-
-Spatial and temporal aggregation also changes the target distribution.
-Area--time normalization changes units but does not transform daily, weekly,
-500 m, and 2 km outcomes into repeated measurements of one scale-free
-population quantity. Claims of a universal scale law would require a
-separate theoretical definition and study design.
-
-Future work could reduce state sparsity through shrinkage, hierarchical
-pooling, Bayesian or frequentist partial pooling, and cross-fitting.
-More conditional surrogate designs could preserve mobility distributions
-within baseline states more closely. Empirical extensions should
-incorporate additional mobility modes, pedestrian activity, transit use,
-weather, and post-2022 observations while preserving matched causal
-information sets. Theoretical extensions include sharper multivariate
-lattice envelopes, alternative integer-valued loss functions, and bounds
-for dependent vector count processes.
-
-
-
-
+\rev{In particular, an information-value estimate should not by itself justify
+procuring surveillance-oriented data, expanding data collection, or allocating
+police resources. Procurement decisions must separately consider necessity,
+proportionality, representational bias, community oversight, retention and
+access controls, and whether less intrusive data can answer the same planning
+question.}
 
 \section{Conclusions}
 \label{sec:conclusions}
 
-This study formulated the Discrete Entropy Lower Bound for causal
-integer-valued prediction. By inverting the exact integer-lattice
-maximum-entropy envelope, the DELB maps conditional Shannon entropy
-to a model-independent, entropy-constrained MSE lower bound.
-The framework further provides a predictor-dependent refinement,
-necessary and sufficient attainment conditions, and a two-component
-decomposition that separates residual history dependence from
-error-distribution shape mismatch.
+We developed a finite-sample evaluation procedure that links conditional
+Shannon entropy to an integer-valued MSE lower bound and assesses whether an
+estimated reduction survives support diagnostics, randomization calibration,
+and held-out evaluation.
 
-The study also established a finite-sample evidence strategy for
-evaluating changes in this bound after side information is added.
-Population CMI, estimated CMI, estimator bias, transformation-specific
-randomization references, and achieved prediction error are distinct
-quantities. Known-truth simulations and support diagnostics showed that
-sparse nested states can produce positive CMI estimates and nonzero
-randomization centers even under a population null, making design-matched
-calibration essential.
+\rev{In all three cities, adding lagged bicycle flow lowered the DELB point
+estimate. The reduction was substantially smaller over the complete
+crime-supported populations than within bicycle-covered areas, and the
+observed CMI was not unusually large under any prespecified randomization
+reference in the primary specification. A lower-cardinality sensitivity
+identified a small calibrated difference only in New York City, demonstrating
+that empirical resolution depends on state complexity.} Held-out improvements were limited to selected city--model
+combinations.
+\rev{A post hoc exclusion of station-reference-located bicycle endpoints
+also changed the Washington, DC point estimate and circular-shift diagnostic,
+so that city's inference is sensitive to coordinate provenance.}
 
-In the three urban panels, lagged bicycle information consistently
-lowered estimated DELBs across cities, spatial and temporal scales,
-crime categories, and alternative specifications. However,
-the observed reductions were not distinguishable from the prespecified
-temporal, spatial, or circular-shift references after calibration, and
-they did not translate uniformly into lower held-out prediction error.
-The findings therefore do not establish a recent bicycle-specific
-reduction in the population prediction bound, nor do they imply that
-bicycle mobility is predictively irrelevant. Instead, they illustrate
-the central methodological distinction of this study: a lower estimated
-uncertainty bound, calibrated evidence of added information, and improved
-realized prediction are separate claims requiring separate evidence.
-More broadly, the DELB provides a rigorous framework for studying
-information-theoretic prediction floors and finite-sample information
-value in crime counts and other integer-valued stochastic systems. In
-practice, it supports a staged decision process in which estimated
-opportunity, calibrated separation, and realized held-out benefit must be
-established separately before an added urban data source is deployed.
+These results show that a lower estimated prediction bound does not by itself
+demonstrate source-specific information or practical forecasting value.
+Data-source evaluations should report the estimated bound change,
+randomization-based evidence, and held-out prediction gain as separate
+results.

@@ -1,8 +1,49 @@
 %! TEX root = supplement.tex
 \documentclass[applsci,supfile,submit,moreauthors]{Definitions/mdpi}
-
+%\pagestyle{empty}  % 全局无页眉页脚
 \usepackage{placeins}
+\usepackage{xr-hyper}
+\makeatletter
+% Import equation/figure labels from the main article, but keep a separate
+% bibliography for this independently submitted Supplementary PDF.
+\let\mainbibcite\bibcite
+\def\bibcite#1#2{}
+\externaldocument{applsci-4501207}
+\let\bibcite\mainbibcite
+\expandafter\let\csname r@LastPage\endcsname\relax
+\makeatother
 \setlength{\headheight}{20pt}
+% Revision-round markup. Remove the color wrapper for the final clean version.
+\newcommand{\rev}[1]{\textcolor{red}{#1}}
+
+% Supplement-wide layout rules: consistent journal-size typography,
+% right-aligned table bodies and figure panels, and flexible float placement.
+\AtBeginEnvironment{table}{%
+  \fontsize{7.8}{9.2}\selectfont
+  \def\small{\fontsize{7.8}{9.2}\selectfont}
+  \def\footnotesize{\fontsize{7.8}{9.2}\selectfont}
+  \def\scriptsize{\fontsize{7.8}{9.2}\selectfont}
+  \raggedleft
+  \let\centering\raggedleft
+  \setlength{\tabcolsep}{4pt}%
+  \renewcommand{\arraystretch}{1.10}%
+}
+\AtBeginEnvironment{figure}{\raggedleft}
+\captionsetup[figure]{font=small,labelfont=bf,labelsep=period,
+  justification=justified,singlelinecheck=false,skip=5pt}
+\captionsetup[table]{font=small,labelfont=bf,labelsep=period,
+  justification=justified,singlelinecheck=false,position=top,skip=5pt}
+\setkeys{Gin}{keepaspectratio}
+\setlength{\textfloatsep}{10pt plus 2pt minus 3pt}
+\setlength{\floatsep}{9pt plus 2pt minus 3pt}
+\setlength{\intextsep}{9pt plus 2pt minus 3pt}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setcounter{totalnumber}{7}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.90}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.80}
 
 \firstpage{1}
 \makeatletter
@@ -18,13 +59,19 @@
 \dateaccepted{}
 \datepublished{}
 
-\Title{Supplementary Materials for ``A Discrete Entropy Lower Bound for Urban
-Crime Count Prediction: Finite-Sample Calibration and Multicity Evaluation''}
-\Author{First Author $^{1}$, Second Author $^{2}$ and Corresponding Author $^{1,}$*}
-\AuthorNames{First Author, Second Author and Corresponding Author}
-\address{$^{1}$ \quad Affiliation 1; author1@example.com\\
-$^{2}$ \quad Affiliation 2; author2@example.com}
-\corres{Correspondence: corresponding.author@example.com}
+\Title{Calibrating Discrete Entropy Prediction Floors for Urban Crime Counts:
+A Multicity Evaluation}
+\Author{Minling Dang $^{1}$, Yan Liu $^{1}$, Ying Zhang $^{1}$, Bin Guo$^{1}$ and Zhiwen Yu $^{2,1}$*}
+\AuthorNames{Minling Dang, Yan Liu, Ying Zhang, Bin Guo and Zhiwen Yu}
+
+\address{%
+$^{1}$ \quad Northwestern Polytechnical University; Xi'an 710129, China;
+\hspace{0.4em}yixi@mail.nwpu.edu.cn (M.D.); liu.yan@nwpu.edu.cn (Y.L.);
+izhangying@nwpu.edu.cn (Y.Z.); guob@nwpu.edu.cn (B.G.)\\
+$^{2}$ \quad Harbin Engineering University; Harbin 150001, China;
+\hspace{0.4em}zhiwenyu@nwpu.edu.cn (Z.Y.)}
+
+\corres{Correspondence: zhiwenyu@nwpu.edu.cn}
 
 \input{sections/generated/e11/e11_macros}
 \input{sections/generated/s7/s7_macros}
@@ -36,10 +83,92 @@ $^{2}$ \quad Affiliation 2; author2@example.com}
 \renewcommand{\thesection}{S\arabic{section}}
 \renewcommand{\thefigure}{S\arabic{figure}}
 \renewcommand{\thetable}{S\arabic{table}}
+% Use visibly distinct supplementary theorem numbers, not only unique PDF anchors.
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theproposition}{S\arabic{proposition}}
+\renewcommand{\thecorollary}{S\arabic{corollary}}
+\renewcommand{\theremark}{S\arabic{remark}}
+\renewcommand{\thelemma}{S\arabic{lemma}}
 \setcounter{section}{0}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 
 \input{sections/supplement_results}
+\FloatBarrier
+\input{sections/empirical_appendix}
+\FloatBarrier
+\input{sections/theoretical_proofs}
+
+\reftitle{References}
+\begin{thebibliography}{99}
+\fontsize{8.5}{9}\selectfont
+\bibitem{shannon1948}
+Shannon, C.E. A mathematical theory of communication.
+\emph{Bell Syst. Tech. J.} \textbf{1948}, \emph{27}, 379--423, 623--656.
+
+\bibitem{cover_thomas}
+Cover, T.M.; Thomas, J.A. \emph{Elements of Information Theory}, 2nd ed.;
+Wiley-Interscience: Hoboken, NJ, USA, 2006.
+\url{https://doi.org/10.1002/047174882X}.
+
+\bibitem{fang_variance_bounds}
+Fang, S.; Skoglund, M.; Johansson, K.H.; Ishii, H.; Zhu, Q.
+Generic variance bounds on estimation and prediction errors in time series
+analysis: An entropy perspective. In \emph{Proceedings of the 2019 IEEE
+Information Theory Workshop (ITW)}, Visby, Sweden, 25--28 August 2019;
+pp. 1--5. \url{https://doi.org/10.1109/ITW44776.2019.8989240}.
+
+\bibitem{ayers2025complexity}
+Ayers, J.; Hahnloser, R.; Ulrich, J.; Krapp, L.S.; Nitschke, R.; Stoll, S.;
+Bickel, B.; Furrer, R. Time-series random process complexity ranking using a
+bound on conditional differential entropy. \emph{arXiv} \textbf{2025},
+arXiv:2510.20551. \url{https://doi.org/10.48550/arXiv.2510.20551}.
+
+\bibitem{hauser2026dmd}
+Hauser, T.; H\"olz, J. Entropy based lower dimension bounds for finite-time
+prediction of Dynamic Mode Decomposition algorithms. \emph{arXiv}
+\textbf{2025}, arXiv:2504.20269, revised 22 March 2026.
+\url{https://doi.org/10.48550/arXiv.2504.20269}.
+
+\bibitem{massey_integer_entropy}
+Massey, J.L. On the entropy of integer-valued random variables. In
+\emph{Proceedings of the 1988 Beijing International Workshop on Information
+Theory}, Beijing, China, 4--7 July 1988; pp. C1.1--C1.4.
+
+\bibitem{rioul_massey}
+Rioul, O. Variations on a theme by Massey.
+\emph{IEEE Trans. Inf. Theory} \textbf{2022}, \emph{68}, 2813--2828.
+\url{https://doi.org/10.1109/TIT.2022.3141264}.
+
+\bibitem{shannon_rate_distortion}
+Shannon, C.E. Coding theorems for a discrete source with a fidelity
+criterion. \emph{IRE Natl. Conv. Rec.} \textbf{1959}, \emph{7}, 142--163.
+
+\bibitem{chen_bayes_risk}
+Chen, X.; Guntuboyina, A.; Zhang, Y. On Bayes risk lower bounds.
+\emph{J. Mach. Learn. Res.} \textbf{2016}, \emph{17}, 1--58.
+\url{https://www.jmlr.org/papers/v17/16-185.html}.
+
+\bibitem{jeong_ziv_zakai}
+Jeong, M.; Dytso, A.; Cardone, M. A comprehensive study on Ziv--Zakai
+lower bounds on the MMSE. \emph{IEEE Trans. Inf. Theory} \textbf{2025},
+\emph{71}, 3214--3236.
+\url{https://doi.org/10.1109/TIT.2025.3541987}.
+
+\bibitem{calcagnile2026benchmark}
+Calcagnile, L.M.; Di Garbo, A.; Galatolo, S. A benchmark for entropy
+estimators. \emph{Entropy} \textbf{2026}, \emph{28}, 311.
+\url{https://doi.org/10.3390/e28030311}.
+
+\bibitem{feder_merhav}
+Feder, M.; Merhav, N. Relations between entropy and error probability.
+\emph{IEEE Trans. Inf. Theory} \textbf{1994}, \emph{40}, 259--266.
+\url{https://doi.org/10.1109/18.272494}.
+
+\bibitem{csiszar_iprojection}
+Csisz\'ar, I. I-divergence geometry of probability distributions and
+minimization problems. \emph{Ann. Probab.} \textbf{1975}, \emph{3},
+146--158. \url{https://doi.org/10.1214/aop/1176996454}.
+\end{thebibliography}
 
 \end{document}

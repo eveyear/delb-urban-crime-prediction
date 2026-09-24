@@ -1,0 +1,135 @@
+experiment_id: E19
+experiment_name: semi_synthetic_scale_sample_identifiability
+stage: MVP_stage_1_design_freeze_and_micro_validation
+random_seed: 20260728
+
+estimand:
+  design: fixed_design_semi_synthetic
+  target: current_crime_count
+  baseline_state: [grid_id, crime_lag_bin, day_of_week, season, is_holiday]
+  side_information: bicycle_lag_bin
+  cmi_unit: bits
+  sample_length_definition: periods_per_spatial_unit
+  limitation: >-
+    Observed baseline and bicycle states are frozen, including observed lagged-crime
+    states. Only the current outcome is regenerated; this is not a coherent recursive
+    crime process and supports finite-sample identifiability claims, not causal claims.
+
+formal_design:
+  scales:
+    - {key: 500m_day, spatial_resolution_m: 500, temporal_resolution: day}
+    - {key: 1km_day, spatial_resolution_m: 1000, temporal_resolution: day}
+    - {key: 2km_week, spatial_resolution_m: 2000, temporal_resolution: week}
+  sample_lengths: [90, 150, 365, 730]
+  target_cmi_bits: [0.0, 0.03, 0.06, 0.12]
+  estimators: [plugin, miller_madow, jeffreys_dirichlet]
+  monte_carlo_replicates: 200
+  randomization:
+    reference: baseline_state_matched
+    routine_surrogates: 199
+    confirmation_surrogates: 999
+    confirmation_sample_lengths: [150, 365]
+    confirmation_target_cmi_bits: [0.03, 0.06]
+
+stage_1_micro_validation:
+  enabled: true
+  synthetic_scale_keys: [500m_day, 1km_day, 2km_week]
+  sample_lengths: [90, 150]
+  target_cmi_bits: [0.0, 0.06]
+  replicates: 5
+  dispersion: 2.0
+  jeffreys_alpha: 0.5
+  calibration_tolerance_bits: 0.000001
+  outcome_mean_floor: 0.02
+  outcome_mean_ceiling: 50.0
+
+stage_1_prohibitions:
+  formal_48_cell_matrix: true
+  monte_carlo_200_replicates: true
+  randomization_surrogates: true
+  manuscript_figures: true
+  manuscript_edits: true
+
+stage_2_population_construction:
+  source_multiscale_data: processed_data/e16/20260722_203209_E16_S16_2_multiscale_panel
+  cities: [DC, NY, VAN]
+  representative_grids_per_city: 6
+  positive_bicycle_quantiles: [0.3333333333333333, 0.6666666666666666]
+  conditional_mean_shrinkage: 20.0
+  dispersion_bounds: [0.25, 20.0]
+  minimum_calibration_dispersion: 2.0
+  dispersion_regularization_reason: >-
+    The raw method-of-moments dispersion can be below 0.5 at fine scales,
+    making the frozen 0.12-bit target unattainable under the bounded
+    negative-binomial mean-shift family. The DGP therefore records the raw
+    empirical value but regularizes its dispersion to at least 2.0.
+  state_extension: deterministic_within_grid_periodic_replay
+  lattice_tail_tolerance: 1.0e-12
+  lattice_root_tolerance: 1.0e-10
+  calibration_tolerance_bits: 0.000001
+  prohibitions:
+    monte_carlo_replicates: true
+    randomization_surrogates: true
+    manuscript_figures: true
+    manuscript_edits: true
+
+stage_3_monte_carlo:
+  source_stage_2_run: runs/20260728_173641_E19_MVP_stage2_population
+  replicates: 200
+  checkpoint_each_population_cell: true
+  delb_interpolation:
+    minimum_maximum_entropy_bits: 8.0
+    lattice_tail_tolerance: 1.0e-12
+    lattice_root_tolerance: 1.0e-10
+  relative_error_floor: 1.0e-12
+  near_truth_tolerance_bits: 0.01
+  prohibitions:
+    randomization_surrogates: true
+    manuscript_figures: true
+    manuscript_edits: true
+
+stage_4_power:
+  source_stage_2_run: runs/20260728_173641_E19_MVP_stage2_population
+  source_stage_3_run: runs/20260728_174145_E19_MVP_stage3_monte_carlo
+  reference: exact_baseline_state_matched_permutation
+  statistic: miller_madow_cmi_bits
+  alternative: observed_greater_than_reference
+  p_value_rule: plus_one
+  alpha: 0.05
+  routine_surrogates: 199
+  confirmation_surrogates: 999
+  confirmation_sample_lengths: [150, 365]
+  confirmation_target_cmi_bits: [0.03, 0.06]
+  worker_processes: 6
+  parallel_backend: threading
+  reuse_fixed_reference_matrix_across_outcome_replicates: true
+  prohibitions:
+    manuscript_figures: true
+    manuscript_edits: true
+
+stage_5_minimum_detectable_cmi:
+  source_stage_4_run: runs/20260728_175658_E19_MVP_stage4_power
+  target_power: 0.80
+  discrete_rule: smallest_tested_positive_cmi_reaching_target_power
+  interpolation: linear_between_adjacent_tested_cmi_levels
+  monotonicity_rule: cumulative_maximum_with_adjustment_flag
+  interpretation: approximate_grid_based_threshold_not_a_new_simulated_cmi_level
+  prohibitions:
+    additional_simulation: true
+    manuscript_figures: true
+    manuscript_edits: true
+
+stage_6_figures:
+  source_stage_2_run: runs/20260728_173641_E19_MVP_stage2_population
+  source_stage_3_run: runs/20260728_174145_E19_MVP_stage3_monte_carlo
+  source_stage_4_run: runs/20260728_175658_E19_MVP_stage4_power
+  source_stage_5_run: runs/20260728_182340_E19_MVP_stage5_mdcmi
+  formats: [pdf, svg, png]
+  dpi: 300
+  manuscript_figures:
+    - truth_referenced_cmi_delb_convergence
+    - power_and_minimum_detectable_cmi
+  supplement_figures:
+    - support_complexity
+    - scale_sample_error_heatmaps
+  manuscript_integration: false

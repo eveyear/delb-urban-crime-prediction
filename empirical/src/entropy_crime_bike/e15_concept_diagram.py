@@ -97,13 +97,31 @@ def _box(
         clip_on=False,
     )
     axis.add_patch(patch)
-    title_size = 8.3 if compact else 10.5 * font_scale
-    formula_size = 8.6 if compact else 11.0 * font_scale
-    line_size = 6.8 if compact else 7.9 * font_scale
+    title_size = 9.5 if compact else 10.5 * font_scale
+    formula_size = 9.4 if compact else 10.8 * font_scale
+    line_size = 8.8 if compact else 10.2 * font_scale
+    compact_lines = {
+        "estimand": (
+            r"$H(C\mid\mathcal{F}^{0})-$" + "\n" + r"$H(C\mid\mathcal{F}^{B})=\theta$",
+            "Orders population\nDELB/Fano floors",
+            "Predictive information;\nnot a causal effect",
+        ),
+        "estimator": (
+            "Plugin or Miller--Madow\nstatistic",
+            "Bias and variance\ndepend on support",
+            r"$K_{\mathrm{obs}}/N,\ S_1,\ \nu/N$" + "\n" + "diagnose sparsity",
+        ),
+        "null": (
+            r"$\mu_{\mathrm{null}}=\mathbb{E}_\pi[\hat\theta^\pi]$" + "\n" + "need not be zero",
+            "Compare observed statistic\nwith its null law",
+            "Recompute statistic and\nsupport after " + r"$\pi$",
+        ),
+    }
+    title = element["title"].replace("Finite-sample estimator", "Finite-sample\nestimator") if compact else element["title"]
     axis.text(
         x + 0.035 * width,
         y + 0.88 * height,
-        f'{element["stage"]}  {element["title"]}',
+        f'{element["stage"]}  {title}',
         color=color,
         fontsize=title_size,
         fontweight="bold",
@@ -120,13 +138,13 @@ def _box(
         ha="center",
         va="center",
     )
-    for position, key in zip(
+    for position_index, (position, key) in enumerate(zip(
         (0.43, 0.27, 0.11), ("line_1", "line_2", "line_3"), strict=True
-    ):
+    )):
         axis.text(
             x + 0.05 * width,
             y + position * height,
-            element[key],
+            (compact_lines[element["key"]][position_index] if compact else element[key]),
             color=COLORS["ink"] if key == "line_1" else COLORS["muted"],
             fontsize=line_size,
             transform=axis.transAxes,
@@ -162,7 +180,7 @@ def _arrow(
             y,
             label,
             color=COLORS["muted"],
-            fontsize=7.0,
+            fontsize=8.0,
             transform=axis.transAxes,
             va="center",
             ha="left",
@@ -175,7 +193,7 @@ def _arrow(
             y,
             label,
             color=COLORS["muted"],
-            fontsize=6.4,
+            fontsize=7.5,
             transform=axis.transAxes,
             va="bottom",
             ha="center",
@@ -200,34 +218,34 @@ def draw_concept_figure(
 
     if layout == "wide":
         bounds = [
-            (0.015, 0.25, 0.292, 0.64),
-            (0.354, 0.25, 0.292, 0.64),
-            (0.693, 0.25, 0.292, 0.64),
+            (0.04, 0.70, 0.92, 0.25),
+            (0.04, 0.38, 0.92, 0.25),
+            (0.04, 0.06, 0.92, 0.25),
         ]
         for element, box_bounds in zip(elements, bounds, strict=True):
             _box(
                 axis,
                 element,
                 box_bounds,
-                font_scale=0.93,
-                compact=True,
+                font_scale=0.85,
+                compact=False,
             )
         _arrow(
             axis,
-            (0.31, 0.57),
-            (0.351, 0.57),
+            (0.50, 0.69),
+            (0.50, 0.64),
             "sample + discretize",
-            vertical=False,
+            vertical=True,
         )
         _arrow(
             axis,
-            (0.649, 0.57),
-            (0.69, 0.57),
+            (0.50, 0.37),
+            (0.50, 0.32),
             r"apply $\pi$; recompute",
-            vertical=False,
+            vertical=True,
         )
-        footer_y = 0.105
-        footer_size = 8.3
+        footer_y = 0.035
+        footer_size = 7.2
     else:
         bounds = [
             (0.04, 0.705, 0.92, 0.255),
@@ -259,24 +277,19 @@ def draw_concept_figure(
         footer_y = 0.012
         footer_size = 7.0
 
-    footer = (
-        "Randomization evidence does not validate or refute DELB/Fano; "
-        "the three quantities answer different questions."
-        if layout == "wide"
-        else "Randomization evidence does not validate or refute DELB/Fano;\n"
-        "the three quantities answer different questions."
-    )
-    axis.text(
-        0.5,
-        footer_y,
-        footer,
-        color=COLORS["ink"],
-        fontsize=footer_size,
-        fontweight="bold",
-        transform=axis.transAxes,
-        ha="center",
-        va="center",
-    )
+    if layout != "wide":
+        axis.text(
+            0.5,
+            footer_y,
+            "Randomization evidence does not validate or refute DELB/Fano;\n"
+            "the three quantities answer different questions.",
+            color=COLORS["ink"],
+            fontsize=footer_size,
+            fontweight="bold",
+            transform=axis.transAxes,
+            ha="center",
+            va="center",
+        )
     figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
     return figure
 

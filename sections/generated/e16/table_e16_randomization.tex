@@ -1,10 +1,8 @@
-\begin{table}[H]
+\begin{table}[!htbp]
 \caption{Multiscale upper-tail randomization calibration. Discoveries use a Benjamini--Hochberg adjustment across all 270 tests.}
 \label{tab:e16_randomization_summary}
-\begin{adjustwidth}{-\extralength}{0cm}
 \centering
-\small
-\begin{tabular}{lccccc}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccc@{}}
 \toprule
 \textbf{Null design} & \textbf{Tests} & \textbf{Min. $p$} & \textbf{Median $p$} & \textbf{Obs. $>$ null} & \textbf{FDR discoveries}\\
 \midrule
@@ -12,6 +10,5 @@ Temporal block & 90 & 0.873 & 1.000 & 0 & 0\\
 Spatial series & 90 & 0.130 & 0.945 & 12 & 0\\
 Circular shift & 90 & 0.005 & 0.917 & 21 & 0\\
 \bottomrule
-\end{tabular}
-\end{adjustwidth}
+\end{tabular*}
 \end{table}

@@ -1,15 +1,15 @@
-\section{Estimator and Training-Period-Frozen Analysis-Domain Sensitivity}
+\section{Estimator Sensitivity and Training-Period-Frozen Decision Populations}
 \label{supsec:estimator_domain}
 
-The E09 sensitivity analysis evaluated the plug-in, Miller--Madow, and
+The estimator-sensitivity analysis evaluated the plug-in, Miller--Madow, and
 coherent observed-support Jeffreys--Dirichlet estimators across 16
 prespecified specifications in each city. All 16 DELB-reduction point
 estimates were positive for every city and estimator
 (Table~\ref{tab:sup_estimator_specifications}). The Jeffreys calculation
-places a symmetric posterior on observed full-joint atoms and coherently
+places a symmetric posterior on observed joint states and coherently
 aggregates its marginals; it does not reconstruct unobserved support.
 
-E17 applied all three estimators to the same 999 temporal-block, spatial-series,
+The estimator-specific randomization analysis applied all three estimators to the same 999 temporal-block, spatial-series,
 and circular-shift surrogates. Table~\ref{tab:sup_estimator_nulls} reports
 both Benjamini--Hochberg adjustment within each estimator's nine
 city--design comparisons and global adjustment over all 27 comparisons.
@@ -21,18 +21,18 @@ estimator-specific null mean.
 \input{sections/generated/e17/table_estimator_null_summary}
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/e17/e17_estimator_null_sensitivity.pdf}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e17/e17_estimator_null_sensitivity.pdf}}
 \caption{Estimator sensitivity of city-level randomization calibration.
 Each point is the observed CMI minus the mean of the same design-conditioned
 reference distribution. Nonzero null centers are allowed.}
 \label{fig:sup_estimator_nulls}
 \end{figure}
 
-The analysis-domain sensitivity compares the training-period-frozen bicycle
-service domain with the complete training crime-supported domain. The
-domain is fixed before validation and testing; this is therefore an
-analysis-population sensitivity, not a post-outcome spatial selection.
+The decision-population comparison contrasts the training-period-frozen
+coverage-conditioned estimand with the complete crime-supported
+deployment-population estimand. Both populations were fixed before
+validation and testing; this is therefore an estimand comparison, not a
+post-outcome spatial selection.
 Table~\ref{tab:sup_frozen_domain} and
 Figure~\ref{fig:sup_frozen_domain} show that expanding the spatial
 population changes the magnitude of CMI and DELB reduction, especially in
@@ -42,13 +42,15 @@ identify a bicycle effect.
 \input{sections/generated/e17/table_frozen_domain_sensitivity}
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/e17/e04_domain_sensitivity.pdf}
-\caption{Training-period-frozen analysis-domain sensitivity. The complete
-crime-supported domain and the training bicycle-covered domain define
-different spatial target populations.}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e17/e04_domain_sensitivity.pdf}}
+\caption{Training-period-frozen decision-population comparison. The complete
+crime-supported deployment population and the coverage-conditioned
+bicycle-covered population define different estimands.}
 \label{fig:sup_frozen_domain}
 \end{figure}
+
+\input{sections/generated/e11/table_city_information}
+\input{sections/table_co_primary_domains}
 
 \section{Local Estimates and Lag-Specificity Details}
 \label{supsec:moved_local_lag}
@@ -56,18 +58,14 @@ different spatial target populations.}
 \input{sections/generated/e11/table_local_information}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/e11/e05_local_delb_reduction_maps.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e05_local_delb_reduction_maps.pdf}}
 \caption{Local DELB-reduction point estimates for eligible cells. None
 passed all three randomization references.}
 \label{fig:local_delb_maps}
 \end{figure}
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/e11/e10_distant_lags.pdf}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e10_distant_lags.pdf}}
 \caption{Matched recent- and distant-lag CMI estimates. Their similarity
 shows that the positive primary point estimate is not specific to the
 one-day mobility horizon.}
@@ -77,13 +75,70 @@ one-day mobility horizon.}
 \section{Sample-Size and Multiscale Details}
 \label{supsec:moved_scale}
 
+\subsection{Nested-domain sampling and normalization}
+\rev{The comparison domain comprised complete 2~km parents, their four
+1~km children, and all sixteen 500~m descendants. Crime and bicycle totals
+reconciled across this nested footprint. Weekly records summed seven
+complete days; a one-period lag referred to the preceding aggregation
+period. Sample fractions retained all grids within selected blocks.
+Daily panels used seven-day blocks and weekly panels four-week blocks,
+stratified by year and season. Fractions were nested within each of 50
+frozen repetitions; a five-point expanding-window design separately
+diagnosed chronological accumulation and distribution drift.}
+
+Estimator stability for an entropy, CMI, or DELB estimate was
+\begin{equation}
+S_N(\widehat\theta)
+=\frac{|\widehat\theta_N-\widehat\theta_{N_{\max}}|}
+{\max(|\widehat\theta_{N_{\max}}|,10^{-12})}.
+\label{eq:e16_stability}
+\end{equation}
+\rev{This is deviation from the full-sample estimate, not error relative to
+unknown population truth. For cell area \(A\) in km\(^2\) and duration
+\(\tau\) in days, the deterministically scaled intensity target has}
+\begin{equation}
+L_{\mathrm{int,MSE}}^{j}(A,\tau)
+=\frac{L^{j}(A,\tau)}{(A\tau)^2},
+\qquad
+L_{\mathrm{int,RMSE}}^{j}(A,\tau)
+=\frac{\sqrt{L^{j}(A,\tau)}}{A\tau},
+\quad j\in\{0,B\}.
+\label{eq:e16_intensity_normalization}
+\end{equation}
+\rev{Temporal blocks in the randomization analysis contained seven days or
+four weeks; circular shifts were separated by at least 31 days or five
+weeks. At fractions below 100\%, the lowest-index frozen thinning path
+entered randomization calibration, while stability summarized all 50 paths.
+Miller--Madow CMI, DELB reduction, occupied support, singleton share, and
+effective degrees of freedom were recomputed after every transformation.}
+
+\subsection{Truth-referenced semi-synthetic protocol}
+\rev{Six flow-quantile-spanning grids were selected deterministically in each
+city. Observed baseline and bicycle states were held fixed; current crime
+counts were regenerated from a negative-binomial model. Conditional means
+used 20-observation shrinkage. Raw method-of-moments dispersion estimates
+were retained as diagnostics, but simulation dispersion was bounded below
+by 2.0 because the finer-scale supports could not attain 0.12-bit CMI under
+the bounded multiplicative mean-shift family at their raw dispersion. The
+bicycle-state coefficient was calibrated by numerical enumeration so that
+\(H(C\mid\mathcal S^0)-H(C\mid\mathcal S^0,B)\) equaled the target CMI. Both
+conditional entropies were mapped through the same inverse integer-lattice
+envelope to obtain population \(L^0\), \(L^B\), and \(\Delta L\).
+All three estimators were evaluated on the same generated datasets.
+Truth-referenced outcomes were bias, RMSE, relative RMSE for positive truth,
+Monte Carlo standard deviation, and sign recovery. Power used Miller--Madow
+CMI and exact baseline-state-matched permutation without replacement among
+observations having identical baseline-state codes. The 12 high-resolution
+cells crossed \(N\in\{150,365\}\), CMI \(\in\{0.03,0.06\}\), and three scales.
+Plus-one upper-tail \(p\)-values used a 0.05 threshold. The 80\% minimum
+detectable CMI was the smallest tested positive CMI reaching 80\% power;
+linear interpolation between adjacent levels was reported as a grid-based
+approximation, not an additional simulated effect level.}
+
 \input{sections/generated/e16/table_e16_sample_stability}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_sample_stability.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e16/e16_s16_5_sample_stability.pdf}}
 \caption{Relative deviation from the full-sample baseline DELB and CMI
 estimate under nested block thinning. The curves measure estimator
 stability, not distance from population truth.}
@@ -91,23 +146,51 @@ stability, not distance from population truth.}
 \end{figure}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/e16/e16_s16_5_full_sample_intensity_heatmap.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e16/e16_s16_5_full_sample_intensity_heatmap.pdf}}
 \caption{Full-sample Miller--Madow reduction in the deterministically scaled
 intensity-RMSE floor by city, spatial resolution, and temporal resolution.}
 \label{fig:e16_intensity_heatmap}
 \end{figure}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/e16/e16_s16_6_key_scale_pvalues.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e16/e16_s16_6_key_scale_pvalues.pdf}}
 \caption{Full-sample upper-tail randomization \(p\)-values at the
 500~m--day, 1~km--day, and 2~km--week key scales.}
 \label{fig:e16_key_pvalues}
+\end{figure}
+
+\input{sections/generated/e16/table_e16_randomization}
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e16/e16_s16_6_observed_vs_null.pdf}}
+\caption{Observed Miller--Madow CMI versus the randomization-reference mean
+across 270 city--space--time--sample--design comparisons. The dashed line is
+equality; a nonzero reference center is allowed and is not population CMI.}
+\label{fig:e16_observed_null}
+\end{figure}
+
+The scale--sample support audit shows how the fixed design changes with generated
+record length. Figure~\ref{fig:e19_support_complexity} reports occupied
+baseline and baseline--bicycle states, observations per occupied joint
+state, and the share movable under exact baseline-state matching.
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e19/supp_e19_support_complexity.pdf}}
+\caption{Support complexity of the semi-synthetic scale--sample designs.
+For 2~km--week, values beyond the observed record length use the
+prespecified within-grid state-sequence replay.}
+\label{fig:e19_support_complexity}
+\end{figure}
+
+Figure~\ref{fig:e19_scale_sample_heatmaps} gives the truth-referenced error
+surface by estimator, scale, and generated sample length. Color limits are
+shared within each metric row, so cells are comparable across estimators.
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e19/supp_e19_scale_sample_heatmaps.pdf}}
+\caption{Median truth-referenced CMI RMSE and DELB relative RMSE over the
+three positive population-CMI levels.}
+\label{fig:e19_scale_sample_heatmaps}
 \end{figure}
 
 \section{Crime-Type Heterogeneity}
@@ -116,8 +199,7 @@ intensity-RMSE floor by city, spatial resolution, and temporal resolution.}
 \input{sections/generated/e11/table_crime_type}
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/e11/e08_crime_type_delb_reduction.pdf}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e08_crime_type_delb_reduction.pdf}}
 \caption{DELB-reduction point estimates by harmonized crime category and
 city. Intervals measure block-bootstrap sampling variation and are not
 category-specific randomization tests.}
@@ -127,13 +209,35 @@ category-specific randomization tests.}
 \section{Alternative Specifications and Rolling Origins}
 \label{supsec:moved_rolling}
 
+{\color{red}\sloppy Table~\ref{tab:sup_revision_robustness} reports the additional
+matched-reference sensitivities. The lower-cardinality specification replaces
+grid identity with training-only crime-intensity quintiles. Calendar-month
+and positive-flow-quintile specifications intentionally increase temporal or
+bicycle-state resolution; neither exceeded its matched-reference center.\par}
+
+\rev{The bicycle-state mapping changes the magnitude of the uncalibrated
+Miller--Madow CMI point estimate. For zero plus a positive-flow median split,
+the Washington, DC, New York City, and Vancouver estimates were 0.02934,
+0.09247, and 0.08310 bits. The primary zero-plus-tertiles mapping gave
+0.04316, 0.13137, and 0.14233 bits, while zero plus positive-flow quintiles
+gave 0.07169, 0.19650, and 0.24360 bits. These values come from the frozen
+alternative-mapping results; higher bin resolution alone is not calibrated
+evidence of additional source information. The finest mapping's
+matched-reference comparison is reported in Table~\ref{tab:sup_revision_robustness}.}
+
+\input{sections/table_revision_supplement}
+
+\rev{Annual bicycle-covered CMI estimates for 2020, 2021, and 2022 were
+0.0657, 0.0651, and 0.0599 bits in Washington, DC. The corresponding values
+were 0.0561, 0.1162, and 0.1064 in New York City and 0.2236, 0.1717, and
+0.1690 in Vancouver. These point estimates show temporal
+variation over the pandemic-era study window and are not substitutes for the
+matched-reference calibration.}
+
 \input{sections/generated/e11/table_robustness}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/e11/e09_rolling_origins.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e09_rolling_origins.pdf}}
 \caption{Expanding-window monthly prediction results. Positive
 \(\Delta\mathrm{MSE}\) favors the bicycle-aware model; stability remains
 model-specific.}
@@ -148,49 +252,65 @@ descriptive audits. They precede conditioning and are not evidence of CMI,
 a DELB reduction, or a causal mobility effect.
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=0.98\linewidth]{figures/e11/e02_spatial_patterns.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e02_spatial_patterns.pdf}}
 \caption{Spatial concentration of harmonized property-crime counts and
 bicycle endpoint flow, 2020--2022.}
 \label{fig:spatial_patterns}
 \end{figure}
 
 \begin{figure}[!htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/e11/e02_monthly_patterns.png}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e02_monthly_patterns.png}}
 \caption{Monthly crime counts and bicycle endpoint flow by city,
 2020--2022.}
 \label{fig:monthly_patterns}
 \end{figure}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/s7/e12_bias_rmse_supplement.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/s7/e12_bias_rmse_supplement.pdf}}
 \caption{Estimator bias and RMSE over the complete sparse-state simulation
 grid.}
 \label{fig:e12_bias_supplement}
 \end{figure}
 
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/s7/e13_support_metrics_supplement.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/s7/e13_support_metrics_supplement.pdf}}
 \caption{Supplementary support-metric relationships for simulation and
 empirical null summaries.}
 \label{fig:e13_support_supplement}
 \end{figure}
 
+\input{sections/generated/s7/table_e13_support}
+
 \begin{figure}[!htbp]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/s7/e14_fano_bootstrap.pdf}
-\end{adjustwidth}
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/s7/e13_support_null_main.pdf}}
+\caption{Support structure and randomization-reference centering. Simulation
+panels use known zero population CMI; empirical panels use
+surrogate-specific support recomputed after every transformation. Lines are
+descriptive associations.}
+\label{fig:e13_support_null}
+\end{figure}
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/e11/e07_gap_narrowing.pdf}}
+\caption{Predictability-gap narrowing after adding bicycle state. Positive
+values mean empirical MSE fell by more than the estimated DELB; negative
+values indicate a larger unused-information gap.}
+\label{fig:gap_narrowing}
+\end{figure}
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/s7/e14_fano_bootstrap.pdf}}
 \caption{Centered seven-day block-bootstrap intervals for estimated Fano
 floors and held-out modal-classifier errors.}
 \label{fig:e14_bootstrap_supplement}
+\end{figure}
+
+\input{sections/generated/s7/table_e14_fano}
+
+\begin{figure}[!htbp]
+\makebox[\linewidth][r]{\includegraphics[width=0.94\linewidth]{figures/s7/e14_fano_main.pdf}}
+\caption{Fano classification-loss comparison. Oracle panels compare true
+Bayes errors with true Fano floors; empirical panels compare estimated
+pretest floors with held-out modal-classifier errors.}
+\label{fig:e14_fano}
 \end{figure}

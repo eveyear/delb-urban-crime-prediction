@@ -533,9 +533,9 @@ def _plot_results(
                 alpha=0.55,
             )
     axes[0, 1].set(
-        title="(b) Empirical E10 null center and singleton occupancy",
+        title="(b) Empirical reference center and singleton occupancy",
         xlabel="Mean surrogate singleton-observation share",
-        ylabel="E10 null mean (bits)",
+        ylabel="Reference mean (bits)",
     )
     city_handles = [
         Line2D(
@@ -622,7 +622,7 @@ def _plot_results(
     ]
     axes[1, 1].set_xticks(positions, labels, fontsize=6.5)
     axes[1, 1].set(
-        title="(d) Reinterpreting the nine city-level E10 comparisons",
+        title="(d) Nine city-level randomization comparisons",
         xlabel="C = circular; S = spatial; T = temporal blocks",
         ylabel="Conditional information (bits)",
     )
@@ -653,12 +653,12 @@ def _plot_results(
     axes[0].set(
         title="(a) Observed support atoms",
         xlabel=r"Mean surrogate $K_{\mathrm{obs}}/N$",
-        ylabel="E10 null mean (bits)",
+        ylabel="Reference mean (bits)",
     )
     axes[1].set(
         title="(b) Effective conditional degrees of freedom",
         xlabel=r"Mean surrogate $\nu/N$",
-        ylabel="E10 null mean (bits)",
+        ylabel="Reference mean (bits)",
     )
     axes[0].legend(frameon=False)
     for axis in axes:
@@ -709,7 +709,7 @@ def _interpretation(
             "## Empirical E10 association",
             "",
             f"- Across 1,017 city-grid-null-design summaries, surrogate "
-            f"singleton share and the E10 null mean have Spearman "
+            f"singleton share and the randomization-reference mean have Spearman "
             f"rho={empirical.spearman_rho:.3f} "
             f"(p={empirical.p_value:.3g}).",
             f"- In the univariate specification with city and null-design "

@@ -1,101 +1,113 @@
 \section{Results}
 \label{sec:results}
 
-The results begin with the multicity application outcome and then unpack
-the evidence needed to interpret it. After the application overview, we
-examine finite-sample behavior under known population conditions, report
-the detailed city-level and local DELB estimates, evaluate them against
-prespecified randomization references, assess sensitivity to spatial scale,
-temporal aggregation, and sample size, and compare the estimated bounds
-with held-out prediction errors. Table~\ref{tab:results_evidence_map}
-summarizes the question addressed by each evidence layer.
-Throughout this section, estimated CMI, changes in the estimated DELB,
-randomization-calibrated information gain, and changes in realized
-prediction error are treated as distinct empirical quantities.
-
-\begin{table}[!t]
-\begin{adjustwidth}{-\extralength}{0cm}
-\caption{Evidence map for interpreting the empirical results. CMI denotes
-conditional mutual information, and DELB denotes the Discrete Entropy Lower
-Bound.}
-\label{tab:results_evidence_map}
-\scriptsize
-\begin{tabularx}{\fulllength}{p{0.14\fulllength}XXX}
-\toprule
-\textbf{Evidence layer} & \textbf{Question answered} & \textbf{Main result} & \textbf{Interpretive boundary} \\
-\midrule
-City and local point estimates &
-Does the estimated prediction floor decline after the bicycle state is added? &
-Estimated conditional entropy and the corresponding DELB declined in all
-cities and in the reported local summaries. &
-Describes an estimated state-partition difference; it does not establish
-bicycle-specific information. \\
-Known-truth simulation and support diagnostics &
-Can positive estimated CMI arise when population CMI is zero? &
-Sparse nested states produced positive plug-in and Miller--Madow estimates
-and nonzero randomization centers; support complexity tracked both behaviors. &
-Diagnoses finite-sample estimation and calibration, not the city-specific
-mobility effect. \\
-Randomization and multiscale calibration &
-Is the observed statistic unusually large under prespecified null mechanisms? &
-No primary or multiscale comparison survived the relevant calibration and
-multiplicity correction. &
-Limits attribution to recent, geographically matched bicycle mobility; it
-does not prove conditional independence. \\
-Matched prediction and Predictability Gap &
-Did fitted models convert the augmented state into lower held-out MSE? &
-Improvements were model- and city-dependent, and only two New York models
-narrowed the estimated gap. &
-Realized model performance neither proves nor refutes a population DELB
-change. \\
-Fano comparison &
-Does the information ordering persist under classification loss? &
-Estimated Fano floors declined, while sparse held-out modal classifiers often
-worsened. &
-Fano and DELB use different targets and losses; their magnitudes are not
-directly comparable. \\
-Heterogeneity and robustness &
-Does the descriptive pattern depend on target or specification? &
-Positive DELB-reduction point estimates were widespread, whereas predictive
-improvements remained heterogeneous. &
-Changed targets and units preclude direct effect-size comparisons; category
-results are exploratory. \\
-\bottomrule
-\end{tabularx}
-\end{adjustwidth}
-\end{table}
+We first report the city-level DELB estimates and then examine finite-sample
+bias, randomization calibration, and held-out prediction. Multiscale,
+detectability, Fano, heterogeneity, and rolling analyses are presented as
+supporting checks.
 
 \subsection{Multicity Application Results at a Glance}
 \label{subsec:application_results_overview}
 
 \input{sections/table_application_results_overview}
 
-The application produced a consistent descriptive ordering but not a
-consistent inferential or predictive gain
-(Table~\ref{tab:application_results_overview}). Within the
-bicycle-covered populations, adding lagged bicycle flow reduced the
-estimated DELB by 7.9\% in Washington, DC, 17.3\% in New York City, and
-18.0\% in Vancouver. The reductions remained positive in the complete
-crime-supported populations, although they attenuated sharply in New York
-City and Vancouver.
+Adding lagged bicycle flow lowered the DELB point estimate in all three
+cities, but neither the randomization analyses nor the prediction models
+showed a uniform gain (Table~\ref{tab:application_results_overview}). In the complete
+crime-supported deployment populations, adding lagged bicycle flow yielded
+positive but small estimated DELB reductions. In the bicycle-covered
+populations, the corresponding relative reductions were 7.9\% in Washington,
+DC, 17.3\% in New York City, and 18.0\% in Vancouver. The contrast was largest
+in New York City and Vancouver.
 
-Neither the three E10 transformation references nor the E18
-baseline-state-matched reference separated the observed CMI in any city.
-Held-out prediction was also selective: adjusted positive-improvement
-screens occurred for two of four New York models and one Vancouver model,
-whereas only the two New York models narrowed the estimated Predictability
-Gap. Thus, the direct application result is not that bicycle mobility
-uniformly improves crime prediction. It is that a positive estimated
-information-floor change can coexist with non-rejection under calibrated
-references and model-dependent realized performance. The following
-subsections provide the finite-sample and experiment-specific evidence
-behind that synthesis.
+\rev{Neither the three transformation references nor the
+baseline-state-matched reference separated the observed CMI in any city under
+the primary grid-identity specification. A lower-cardinality sensitivity
+detected only a small New York difference after multiplicity adjustment.}
+Held-out prediction was also selective: multiplicity-adjusted improvement
+tests were positive for two of four New York City models and one Vancouver
+model, whereas only the two New York City models narrowed the estimated
+Predictability Gap. Thus, lower DELB point estimates coexisted with
+non-rejection in the randomization analyses and heterogeneous held-out
+performance.
+
+\subsection{Estimated DELB Changes}
+\label{subsec:results_city_information}
+
+For the bicycle-covered population used by the detailed calibration
+workflow, adding the one-day-lagged bicycle state reduced estimated
+conditional entropy in all three cities. The Miller--Madow CMI
+estimates were \DCCMI{} bits in Washington, DC, \NYCMI{} bits in New York City,
+and \VANCMI{} bits in Vancouver.
+Mapping the baseline and bicycle-augmented conditional entropies through the
+same inverse integer-lattice envelope produced estimated DELB reductions of
+\DCDeltaL{} MSE units in Washington, DC, \NYDeltaL{} in New York City, and
+\VANDeltaL{} in Vancouver. These changes represented relative reductions of
+\DCRelativeL, \NYRelativeL, and \VANRelativeL, respectively
+(Figure~\ref{fig:city_information_bounds}).
+The centered seven-day block-bootstrap intervals for the CMI estimates
+excluded zero. These intervals quantify sampling variation under the
+observed state partition and dependence structure; randomization-based
+attribution is examined separately in Section~\ref{subsec:results_nulls}.
+
+The two training-period-frozen analysis populations retained
+positive city-level point estimates.
+For the deployment population, CMI was 0.0420, 0.0348, and 0.0377 bits in
+Washington, DC, New York City, and Vancouver, respectively, compared with
+0.0432, 0.1314, and 0.1423 bits for the bicycle-covered population. The
+corresponding deployment-population DELB reductions were 0.0119, 0.0094, and
+0.0115 MSE units, versus 0.0123, 0.0604, and 0.0919 in the bicycle-covered
+populations. \rev{The covered shares were 0.973, 0.246, and 0.241. Multiplying
+covered-domain CMI by these shares reproduced the Washington deployment
+estimate and yielded 0.0323 and 0.0343 bits for New York and Vancouver,
+leaving residuals of 0.0025 and 0.0034 bits. Because grid identity is in the
+conditioning state, the complete-domain CMI decomposes exactly into the
+observation-share-weighted CMIs inside and outside the frozen footprint.
+Direct estimation gives outside-footprint CMI of 0.00000, 0.00333, and
+0.00445 bits in Washington, New York, and Vancouver; multiplying by the
+outside shares yields residual contributions of 0.00000, 0.00251, and
+0.00338 bits. These values account for the 8--10\% arithmetic difference
+in the two low-coverage cities. Separately, 2022 bicycle activity occurred
+outside the frozen training footprint (212 New York grids and 11 Vancouver
+grids), consistent with nondegenerate outside-footprint states. This
+decomposition identifies the population contributing the residual, not a
+causal mechanism or a share attributable specifically to 2022 activity.}
+Thus, the sign was stable, while
+the magnitude difference in New York City and Vancouver was primarily a
+coverage-weighting effect. This paired comparison concerns city-level point
+estimates only; the downstream
+inferential experiments retain their prespecified bicycle-covered
+populations.
+\rev{A third set of DELB differences, 0.01511, 0.03363, and 0.05095 MSE
+units, was re-estimated on the covered July--December 2022 test window only
+to pair the bound with held-out model error. It is not a third estimate for
+the full 2020--2022 population. Supplementary Table S11 places these three
+populations, periods, and uses side by side.}
+
+Local estimates were positive across most eligible cells, with detectable
+spatial clustering in Washington, DC and Vancouver but not New York City.
+Map colors represent point-estimate magnitude rather than calibrated local
+evidence.
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e17/e17_city_cmi_delb_combined.pdf}
+\caption{Bicycle-covered city-level point estimates. \textbf{(a)} Miller--Madow CMI
+with centered 95\% seven-day block-bootstrap intervals.
+\textbf{(b)} DELB-implied MSE lower bounds under the baseline and bicycle-augmented
+information sets. These intervals describe sampling variation under the
+observed support; randomization calibration is reported in
+Section~\ref{subsec:results_nulls}.}
+\label{fig:city_information_bounds}
+\end{figure}
+\FloatBarrier
 
 \subsection{Finite-Sample Behavior of CMI Estimation}
 \label{subsec:results_e12_simulation}
 
-Known-truth simulations were examined before the urban estimates to
-determine how sparse nested states affect CMI estimation and
+Known-truth simulations were used to determine how sparse nested states
+affect CMI estimation and
 transformation-based calibration. Population CMI was obtained
 by exact enumeration, so estimator bias could be separated from the
 center of the corresponding randomization distribution.
@@ -122,11 +134,9 @@ and Figure~\ref{fig:e12_sparse_simulation}).
 
 \input{sections/generated/s7/table_e12_simulation}
 
-\begin{figure}[H]
-\begin{adjustwidth}{-\extralength}{0cm}
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/s7/e12_sparse_cmi_main.pdf}
-\end{adjustwidth}
+\includegraphics[width=\textwidth]{figures/s7/e12_sparse_cmi_main.pdf}
 \caption{Known-truth simulation of sparse nested-state CMI estimation and
 randomization behavior. Population CMI is obtained by exact enumeration.
 Positive estimator bias and a positive randomization center are distinct
@@ -152,94 +162,11 @@ from \(-0.653\) to \(-0.791\). These relations are diagnostic rather than
 causal and do not define a universal bias correction. They show that the
 center of a finite-sample randomization distribution depends jointly on
 the estimator, observed support, and transformation design. Accordingly,
-the city analyses below compare observed CMI with complete design-matched
-reference distributions rather than using zero as an automatic benchmark.
+the calibrated analyses below compare observed CMI with complete
+design-matched reference distributions rather than using zero as an
+automatic benchmark.
 
 
-
-\input{sections/generated/s7/table_e13_support}
-
-\begin{figure}[H]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/s7/e13_support_null_main.pdf}
-\end{adjustwidth}
-\caption{Support structure and randomization-reference centering. Simulation
-panels use known zero population CMI; empirical panels use
-surrogate-specific support recomputed after every transformation. Lines are
-descriptive associations.}
-\label{fig:e13_support_null}
-\end{figure}
-
-\subsection{Estimated City-Level and Local Prediction Bounds}
-\label{subsec:results_city_information}
-
-At the pooled city level, adding the one-day-lagged bicycle state reduced
-estimated conditional entropy in all three cities. The Miller--Madow CMI
-estimates were \DCCMI{} bits in Washington, DC,\NYCMI{} bits in New York, and \VANCMI{} bits in Vancouver.
-Mapping the baseline and bicycle-augmented conditional entropies through the
-same inverse integer-lattice envelope produced estimated DELB reductions of
-\DCDeltaL{} MSE units in Washington, DC, \NYDeltaL{} in New York City, and
-\VANDeltaL{} in Vancouver. These changes represented relative reductions of
-\DCRelativeL, \NYRelativeL, and \VANRelativeL, respectively
-(Table~\ref{tab:city_entropy_results} and
-Figure~\ref{fig:city_information_bounds}).
-The centered seven-day block-bootstrap intervals for the CMI estimates
-excluded zero. These intervals quantify sampling variation under the
-observed state partition and dependence structure; randomization-based
-attribution is examined separately in Section~\ref{subsec:results_nulls}.
-
-
-\input{sections/generated/e11/table_city_information}
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\textwidth]{figures/e17/e17_city_cmi_delb_combined.pdf}
-\caption{Primary city-level point estimates. \textbf{(a)} Miller--Madow CMI
-with centered 95\% seven-day block-bootstrap intervals.
-\textbf{(b)} DELB-implied MSE floors under the baseline and bicycle-aware
-information sets. These intervals describe sampling variation under the
-observed support; randomization calibration is reported in
-Section~\ref{subsec:results_nulls}.}
-\label{fig:city_information_bounds}
-\end{figure}
-\FloatBarrier
-
-\input{sections/table_co_primary_domains}
-
-The two co-primary, training-period-frozen populations retained positive
-city-level point estimates (Table~\ref{tab:co_primary_domains}). In the complete
-crime-supported domain, CMI was 0.0420, 0.0348, and 0.0377 bits in
-Washington, DC, New York City, and Vancouver, respectively, compared with
-0.0432, 0.1314, and 0.1423 bits in the bicycle-covered domain. The
-corresponding complete-domain DELB reductions were 0.0119, 0.0094, and
-0.0115 MSE units, versus 0.0123, 0.0604, and 0.0919. Thus, the sign was
-stable, but the magnitude in New York City and Vancouver depended strongly
-on the spatial target population. This co-primary comparison concerns
-city-level point estimates only; the downstream inferential experiments
-retain their prespecified bicycle-covered populations.
-
-\subsubsection{Local Estimates and Spatial Patterning}
-\label{subsec:results_local_information}
-
-Of 413 bicycle-covered cells, 339 met local eligibility criteria: 146 in
-Washington, DC, 160 in New York, and 33 in Vancouver. Median local DELB
-reductions were \DCLocalMedianDeltaL{}, \NYLocalMedianDeltaL{}, and
-\VANLocalMedianDeltaL{} units, respectively.The sampling-uncertainty screen
-was positive in 137 of 146 Washington cells, 155 of 160 New York cells,
-and all 33 eligible Vancouver cells.
-
-Spatial autocorrelation differed across cities. Global Moran's \(I\) for
-the local DELB reduction was 0.164 in Washington, DC (\(p=0.002\)), 0.038 in New York City
-(\(p=0.261\)), and 0.171 in Vancouver (\(p=0.022\)). Thus, local point
-estimates were spatially clustered in Washington and Vancouver but not
-detectably clustered in New York under the specified contiguity design.
-
-The local table and map are reported in Supplementary Materials, Section S2.
-Their colors represent
-point-estimate magnitude rather than statistical significance; the
-randomization analysis below evaluates whether the observed local
-reductions exceed their temporal, spatial, and circular-shift references.
 
 \subsection{Randomization Calibration and Lag Specificity}
 \label{subsec:results_nulls}
@@ -251,34 +178,37 @@ statistic to fall in the upper tail of that reference distribution;
 the reference center was not constrained to zero.
 
 None of the nine city-by-reference comparisons rejected its corresponding
-upper-tail null. Unadjusted \(p\)-value ranged from 0.903 to 1.000, and all multiplicity-adjusted
-\(q\)-value were 1.000. In most comparisons, the observed CMI was below
+upper-tail null. Unadjusted \(p\)-values ranged from 0.903 to 1.000, and all
+multiplicity-adjusted \(q\)-values were 1.000. In most comparisons, the observed CMI was below
 the corresponding reference mean. At the local level, none of the 339
 eligible cells passed all three randomization designs, including cells
 that had passed the block-bootstrap sampling-uncertainty screen.
 
-E17 produced the same city-level conclusion for all three entropy
-estimators. Across the nine comparisons within each estimator, raw
+The estimator-sensitivity analysis produced the same city-level conclusion
+for all three entropy estimators. Across the nine comparisons within each estimator, raw
 \(p\)-values ranged from 0.980 to 1.000 for plug-in, 0.903 to 1.000 for
 Miller--Madow, and 0.984 to 1.000 for Jeffreys--Dirichlet. No comparison
 passed either the estimator-specific nine-test correction
-(\ESeventeenWithinRejects{}/27) or the global 27-test correction
-(\ESeventeenGlobalRejects{}/27). The full estimator-specific null summaries
-are reported in Supplementary Materials, Section S1.
+(\rev{\ESeventeenWithinRejects{}/9}) or the global 27-test correction
+(\ESeventeenGlobalRejects{}/27), consistently across estimator-specific null
+summaries.
 
 The distant-lag analysis produced similar CMI estimates. Ratios of
 14-day- or 30-day-lag CMI to the matched one-day-lag CMI ranged from
 \DistantRatioMin{} to \DistantRatioMax{}. Both distant-lag estimates
 exceeded the one-day estimate in New York City, whereas differences
 in Washington, DC and Vancouver were small and inconsistent
-(Table~\ref{tab:null_calibration}). The detailed lag figure is retained in
-Supplementary Materials, Section S2.
+(Table~\ref{tab:null_calibration}).
 
-Taken together, the three randomization designs and distant-lag comparisons
-did not isolate an information signal specific to recent, geographically
-matched bicycle activity. The results nevertheless remain conditional on
-the transformations examined; they do not constitute a general test of
-conditional independence.
+\rev{The similarity of one-, 14-, and 30-day estimates is more consistent
+with slow-moving exposure, seasonality, or another persistent common driver
+than with information specific to bicycle activity on the preceding day.}
+\rev{The complete local eligibility statistics, maps, and detailed lag figure
+are retained as secondary diagnostics.}
+
+The randomization and distant-lag comparisons did not isolate an information
+signal specific to recent, geographically matched bicycle activity, although
+this conclusion remains conditional on the transformations examined.
 
 \input{sections/table_e18_restricted_calibration}
 
@@ -288,8 +218,26 @@ exactly. Its null means were again slightly above the observed CMI
 (Table~\ref{tab:e18_restricted_calibration}). The upper-tail \(p\)-values
 were 0.599, 0.999, and 0.994 in Washington, DC, New York City, and
 Vancouver; all three BH-adjusted \(q\)-values were 0.999. Thus, bringing
-the reference closer to the baseline state did not reverse the E10
-non-rejection.
+the reference closer to the baseline state did not reverse the
+non-rejection under the broader transformation designs.
+
+{\color{red}\sloppy Table~\ref{tab:revision_calibration} places this result beside observed
+support diagnostics and the lower-cardinality sensitivity. Replacing grid
+identity with training-only crime-intensity quintiles reduced
+\(K_{obs}/N\) from 0.236--0.412 to 0.032--0.180. Washington and Vancouver
+remained near their matched-reference centers. New York CMI was 0.03625 bits,
+0.00105 bits above the 999-surrogate mean (plus-one \(p=0.001\),
+three-city BH \(q=0.003\)). The magnitude is small and does not validate the
+larger primary point estimate; it shows that state complexity controls
+finite-sample resolution.\par}
+
+\input{sections/table_revision_calibration}
+
+\rev{Two higher-complexity sensitivities provided no calibrated separation.
+Replacing season with calendar month produced observed-minus-null differences
+of -0.00287, -0.01623, and -0.02482 bits; using zero plus positive-flow
+quintiles produced -0.00211, -0.00272, and -0.00864 bits in Washington, New
+York, and Vancouver, respectively.}
 
 The semi-synthetic results qualified that finding. Under zero population
 CMI, restricted-design rejection rates ranged from 0.00 to 0.08 across
@@ -299,136 +247,191 @@ Even under the fitted-dispersion scenario, power at the highest evaluated
 attainable CMI was 0.48 in Washington, DC, 0.46 in New York City, and
 0.30 in Vancouver. Some requested high-CMI settings were unattainable on
 the fixed empirical support and were reported at their actual maxima.
-Consequently, E18 supports calibration of the restricted reference but
-also shows limited detection power; its non-rejection cannot establish
+The semi-synthetic analysis therefore supports calibration of the restricted
+reference but also shows limited detection power; non-rejection cannot establish
 conditional irrelevance.
 
 
 
 \input{sections/generated/e11/table_null_calibration}
 
-\begin{figure}[!t]
-\begin{adjustwidth}{-\extralength}{0cm}
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/e11/e10_city_null_distributions.pdf}
-\end{adjustwidth}
+\includegraphics[width=\textwidth]{figures/e11/e10_city_null_distributions.pdf}
 \caption{Observed city-level CMI relative to temporal-block,
 spatial-series, and circular-shift reference distributions. The observed
-statistic did not exceed any prespecified upper-tail reference.}
+statistic did not exceed any prespecified upper-tail reference.
+\rev{Burgundy lines mark observed CMI; terracotta bars show the reference
+distributions.}}
 \label{fig:city_nulls}
 \end{figure}
 
+\rev{A post hoc coordinate-source sensitivity showed that station-reference
+matching can affect the Washington, DC estimate. Removing the 6.3929\% of
+in-domain bicycle flow contributed by reference-located endpoints, while
+holding the crime sample, grid, and analysis domain fixed, increased its
+estimated CMI from 0.043157 to 0.063098 bits and its DELB reduction from
+0.012324 to 0.017857 MSE units. Temporal and spatial reference tests still
+did not separate the observed statistic (both $p=1.000$ with 199
+surrogates), but the circular-shift comparison yielded $p=0.007$ in a
+999-surrogate confirmation. In New York City only one in-domain flow
+contribution was removed, leaving the binned state and estimates unchanged.
+Vancouver has no source coordinates in its trip files and therefore no
+comparable source-only analysis. These exploratory results do not change the frozen
+primary randomization result or establish a robust three-city signal.}
 
 
-\subsection{Spatiotemporal Scale and Sample-Size Calibration}
+
+\subsubsection{Spatiotemporal Scale and Sample-Size Calibration}
 \label{subsec:e16_scale_results}
 
-The multiscale analysis separated three sources of variation. Spatial
-and temporal aggregation changed the prediction target, sample thinning
-evaluated estimator stability within a fixed design, and randomization
-compared each observed statistic with its transformation-specific reference.
+The multiscale analysis separated target changes caused by aggregation from
+within-design stability and randomization calibration. All 18 full-sample
+city--space--time combinations yielded positive estimated DELB reductions,
+and estimates became more stable as the retained time-block fraction
+increased. Nevertheless, none of the 270
+city--space--time--sample--reference tests survived global or within-family
+FDR correction (minimum raw \(p=\ScaleMinimumRawP{}\); minimum within-family
+\(q=\ScaleMinimumWithinQ{}\)). Because aggregation changes the outcome and
+MSE unit, these results do not imply a scale-invariant effect.
 
-Across the 18 full-sample city--space--time combinations, estimated
-Miller--Madow CMI ranged from \ScaleFullCMIMin{} to \ScaleFullCMIMax{} bits,
-and singleton-observation share ranged from \ScaleSingletonMin{} to \ScaleSingletonMax{}.
-Every full-sample combination produced a positive estimated DELB reduction.
-After deterministic area--time scaling, reductions in the implied RMSE floor
-ranged from \ScaleIntensityReductionMin{} to \ScaleIntensityReductionMax{} crimes
-km\(^{-2}\) day\(^{-1}\). Because aggregation changes both the outcome
-distribution and the MSE unit, these values describe distinct
-scale-specific targets rather than repeated estimates of one
-scale-invariant quantity.
-
-Estimator stability improved as more time blocks were retained. At the 20\%
-sample fraction, the median relative deviations from the corresponding full-sample estimates
-were \ScaleBoundStabilityTwenty{} for the baseline DELB, 0.646 for the
-bicycle-aware DELB, 0.630 for the DELB reduction, and \ScaleCMIStabilityTwenty{} for CMI.
-At the 80%
-fraction, these deviations had declined to \ScaleBoundStabilityEighty{}, 0.114,
-0.070 and \ScaleCMIStabilityEighty{}, respectively
-(Supplementary Materials, Section S3).
-These deviations measure agreement with the full-sample estimate
-rather than distance from the unknown population quantity.
-
-Randomization results were consistent across scales and sample fractions.
-None of the 270 city--space--time--sample--reference tests survived either the
-global or within-family FDR correction. The minimum unadjusted \(p\)-value was
-\ScaleMinimumRawP{} and the minimum within-family \(q\)-value was
-\ScaleMinimumWithinQ{}.
-Thirty-three observed CMI values exceeded their corresponding reference
-means, but none did so under temporal-block randomization.
-At the prespecified full-sample scales, the New York 500 m
-daily circular-shift comparison had \(p=0.006\), but its global
-\(q\)-value was \(q=0.54\).
-
-Thus, positive estimated DELB reductions occurred at every full-sample
-scale, while the prespecified multiscale calibration produced no
-multiplicity-adjusted evidence that the reductions were specific
-to the aligned bicycle state.
+\rev{The smallest isolated value was \(p=0.006\) for the New York City
+500~m--day circular-shift comparison, but it did not survive the prespecified
+FDR correction. Across the 90 full-sample design cells, 21 circular-shift
+statistics exceeded their reference means compared with none under the
+temporal-block design. This asymmetry shows that the reference mechanisms
+remove different portions of temporal and spatial structure and should not be
+treated as interchangeable tests of one universal null.}
 
 
-\input{sections/generated/e16/table_e16_randomization}
+\subsubsection{Truth-Referenced Convergence and Detectability}
+\label{subsec:e19_identifiability_results}
 
-\begin{figure}[H]
-\begin{adjustwidth}{-\extralength}{0cm}
+The known-truth experiment showed that increasing the generated record
+length generally reduced CMI estimation error, but it did not produce a
+single stability threshold shared by all scales and estimators
+(Figure~\ref{fig:e19_truth_convergence}). Across positive-CMI cells and the
+three estimators, median CMI RMSE was 0.159 bits at \(N=90\), 0.167 at
+\(N=150\), 0.135 at \(N=365\), and 0.119 at \(N=730\). At the 2~km--week
+scale, the corresponding scale-specific median declined from 0.266 to
+0.152 bits. DELB relative RMSE was less monotone: its overall median was
+0.734, 0.666, 0.432, and 0.521 over the same four sample lengths. Thus,
+more generated periods improved CMI recovery overall, whereas nonlinear
+entropy-to-DELB inversion and sparse support prevented a universal
+convergence rule.
+
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=\linewidth]{figures/e16/e16_s16_6_observed_vs_null.pdf}
-\end{adjustwidth}
-\caption{Observed Miller--Madow CMI versus the randomization-reference mean
-across 270 city--space--time--sample--design comparisons. The dashed line is
-equality; a nonzero reference center is allowed and is not population CMI.}
-\label{fig:e16_observed_null}
+\includegraphics[width=\textwidth]{figures/e19/main_e19_truth_convergence.pdf}
+\caption{Truth-referenced CMI and DELB convergence in the semi-synthetic
+scale--sample experiment. Lines are medians over the three positive
+population-CMI levels; shaded bands span those levels. \(N\) denotes
+generated periods per spatial unit.}
+\label{fig:e19_truth_convergence}
 \end{figure}
 
+The exact baseline-state-matched reference was approximately calibrated
+under zero population CMI. Type I error ranged from 0.03 to 0.08 across
+the 12 scale--sample cells, with a median of 0.05. Power nevertheless
+varied substantially at small information gains. At 0.03 bit it ranged
+from 0.115 to 1.000 (median 0.703), at 0.06 bit from 0.340 to 1.000
+(median 0.995), and at 0.12 bit from 0.885 to 1.000
+(Figure~\ref{fig:e19_power_mdcmi}).
 
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/e19/main_e19_power_mdcmi.pdf}
+\caption{Power and 80\% minimum detectable CMI for the exact
+baseline-state-matched reference. The dashed line marks 80\% power.
+Interpolated MDCMI values use adjacent tested CMI levels and are not
+additional simulated effect levels.}
+\label{fig:e19_power_mdcmi}
+\end{figure}
+\FloatBarrier
+
+\rev{The two power studies answer different questions. The earlier
+empirical-support experiment uses six selected grids per city and the fitted
+city supports to qualify the primary city non-rejections; it is therefore the
+direct governing power analysis for those results. The scale--sample
+experiment varies record length and aggregation under known injected CMI to
+study design resolution. In the broader sparse-state simulation, Miller--Madow
+Type~I rejection averaged 0.011 and plug-in rejection averaged 0.014, both
+below 0.05. This conservative behavior, together with low power at small CMI,
+weakens any interpretation of non-rejection as evidence of no information.}
+
+All 12 scale--sample combinations reached 80\% power within the tested
+0.12-bit grid. The interpolated 80\% minimum detectable CMI ranged from
+0.0236 to 0.1106 bits. At \(N=90\), it was 0.1043, 0.1106, and 0.0747 bits
+for 500~m--day, 1~km--day, and 2~km--week, respectively; at \(N=730\),
+the corresponding values were 0.0236, 0.0243, and 0.0238 bits. These
+values quantify design-specific detection limits and do not define a
+scale-free information threshold.
+
+\FloatBarrier
 \subsection{Held-Out Prediction and Predictability Gaps}
 \label{subsec:results_prediction}
 
 Held-out prediction evaluated whether particular fitted models converted
 the augmented information state into lower error on unseen observations.
-The fixed July--December 2022 test set contained 75,992 grid--day observations.
+\rev{The fixed July--December 2022 bicycle-covered test set contained 413
+grids observed over 184 days, or 75,992 grid--day observations.}
 
-Adding the bicycle state reduced the MSE point estimate in six of the 12
-city--model comparisons. Three comparisons passed the adjusted
-positive-improvement screen: the state-mean and Poisson gradient-boosting
+\rev{Adding the bicycle state reduced the MSE point estimate in five of the 12
+city--model comparisons. Three comparisons passed the
+multiplicity-adjusted improvement test: the state-mean and Poisson gradient-boosting
 models in New York City and the state-mean model in Vancouver.
 The remaining model--city combinations showed either negligible change
-or higher MSE after the bicycle state was added (Figure~\ref{fig:mse_improvement}).
+or higher MSE after the bicycle state was added (Figure~\ref{fig:mse_improvement}).}
 
-All held-out MSE values remained above their matched DELB estimates.
-The New York state-mean model narrowed the estimated Predictability Gap
-by 0.001 MSE units, and New York gradient boosting narrowed it by 0.029.
-All other comparisons produced negative gap changes
-(Table~\ref{tab:prediction_gap_results} and Figure~\ref{fig:gap_narrowing}).
+Every baseline and bicycle-augmented held-out MSE remained above its
+corresponding DELB (Table~\ref{tab:prediction_gap_results}). A positive gap
+narrowing means that the model's MSE decreased by more than the estimated
+DELB, so the model moved closer to the lower bound. By this definition, the
+New York City state-mean and gradient-boosting models narrowed the
+Predictability Gap by 0.001 and 0.029 MSE units, respectively. A negative
+value means that the DELB decreased by more than the model MSE, so the added
+estimated prediction opportunity was not fully realized by that model. This
+pattern occurred in all other comparisons.
 
-These results show that a lower estimated information-constrained
-bound and lower realized error need not occur together.
-The augmented state was associated with a lower estimated DELB in
-every city, but only selected model--city combinations achieved lower
-held-out MSE, and only two narrowed the corresponding estimated
-Predictability Gap.
+\rev{For practical interpretation, consider the New York City baseline DELB
+of 0.263 and the bicycle-augmented DELB of 0.230. Under the corresponding
+estimated distributions, these values are lower bounds for admissible
+integer-valued predictors using the stated information sets; they are not
+forecasts of the MSE that a fitted model will automatically achieve. The
+observed model MSEs near 1.9 therefore indicate substantial nonattainment of
+the estimated floor. The 0.034-unit DELB reduction represents additional
+estimated prediction opportunity associated with the augmented information
+set. It becomes a realized forecasting gain only to the extent that a fitted
+model also reduces held-out MSE, which occurred selectively in
+Table~\ref{tab:prediction_gap_results}.}
 
-\begin{figure}[H]
+\rev{The estimated DELB declined in every city, whereas held-out MSE improved in
+five of the 12 city--model comparisons and passed the multiplicity-adjusted
+improvement screen in three. Only the two New York City models narrowed the
+estimated Predictability Gap.}
+
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/e11/e06_mse_improvement.pdf}
 \caption{Held-out integer-MSE change after adding lagged bicycle state.
-Positive values favor the bicycle-aware specification; comparisons are
+Positive values favor the bicycle-augmented specification; comparisons are
 paired within city and model family.}
 \label{fig:mse_improvement}
 \end{figure}
 
 \input{sections/generated/e11/table_prediction_gap}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/e11/e07_gap_narrowing.pdf}
-\caption{Predictability-gap narrowing after adding bicycle state. Positive
-values mean empirical MSE fell by more than the estimated DELB; negative
-values indicate a larger unused-information gap.}
-\label{fig:gap_narrowing}
-\end{figure}
+\rev{The held-out two-slack decomposition reconciled numerically in all 24
+city--model--information-set cells (maximum absolute identity residual
+\(3.30\times10^{-13}\) bits). Residual error--state dependence ranged from
+0.769 to 1.555 bits, whereas marginal error-shape mismatch ranged from 0.156
+to 0.276 bits. Thus, most measured entropy-domain nonattainment was associated
+with residual dependence on the forecast-time state, not with the marginal
+error distribution alone. The components are finite-sample descriptive
+quantities; model-specific values for both information sets appear in
+Supplementary Materials, Table~S13.}
 
-
+\FloatBarrier
 
 \subsection{Secondary and Robustness Analyses}
 
@@ -440,75 +443,30 @@ corresponding pretest Fano floors. No point-estimate violations
 were observed.
 
 Adding the bicycle state lowered the estimated Miller--Madow Fano floor
-in all six city--target comparisons. Reductions ranged from \FanoFloorReductionMin{} to \FanoFloorReductionMax{}.
-In contrast, held-out modal-classifier error increased in all six comparisons,
-alongside increases in the number of unseen bicycle-augmented test states
-(Table~\ref{tab:e14_fano_results} and Figure~\ref{fig:e14_fano}).
+in all six city--target comparisons. Reductions ranged from
+\FanoFloorReductionMin{} to \FanoFloorReductionMax{}. In contrast, held-out
+modal-classifier error increased in all six comparisons alongside more unseen
+bicycle-augmented test states.
 
-The opposite directions of the floor and classifier error are consistent
-with the inequality. Added information can lower a population or pretest
-error bound while sparse finite-sample state estimation worsens the
-performance of a particular classifier. The Fano and DELB magnitudes are
+\rev{Here, ``unseen'' refers to test observations whose complete conditioning
+state was absent before July 2022, not to a count of distinct states. For
+example, the New York entries 2,058/4,408 are baseline/bicycle-aware fallback
+counts out of 36,432 test observations (5.65\%/12.10\%).}
+
+\rev{The two movements share a finite-sample mechanism in this comparison:
+splitting a sparse baseline state by bicycle category lowers the estimated
+conditional entropy and hence the estimated Fano floor, while increasing
+the number of test observations assigned to an unseen augmented state and
+the pretest global-mode fallback. The simultaneous floor reduction and
+classifier degradation are therefore diagnostic of state refinement under
+sparse support; they do not establish a population information gain.}
+The Fano and DELB magnitudes are
 not directly comparable because they concern different targets and loss
-functions.
-
-
-
-
-\input{sections/generated/s7/table_e14_fano}
-
-\begin{figure}[H]
-\begin{adjustwidth}{-\extralength}{0cm}
-\centering
-\includegraphics[width=\linewidth]{figures/s7/e14_fano_main.pdf}
-\end{adjustwidth}
-\caption{Fano classification-loss comparison. Oracle panels compare true
-Bayes errors with true Fano floors; empirical panels compare estimated
-pretest floors with held-out modal-classifier errors.}
-\label{fig:e14_fano}
-\end{figure}
-
-
-
-\subsubsection{Crime-Type Heterogeneity}
-\label{subsec:results_crime_types}
-
-All \PositiveCrimeTypeTheory{} pooled city--category CMI estimates were positive.
-Property theft produced the largest estimated DELB reduction in each city:
-0.009 in Washington, DC, 0.045 in New York City, and 0.060 in Vancouver.
-Vehicle theft and burglary produced smaller reductions
-(Supplementary Materials, Section S4).
-
-Four of the 36 matched city--crime-type--model comparisons passed the
-adjusted positive-prediction screen, all in New York City. Only the
-New York property-theft gradient-boosting model also narrowed the estimated
-Predictability Gap. Because the primary randomization calibration was
-not repeated within each crime category, these category-specific results
-are treated as exploratory.
-
-
-
-\subsubsection{Alternative Specifications and Rolling Origins}
-\label{subsec:results_robustness}
-
-The sign of the estimated DELB reduction was stable across the
-prespecified theoretical alternatives. DELB reductions were positive in all
-16 specifications in each city for the plug-in, Miller--Madow, and coherent
-observed-support Jeffreys--Dirichlet estimators, including alternative
-spatial and temporal resolutions, state mappings, estimators,
-lag definitions, and bicycle-flow measures. Magnitudes across
-aggregation levels are not directly comparable because the target
-and MSE units change.
-
-Rolling-origin prediction remained model- and city-dependent. New York
-gradient boosting improved at all 12 monthly origins, with a mean MSE
-reduction of 0.076, and the New York state-mean model improved at 11
-origins, with a mean reduction of 0.030. The state-mean model improved
-at eight origins in both Washington, DC and Vancouver, with mean
-reductions of 0.001 and 0.006. Most GLM averages were negative. Complete
-rolling-origin results are reported in Supplementary Materials, Section S5.
-
-The alternative specifications therefore support the robustness of the
-positive point-estimate pattern, while the rolling-origin results
-show that conversion of the augmented state into improved prediction
-depends on both city and model family.
+functions. Crime-type estimates were positive but category-specific
+prediction gains were sparse, and rolling-origin gains remained concentrated
+in selected New York City models. Alternative estimators and specifications
+preserved the sign of the DELB point estimate but did not replace
+randomization calibration. \rev{Complete local, multiscale, Fano, crime-type,
+alternative-specification, descriptive, and rolling-origin results are
+grouped in Supplementary Materials, Sections S2--S6 and are treated as
+secondary or exploratory evidence.}

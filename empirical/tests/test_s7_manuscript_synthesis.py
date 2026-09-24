@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from entropy_crime_bike.s7_manuscript_synthesis import (
     _fano_summary,
     _simulation_summary,
@@ -13,10 +15,14 @@ EMPIRICAL = Path(__file__).resolve().parents[1]
 
 
 def _accepted_run(experiment: str) -> Path:
-    run_id = (
-        EMPIRICAL / "runs" / f"latest_{experiment}_run.txt"
-    ).read_text(encoding="utf-8").strip()
-    return EMPIRICAL / "runs" / run_id
+    pointer = EMPIRICAL / "runs" / f"latest_{experiment}_run.txt"
+    if not pointer.is_file():
+        pytest.skip(f"Accepted {experiment} run is not redistributed")
+    run_id = pointer.read_text(encoding="utf-8").strip()
+    run = EMPIRICAL / "runs" / run_id
+    if not run.is_dir():
+        pytest.skip(f"Accepted {experiment} run directory is not redistributed")
+    return run
 
 
 def test_latex_escape_handles_table_characters() -> None:

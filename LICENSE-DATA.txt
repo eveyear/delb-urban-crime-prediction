@@ -1,0 +1,11 @@
+Derived E04 joint-state frequency tables and their validation summary are
+licensed under the Creative Commons Attribution 4.0 International License
+(CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+
+Copyright (c) 2026 Minling Dang, Yan Liu, Ying Zhang, Bin Guo, and Zhiwen Yu.
+
+Attribution should cite the Zenodo version DOI and the associated article.
+This license applies only to the anonymous derived frequency tables in
+derived_counts/. It does not apply to externally supplied crime or bicycle
+source data, processed event-level data, manuscript text, figures, or the
+original software code (which has its separate MIT license).

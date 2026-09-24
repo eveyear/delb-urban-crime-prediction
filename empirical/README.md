@@ -225,7 +225,7 @@ code. The accepted run is recorded in `runs/latest_e06_run.txt`.
 Regenerate the audit workbook without rerunning any model with:
 
 ```bash
-/Users/dangdangdang/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node \
+node \
   empirical/src/reporting/build_e06_workbook.mjs \
   "$(cat empirical/runs/latest_e06_run.txt)"
 ```
@@ -266,7 +266,7 @@ recorded in `runs/latest_e07_run.txt`.
 Regenerate the audit workbook without rerunning E07 calculations with:
 
 ```bash
-/Users/dangdangdang/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node \
+node \
   empirical/src/reporting/build_e07_workbook.mjs \
   "$(cat empirical/runs/latest_e07_run.txt)"
 ```
@@ -305,7 +305,7 @@ accepted run is recorded in `runs/latest_e08_run.txt`.
 Regenerate the audit workbook without rerunning theory estimates or models:
 
 ```bash
-/Users/dangdangdang/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node \
+node \
   empirical/src/reporting/build_e08_workbook.mjs \
   "$(cat empirical/runs/latest_e08_run.txt)"
 ```
@@ -359,7 +359,7 @@ PYTHONPATH=empirical/src \
 The accepted run is recorded in `runs/latest_e11_run.txt`. Stable manuscript
 tables are written to `sections/generated/e11/`; selected hash-verified
 figures are copied to `figures/e11/`. The integrated manuscript is compiled
-from `template.tex`. The revised empirical sections report E09 sign
+from `applsci-4501207.tex`. The revised empirical sections report E09 sign
 robustness together with the E10 null-calibration result: 0/9 city tests and
 0/339 local joint screens separated the observed statistic from the
 prespecified nulls.

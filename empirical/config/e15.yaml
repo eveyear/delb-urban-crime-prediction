@@ -8,8 +8,8 @@ reporting:
     - svg
     - png
   wide_size_inches:
-    - 7.2
-    - 4.0
+    - 5.2
+    - 4.6
   single_column_size_inches:
     - 3.5
     - 7.3

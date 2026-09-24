@@ -1,0 +1,89 @@
+\begin{table}[!htbp]
+\caption{\rev{Additional robustness specifications. Differences compare observed Miller--Madow CMI with the mean baseline-state-matched reference.}}
+\label{tab:sup_revision_robustness}
+\raggedleft
+\color{red}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrr@{}}
+\toprule
+\textbf{Specification} & \textbf{City} & \textbf{CMI} & \textbf{Null mean} & \textbf{Difference} & \textbf{$p$}\\
+\midrule
+Lower-cardinality & Washington, DC & 0.01315 & 0.01291 & 0.00024 & 0.165\\
+Lower-cardinality & New York City & 0.03625 & 0.03520 & 0.00105 & 0.001\\
+Lower-cardinality & Vancouver & 0.07186 & 0.07178 & 0.00008 & 0.480\\
+Month replaces season & Washington, DC & 0.07154 & 0.07441 & -0.00287 & 1.000\\
+Month replaces season & New York City & 0.15531 & 0.17154 & -0.01623 & 1.000\\
+Month replaces season & Vancouver & 0.19312 & 0.21794 & -0.02482 & 1.000\\
+Positive-flow quintiles & Washington, DC & 0.07169 & 0.07380 & -0.00211 & 1.000\\
+Positive-flow quintiles & New York City & 0.19650 & 0.19922 & -0.00272 & 0.995\\
+Positive-flow quintiles & Vancouver & 0.24360 & 0.25224 & -0.00864 & 1.000\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{table}[!htbp]
+\caption{\rev{Reconciliation of city-level $\Delta L$ values. Every row uses Miller--Madow conditional entropy and the exact inverse lattice envelope. The population, period, and analytical purpose are explicit for each estimate; values are in MSE units.}}
+\label{tab:sup_delta_l_reconciliation}
+\raggedleft
+\color{red}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}p{0.28\textwidth}r@{}}
+\toprule
+\textbf{City} & \textbf{Population} & \textbf{Period} & \textbf{Purpose} & \textbf{$\Delta L$}\\
+\midrule
+Washington, DC & Bicycle-covered & 2020--2022 & Primary information analysis & 0.01232\\
+Washington, DC & Complete crime-supported & 2020--2022 & Deployment-population comparison & 0.01188\\
+Washington, DC & Bicycle-covered & Jul--Dec 2022 & Matched held-out MSE comparison & 0.01511\\
+New York City & Bicycle-covered & 2020--2022 & Primary information analysis & 0.06044\\
+New York City & Complete crime-supported & 2020--2022 & Deployment-population comparison & 0.00940\\
+New York City & Bicycle-covered & Jul--Dec 2022 & Matched held-out MSE comparison & 0.03363\\
+Vancouver & Bicycle-covered & 2020--2022 & Primary information analysis & 0.09191\\
+Vancouver & Complete crime-supported & 2020--2022 & Deployment-population comparison & 0.01150\\
+Vancouver & Bicycle-covered & Jul--Dec 2022 & Matched held-out MSE comparison & 0.05095\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{table}[!htbp]
+\caption{\rev{Coverage dilution and common-top-code sensitivity. The top-code of 9 was fixed as the ceiling of the pooled training-domain 99.5th percentile.}}
+\label{tab:sup_coverage_topcode}
+\raggedleft
+\color{red}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}
+\toprule
+\textbf{City} & \textbf{Covered share} & \textbf{Covered CMI} & \shortstack{\textbf{Implied}\\\textbf{pooled}} & \shortstack{\textbf{Reported}\\\textbf{pooled}} & \shortstack{\textbf{Top-coded}\\\textbf{CMI}}\\
+\midrule
+Washington, DC & 0.973 & 0.04316 & 0.04200 & 0.04200 & 0.04316\\
+New York City & 0.246 & 0.13137 & 0.03227 & 0.03478 & 0.13067\\
+Vancouver & 0.241 & 0.14233 & 0.03432 & 0.03770 & 0.13917\\
+\bottomrule
+\end{tabular*}
+\par\smallskip\rev{Outside-footprint CMI was 0.00000, 0.00333, and 0.00445 bits for Washington, DC, New York City, and Vancouver, respectively. Its observation-share-weighted contribution to complete-domain CMI was 0.00000, 0.00251, and 0.00338 bits. Because grid identity belongs to the conditioning state, these terms reconcile the reported pooled values up to rounding.}
+\end{table}
+
+\begin{table}[!htbp]
+\caption{\rev{Empirical two-slack decomposition for all four model families and both information sets. $I^0/I^B$ denotes residual error--state dependence and $\mathrm{KL}^0/\mathrm{KL}^B$ denotes marginal error-shape mismatch, in bits, for baseline/bicycle-aware predictors. The absolute identity residual was below $3.31\times10^{-13}$ bits in every cell.}}
+\label{tab:sup_two_slack}
+\raggedleft
+\color{red}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrrrr@{}}
+\toprule
+\textbf{City} & \textbf{Model} & \textbf{$I^0$} & \textbf{$I^B$} & \textbf{$\mathrm{KL}^0$} & \textbf{$\mathrm{KL}^B$}\\
+\midrule
+Washington, DC & State mean & 0.769 & 0.828 & 0.275 & 0.276\\
+Washington, DC & Poisson GLM & 0.784 & 0.862 & 0.250 & 0.243\\
+Washington, DC & Negative-binomial GLM & 0.795 & 0.859 & 0.239 & 0.236\\
+Washington, DC & Poisson gradient boosting & 0.799 & 0.865 & 0.238 & 0.234\\
+New York City & State mean & 1.476 & 1.555 & 0.197 & 0.186\\
+New York City & Poisson GLM & 1.445 & 1.544 & 0.161 & 0.156\\
+New York City & Negative-binomial GLM & 1.436 & 1.530 & 0.171 & 0.172\\
+New York City & Poisson gradient boosting & 1.413 & 1.472 & 0.192 & 0.188\\
+Vancouver & State mean & 1.258 & 1.378 & 0.251 & 0.252\\
+Vancouver & Poisson GLM & 1.269 & 1.395 & 0.224 & 0.224\\
+Vancouver & Negative-binomial GLM & 1.266 & 1.393 & 0.221 & 0.223\\
+Vancouver & Poisson gradient boosting & 1.272 & 1.395 & 0.237 & 0.242\\
+\bottomrule
+\end{tabular*}
+\end{table}

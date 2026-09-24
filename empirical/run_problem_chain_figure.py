@@ -19,30 +19,34 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 STAGES = [
     (
-        "RQ1  Population lower bound",
-        "Integer target + causal information set\n"
-        r"$\longrightarrow$ DELB and attainability",
+        "1  DELB",
+        "Integer-MSE floor",
+        "Entropy and integer-lattice\nenvelope",
+        "Assessment of floor change",
         "#DCEAF7",
         "#2C6EAA",
     ),
     (
-        "RQ2  Finite-sample evidence",
-        "CMI estimate + sparse-state bias\n"
-        r"$\longrightarrow$ design-conditioned null",
+        "2  CMI +\nrandomization",
+        "Added information",
+        "CMI and matched\nreferences",
+        "Evidence beyond\nfinite-sample bias",
         "#FCE8CE",
         "#D97917",
     ),
     (
-        "RQ3  Urban application",
-        "Baseline versus bicycle information\n"
-        r"$\longrightarrow$ calibrated bound change",
+        "3  Known-truth\nexperiments",
+        "Bias and power",
+        "Injected CMI and\nreplicates",
+        "Detectable effects",
         "#E2F0D9",
         "#57923F",
     ),
     (
-        "Prediction consequence",
-        "Estimated floor versus held-out error\n"
-        r"$\longrightarrow$ Predictability Gap",
+        "4  Held-out MSE\n+ Gap",
+        "Realized model error",
+        "Test MSE and paired\nDELB",
+        "Realized opportunity",
         "#E8E1F2",
         "#73559A",
     ),
@@ -53,81 +57,97 @@ def build_figure() -> plt.Figure:
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
-            "font.size": 9.5,
+            "font.size": 9,
             "axes.linewidth": 0.8,
         }
     )
-    fig, ax = plt.subplots(figsize=(11.2, 3.5))
+    fig, ax = plt.subplots(figsize=(4.8, 5.0))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
 
-    centers = [0.14, 0.38, 0.62, 0.86]
-    width, height, y = 0.205, 0.47, 0.47
-    for idx, (title, body, fill, edge) in enumerate(STAGES):
-        x = centers[idx] - width / 2
+    centers = [(0.255, 0.70), (0.745, 0.70), (0.255, 0.31), (0.745, 0.31)]
+    width, height = 0.455, 0.335
+    card_text = []
+    card_patches = []
+    for idx, (title, meaning, calculation, conclusion, fill, edge) in enumerate(STAGES):
+        cx, cy = centers[idx]
+        x = cx - width / 2
         box = FancyBboxPatch(
-            (x, y - height / 2),
+            (x, cy - height / 2),
             width,
             height,
-            boxstyle="round,pad=0.014,rounding_size=0.018",
-            linewidth=1.4,
+            boxstyle="round,pad=0.008,rounding_size=0.018",
+            linewidth=1.0,
             edgecolor=edge,
             facecolor=fill,
         )
         ax.add_patch(box)
-        ax.text(
-            centers[idx],
-            y + 0.105,
+        card_patches.append(box)
+        texts = []
+        texts.append(ax.text(
+            cx,
+            cy + 0.120,
             title,
             ha="center",
             va="center",
-            fontsize=10.5,
+            fontsize=8.8,
             fontweight="bold",
             color="#202020",
-        )
-        ax.text(
-            centers[idx],
-            y - 0.055,
-            body,
+        ))
+        texts.append(ax.text(
+            cx,
+            cy + 0.052,
+            "Meaning: " + meaning,
             ha="center",
             va="center",
-            fontsize=9.2,
-            linespacing=1.45,
+            fontsize=8.0,
             color="#303030",
-        )
-        if idx < len(STAGES) - 1:
-            arrow = FancyArrowPatch(
-                (centers[idx] + width / 2 + 0.008, y),
-                (centers[idx + 1] - width / 2 - 0.008, y),
-                arrowstyle="-|>",
-                mutation_scale=13,
-                linewidth=1.3,
-                color="#555555",
-            )
-            ax.add_patch(arrow)
+        ))
+        texts.append(ax.text(
+            cx, cy - 0.026, "From: " + calculation,
+            ha="center", va="center", fontsize=8.0,
+            linespacing=1.12, color="#303030",
+        ))
+        texts.append(ax.text(
+            cx, cy - 0.112, "Supports:\n" + conclusion,
+            ha="center", va="center", fontsize=8.0,
+            linespacing=1.12, color="#303030",
+        ))
+        card_text.append(texts)
 
     ax.text(
         0.5,
-        0.88,
-        "Unified question-to-evidence chain",
+        0.965,
+        "Evidence layers in the analysis",
         ha="center",
         va="center",
-        fontsize=13,
+        fontsize=11,
         fontweight="bold",
         color="#202020",
     )
     ax.text(
         0.5,
-        0.10,
-        "A lower estimated floor, a calibrated information gain, and improved "
-        "realized prediction are distinct claims.",
+        0.06,
+        "The four layers answer related but different questions.",
         ha="center",
         va="center",
-        fontsize=9.5,
+        fontsize=8.7,
         color="#444444",
     )
-    fig.tight_layout(pad=0.6)
+    fig.tight_layout(pad=0.25)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    for box, texts in zip(card_patches, card_text):
+        left, bottom, right, top = box.get_window_extent(renderer).extents
+        bounds = (left + 4, bottom + 3, right - 4, top - 3)
+        for item in texts:
+            x0, y0, x1, y1 = item.get_window_extent(renderer).extents
+            if not (bounds[0] <= x0 and bounds[1] <= y0 and x1 <= bounds[2] and y1 <= bounds[3]):
+                raise ValueError(f"Text exceeds card boundary: {item.get_text()}")
+        for first, second in zip(texts, texts[1:]):
+            if first.get_window_extent(renderer).overlaps(second.get_window_extent(renderer)):
+                raise ValueError(f"Text overlaps within card: {first.get_text()}")
     return fig
 
 
@@ -147,7 +167,7 @@ def main() -> int:
         default=Path("figures/problem_chain"),
         help="Directory for PDF, SVG, PNG, and manifest outputs.",
     )
-    parser.add_argument("--dpi", type=int, default=300)
+    parser.add_argument("--dpi", type=int, default=600)
     args = parser.parse_args()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)

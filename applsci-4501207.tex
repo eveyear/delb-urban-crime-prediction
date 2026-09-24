@@ -1,10 +1,11 @@
-%! TEX root = template.tex
+%! TEX root = applsci-4501207.tex
 %  LaTeX support: latex@mdpi.com
 %  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
 
 %=================================================================
 \documentclass[applsci,article,submit,moreauthors]{Definitions/mdpi}
 \usepackage{placeins}
+%\pagestyle{empty}  % 全局无页眉页脚
 %\documentclass[preprints,article,submit,moreauthors]{Definitions/mdpi} 
 % For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal. Changing "submit" to "accept" before posting will remove line numbers.
 
@@ -62,52 +63,73 @@
 % Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, float, amsmath, amssymb, lineno, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, colortbl, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, array, tabularx, pbox, ragged2e, tocloft, marginnote, marginfix, enotez, amsthm, natbib, hyperref, cleveref, scrextend, url, geometry, newfloat, caption, draftwatermark, seqsplit
 % cleveref: load \crefname definitions after \begin{document}
 \setlength{\headheight}{20pt}
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.85}
+% Journal-wide figure/table typography. Keep all numerical content unchanged
+% while ensuring that labels and notes remain legible at final print size.
+\AtBeginEnvironment{tabular}{\fontsize{7.8}{9.2}\selectfont\renewcommand{\arraystretch}{1.10}}
+\AtBeginEnvironment{tabular*}{\fontsize{7.8}{9.2}\selectfont\renewcommand{\arraystretch}{1.10}}
+\AtBeginEnvironment{tabularx}{\fontsize{7.8}{9.2}\selectfont\renewcommand{\arraystretch}{1.10}}
+\captionsetup[figure]{font=small,labelfont=bf,labelsep=period,
+  justification=justified,singlelinecheck=false,skip=5pt}
+\captionsetup[table]{font=small,labelfont=bf,labelsep=period,
+  justification=justified,singlelinecheck=false,position=top,skip=5pt}
+\setkeys{Gin}{keepaspectratio}
+% Revision-round markup. Remove the color wrapper for the final clean version.
+\newcommand{\rev}[1]{\textcolor{red}{#1}}
 
 %=================================================================
 % Working manuscript metadata. Replace all placeholders before submission.
 % The archived Version 1 title was:
 % ``Discrete Entropy Limits of Urban Property-Crime Prediction:
 % The Conditional Information Value of Bicycle Mobility.''
-\Title{A Discrete Entropy Lower Bound for Urban Crime Count Prediction: Finite-Sample Calibration and Multicity Evaluation}
+\Title{Calibrating Discrete Entropy Prediction Floors for Urban Crime Counts: A Multicity Evaluation}
 
-\Author{First Author $^{1}$, Second Author $^{2}$ and Corresponding Author $^{1,}$*}
-\AuthorNames{First Author, Second Author and Corresponding Author}
+\Author{Minling Dang $^{1}$, Yan Liu $^{1}$, Ying Zhang $^{1}$, Bin Guo$^{1}$ and Zhiwen Yu $^{2,1}$*}
+\AuthorNames{Minling Dang, Yan Liu, Ying Zhang, Bin Guo and Zhiwen Yu}
 
 \address{%
-$^{1}$ \quad Affiliation 1; author1@example.com\\
-$^{2}$ \quad Affiliation 2; author2@example.com}
+$^{1}$ \quad Northwestern Polytechnical University; Xi'an 710129, China;
+\hspace{0.4em}yixi@mail.nwpu.edu.cn (M.D.); liu.yan@nwpu.edu.cn (Y.L.);
+izhangying@nwpu.edu.cn (Y.Z.); guob@nwpu.edu.cn (B.G.)\\
+$^{2}$ \quad Harbin Engineering University; Harbin 150001, China;
+\hspace{0.4em}zhiwenyu@nwpu.edu.cn (Z.Y.)}
 
-\corres{Correspondence: corresponding.author@example.com}
+\corres{Correspondence: zhiwenyu@nwpu.edu.cn}
 
 \input{sections/generated/e11/e11_macros}
 \input{sections/generated/s7/s7_macros}
 \input{sections/generated/e16/e16_macros}
 \input{sections/generated/e17/e17_macros}
 
-\abstract{Urban crime forecasting increasingly incorporates mobility data,
-but a lower fitted error does not show whether a new source changes an
-intrinsic prediction floor or reflects finite-sample structure. We formulate
-the Discrete Entropy Lower Bound (DELB), which maps conditional Shannon
-entropy through the inverse integer-lattice maximum-entropy envelope to a
-model-independent, entropy-constrained mean-squared-error floor for
-integer-valued prediction. We combine DELB estimation with support
-diagnostics, known-truth simulation, design-conditioned randomization, and
-matched held-out prediction. The multicity evaluation uses
-\TotalCrimeEvents{} crime events, \TotalBicycleTrips{} bicycle trips, and
-\TotalPanelRows{} 1~km grid--day observations from Washington, DC, New York
-City, and Vancouver during 2020--2022. Within the bicycle-covered
-populations, adding one-day-lagged bicycle flow reduced the estimated DELB
-by 7.9\%, 17.3\%, and 18.0\%, respectively. The reductions remained positive
-but attenuated in the complete crime-supported populations. The observed CMI
-did not exceed the prespecified temporal, spatial, circular-shift, or
-baseline-state-matched reference distributions. Semi-synthetic experiments
-supported nominal calibration of the matched reference but showed limited
-power at smaller CMI values, so non-rejection was not interpreted as
-conditional irrelevance. Held-out prediction gains were also model- and
-city-dependent. DELB therefore provides a reproducible data-value assessment
-tool that separates an estimated change in the prediction floor,
-design-calibrated evidence, and realized model performance in smart-city
-count forecasting.}
+\abstract{Urban forecasting systems increasingly draw on mobility and other
+dynamic data, yet improved test accuracy alone cannot show whether an added
+source lowers an information-constrained error bound or merely benefits a
+particular model. We develop a finite-sample evaluation framework based on
+the Discrete Entropy Lower Bound (DELB) for integer-valued prediction. DELB
+maps conditional Shannon entropy to an MSE lower bound through the
+integer-lattice maximum-entropy envelope. The empirical analysis separately
+examines sparse-state estimation bias, evidence from prespecified
+randomization schemes, and held-out performance.
+We apply the framework to \TotalCrimeEvents{} crime events and
+\rev{\TotalBicycleTrips{} flow-eligible bicycle trips} from Washington, DC, New York City, and
+Vancouver during 2020--2022, aggregated into \TotalPanelRows{} 1~km grid--day
+observations. \rev{In the primary high-dimensional specification, the observed
+conditional mutual information did not exceed the temporal, spatial,
+circular-shift, or baseline-state-matched reference distributions. The
+positive estimated DELB reductions are therefore finite-sample point
+estimates, not calibrated evidence of source-specific information: they were
+small over the complete crime-supported populations and 7.9\%, 17.3\%, and
+18.0\% within bicycle-covered areas. A
+lower-cardinality sensitivity detected a small calibrated difference only in
+New York City (0.00105 bits above the matched-reference mean; BH-adjusted
+\(q=0.003\)), showing that empirical resolution depends on state complexity.}
+\rev{In the scale--sample reference experiment, semi-synthetic null rejection was near nominal, whereas sparse-state settings were conservative (Type I error 0.011--0.014) and power was limited for small effects;} held-out gains varied across
+cities and models. The results support a staged evaluation of new urban data
+sources: the estimated bound change, randomization-based evidence, and
+realized forecasting gain should be reported separately.}
 
 \keyword{urban crime prediction; urban mobility; smart-city analytics;
 shared bicycle data; discrete entropy lower bound; conditional mutual
@@ -1223,14 +1245,19 @@ Provide sufficient detail for replication, including:
 \fi
 
 \supplementary{The independent Supplementary Materials file contains
-estimator and training-period-frozen analysis-domain sensitivity,
+estimator sensitivity and the training-period-frozen decision-population comparison,
 local and lag-specificity details, sample-size and multiscale analyses,
 crime-type heterogeneity, rolling-origin results, and additional
 descriptive and finite-sample figures.}
 
-\authorcontributions{Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X. and Y.Y.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X. and Y.Y.; visualization, X.X.; supervision, Y.Y.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.}
+\authorcontributions{\rev{Concept and design: M.D., Y.Z.;
+    data collection: M.D.; analysis and interpretation of results: M.D.;
+    original manuscript draft: M.D.; manuscript review and editing: Y.L., B.G.;
+    supervision and internal resource support: Z.Y.}
+    All authors have read and agreed to the published version of the
+    manuscript.}
 
-\funding{This research received no external funding.}
+\funding{\rev{This research received no external funding. Z.Y. provided internal or personal resources for the work; no external grant number applies.}}
 
 \institutionalreview{Not applicable.}
 
@@ -1241,9 +1268,19 @@ Columbia, New York City, and Vancouver police open-data portals and from the
 Capital Bikeshare, Citi Bike, and Mobi system-data portals cited in
 Section~\ref{subsec:data_sources} (all accessed 18 July 2026). The
 reproducible analysis project preserves source-file hashes, standardized
-schemas, reason-coded exclusions, configurations, and scripts. Code,
-configurations, tests, manuscript tables, and derived figures are available
-at \url{https://github.com/eveyear/delb-urban-crime-prediction}. Raw and
+schemas, reason-coded exclusions, configurations, and scripts. \rev{A versioned
+archive of analysis code, configurations, tests, and 24 anonymized joint-state
+frequency tables is publicly available at
+\url{https://doi.org/10.5281/zenodo.22936346}. The deposited tables permit
+independent recalculation of the primary city--domain--period entropy, CMI,
+and DELB point
+estimates. The archive is not a complete city-data reproduction package: it
+does not contain the inputs needed to rerun bootstrap intervals,
+randomization tests, multiscale or local analyses, or held-out model fitting.
+The public GitHub repository at
+\url{https://github.com/eveyear/delb-urban-crime-prediction} provides the
+revised manuscript source and analysis code, with the same data-reuse
+limitations as the archive.} Raw and
 processed data are not redistributed; users must obtain them from the cited
 providers and comply with the providers' conditions.}
 
@@ -1266,13 +1303,6 @@ MSE & Mean squared error\\
 RMSE & Root mean squared error
 \end{tabular}
 }
-
-\appendixtitles{yes}
-\appendixstart
-\appendix
-
-\input{sections/theoretical_proofs}
-\input{sections/empirical_appendix}
 
 % Superseded planning appendix retained only as an uncompiled source record.
 \iffalse
@@ -1310,6 +1340,7 @@ Insert the complete city-by-year-by-scale-by-estimator results. Include estimate
 
 % References follow the MDPI ACS-style author--year--volume--pages format.
 \begin{thebibliography}{999}
+\fontsize{8.0}{8.6}\selectfont
 
 \bibitem{kounadi2020review}
 Kounadi, O.; Ristea, A.; Araujo, A., Jr.; Leitner, M. A systematic review
@@ -1366,6 +1397,25 @@ Cesario, E.; Lindia, P.; Vinci, A. Multi-density crime predictor: An approach to
 
 \bibitem{amarante2025steval}
 Amarante, G.; Pimenta, M.; Andrade, Y.; Senna, M.; Menezes, R.; Faria, A.H.; Vilas-Boas, M.; Martins, F.; et al. STEval: A framework for evaluating spatio-temporal crime prediction models. \emph{Eng. Appl. Artif. Intell.} \textbf{2025}, \emph{162}, 112123. \url{https://doi.org/10.1016/j.engappai.2025.112123}.
+
+\bibitem{huo2025traffic}
+Huo, J.; Chen, L.; Wang, L. A context knowledge guided transformer framework
+for long-term traffic prediction. \emph{CCF Trans. Pervasive Comput.
+Interact.} \textbf{2025}, \emph{7}, 263--273.
+\url{https://doi.org/10.1007/s42486-025-00192-1}.
+
+\bibitem{zhao2025bike}
+Zhao, Y.; Du, B.; Luo, M.; Wen, H. Robust spatio-temporal demand prediction
+for bike-sharing systems with dynamic hierarchical structure.
+\emph{CCF Trans. Pervasive Comput. Interact.} \textbf{2025}, \emph{7},
+229--245. \url{https://doi.org/10.1007/s42486-024-00167-8}.
+
+\bibitem{fang2025uctb}
+Fang, J.; Chen, L.; Chai, D.; Hong, Y.; Xie, X.; Chen, L.; Wang, L.
+UCTB: An urban computing tool box for all-in-one spatiotemporal prediction
+solution. \emph{CCF Trans. Pervasive Comput. Interact.} \textbf{2025},
+\emph{7}, 392--412.
+\url{https://doi.org/10.1007/s42486-025-00187-y}.
 
 \bibitem{shannon1948}
 Shannon, C.E. A mathematical theory of communication. \emph{Bell Syst. Tech. J.} \textbf{1948}, \emph{27}, 379--423, 623--656.
@@ -1510,6 +1560,12 @@ Zhao, P.; Wang, H.; Liu, Q.; Yan, X.-Y.; Li, J. Unravelling the spatial directio
 \bibitem{li2024mobilitybias}
 Li, Z.; Ning, H.; Jing, F.; Lessani, M.N. Understanding the bias of mobile location data across spatial scales and over time: A comprehensive analysis of SafeGraph data in the United States. \emph{PLoS ONE} \textbf{2024}, \emph{19}, e0294430. \url{https://doi.org/10.1371/journal.pone.0294430}.
 
+\bibitem{wei2026iot}
+Wei, H.; Lee, D.Y.; Rohal, S.; Hu, Z.; Rossi, R.; Fang, S.; Pan, S.
+A survey of foundation models for IoT: Taxonomy and criteria-based analysis.
+\emph{CCF Trans. Pervasive Comput. Interact.} \textbf{2026}, \emph{8},
+1--29. \url{https://doi.org/10.1007/s42486-025-00208-w}.
+
 \bibitem{xu2023bike}
 Xu, X.; Wang, J.; Poslad, S.; Rui, X.; Zhang, G.; Fan, Y. Exploring
 intra-urban human mobility and daily activity patterns from the lens of
@@ -1582,6 +1638,7 @@ Csisz\'ar, I. I-divergence geometry of probability distributions and
 minimization problems. \emph{Ann. Probab.} \textbf{1975}, \emph{3},
 146--158. \url{https://doi.org/10.1214/aop/1176996454}.
 
+\enlargethispage{2\baselineskip}
 \end{thebibliography}
 
 \PublishersNote{}

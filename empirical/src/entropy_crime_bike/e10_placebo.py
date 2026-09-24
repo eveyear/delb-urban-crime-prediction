@@ -702,7 +702,9 @@ def _make_figures(
                 va="top",
                 fontsize=7.5,
             )
-    fig.suptitle("Observed conditional information versus E10 null distributions")
+    fig.suptitle(
+        "Observed conditional information versus randomization reference distributions"
+    )
     _save_figure(fig, run_dir / "figures" / "e10_city_null_distributions.png", dpi)
 
     local_counts = (

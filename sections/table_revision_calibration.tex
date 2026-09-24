@@ -1,0 +1,25 @@
+\begin{table}[!htbp]
+\caption{\rev{Observed-support diagnostics and matched-reference calibration. The primary specification uses grid identity; the lower-cardinality sensitivity replaces it with training-only crime-intensity quintiles. The difference is observed CMI minus the matched-reference mean.}}
+\label{tab:revision_calibration}
+\centering
+\color{red}
+\begin{adjustwidth}{-\extralength}{0cm}
+\scriptsize
+\setlength{\tabcolsep}{2.3pt}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llrrrrrrr@{}}
+\toprule
+\textbf{Specification} & \textbf{City} & \textbf{$K_{obs}/N$} & \textbf{$S_1$} & \textbf{$\nu/N$} & \shortstack{\textbf{Observed}\\\textbf{CMI}} & \shortstack{\textbf{Null}\\\textbf{mean}} & \shortstack{\textbf{CMI--null}\\\textbf{(bits)}} & \textbf{$p$ / BH $q$}\\
+\midrule
+Primary & Washington, DC & 0.236 & 0.103 & 0.061 & 0.04316 & 0.04327 & -0.00011 & 0.599 / 0.999\\
+Primary & New York City & 0.359 & 0.195 & 0.131 & 0.13137 & 0.13381 & -0.00244 & 0.999 / 0.999\\
+Primary & Vancouver & 0.412 & 0.223 & 0.186 & 0.14233 & 0.14757 & -0.00524 & 0.994 / 0.999\\
+Lower-cardinality & Washington, DC & 0.032 & 0.008 & 0.026 & 0.01315 & 0.01291 & 0.00024 & 0.165 / 0.248\\
+Lower-cardinality & New York City & 0.057 & 0.014 & 0.050 & 0.03625 & 0.03520 & 0.00105 & 0.001 / 0.003\\
+Lower-cardinality & Vancouver & 0.180 & 0.067 & 0.135 & 0.07186 & 0.07178 & 0.00008 & 0.480 / 0.480\\
+\bottomrule
+\end{tabular*}
+\end{adjustwidth}
+\begin{flushleft}
+\footnotesize \rev{All information values are in bits. Primary results use 999 surrogates. Lower-cardinality routine screens use 199 surrogates, with 999 for the New York confirmation. $S_1$ is the share of observations in singleton joint atoms. A separate known-truth null simulation yielded a mean Miller--Madow bias of 0.1264 bits; it illustrates sparse-state bias but is not a city-specific bias correction.}
+\end{flushleft}
+\end{table}

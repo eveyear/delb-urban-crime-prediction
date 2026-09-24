@@ -24,7 +24,7 @@ natural logarithm.
 \subsection{Scope Relative to Established Bounds}
 \label{subsec:prior_bound_scope}
 
-The DELB is a causal integer-prediction specialization and synthesis rather
+The DELB is a non-anticipating integer-prediction specialization and synthesis rather
 than a claim to a new primitive maximum-entropy law. Shannon's source-coding
 and rate--distortion arguments, Bayes-risk inequalities, Ziv--Zakai bounds,
 and Fano-type error bounds address different operational objects
@@ -38,15 +38,9 @@ time-series complexity ranking, derives entropy-based lower bounds on the
 dimension of finite-time prediction spaces, and benchmarks finite-sample
 entropy estimators against certified entropy values
 \citep{ayers2025complexity,hauser2026dmd,calcagnile2026benchmark}.
-Table~\ref{tab:prior_bound_matrix} separates these ingredients and neighboring
-objectives from the four-part prediction package used here.
-
-\input{sections/generated/s2/table_prior_bound_matrix}
-
-Table~\ref{tab:core_bound_comparison} provides a compact operational
-comparison used to motivate the main-text methodology.
-
-\input{sections/table_core_bound_comparison}
+The operational comparison appears once in main-text Table~1. The additional
+information-projection and recent estimator-benchmarking references above
+identify the specific inherited ingredients without repeating that table.
 
 For reference, Table~\ref{tab:delb_theorem_package} separates the four
 questions answered by the DELB package.
@@ -57,7 +51,7 @@ questions answered by the DELB package.
 \label{rem:claim_hierarchy}
 The contribution lies in jointly organizing the exact inverse-lattice floor,
 predictor-dependent refinement, necessary and sufficient attainability, and
-two-slack decomposition for causal integer prediction, and in connecting
+two-slack decomposition for non-anticipating integer prediction, and in connecting
 added side information to a reproducible finite-sample inferential chain.
 The discrete-Gaussian extremizer, KL identity, lattice correction, and Fano
 inequality remain inherited components.
@@ -246,7 +240,7 @@ Equation~\eqref{eq:general_discrete_gaussian_entropy}. If \(D=0\), the
 constraint forces \(Z=0\) almost surely, so the entropy is zero.
 \end{proof}
 
-\subsection{Proof of the Exact DELB}
+\subsection{Proof of the DELB and Predictor-Dependent Refinement}
 
 \begin{proof}[Proof of Theorem~\ref{thm:exact_delb}]
 Apply Lemma~\ref{lem:conditional_translation} with

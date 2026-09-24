@@ -862,7 +862,7 @@ def _plot_main(
     axes[1, 1].set(
         ylabel="Mean rejection rate",
         ylim=(0, 1),
-        title="(d) E10-style calibration and detection",
+        title="(d) Randomization calibration and detection",
     )
     axes[1, 1].legend(frameon=False, fontsize=8)
     for axis in axes.ravel():

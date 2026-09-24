@@ -3,8 +3,12 @@
 source in an integer-count forecasting system.}
 \label{tab:practical_decision_framework}
 \centering
-\footnotesize
-\begin{tabularx}{\textwidth}{p{3.0cm}XXp{3.4cm}}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabularx}{\textwidth}{
+>{\RaggedRight\arraybackslash}p{2.75cm}
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}p{3.15cm}}
 \toprule
 \textbf{Decision question} & \textbf{Required evidence} &
 \textbf{Operational response} & \textbf{Boundary}\\
@@ -12,22 +16,23 @@ source in an integer-count forecasting system.}
 Does the source create an estimated prediction opportunity? &
 DELB and CMI point estimates in frozen target populations &
 Retain the source for calibrated evaluation if the estimated floor
-declines materially & A point estimate does not establish source-specific
-information or realized benefit\\
+declines materially & Point estimates alone are insufficient for
+source attribution or realized benefit\\
 Is the apparent gain distinguishable from finite-sample structure? &
 Support diagnostics, known-truth calibration, and design-matched
 randomization & Attribute the gain only to the tested design and only when
-calibration and power support separation & Non-rejection with low power is
-inconclusive; randomization is not causal identification\\
+calibration and power support separation & Low-powered non-rejection is
+inconclusive; randomization provides no causal identification\\
 Can available models use the source on unseen data? &
 Matched held-out models with identical targets, samples, tuning rules, and
 loss & Deploy only city--model combinations showing stable held-out benefit;
-monitor the Predictability Gap & Improvement by one model does not
-generalize to other cities or model families\\
+monitor the Predictability Gap & Model-specific gains require separate
+validation across cities and model families\\
 Does value persist outside the service footprint? &
-Training-frozen service-covered and complete target populations &
+Training-period-frozen coverage-conditioned and complete crime-supported
+deployment populations &
 Report both populations and treat coverage as part of the data product &
-Service-area estimates must not be extrapolated to uncovered locations\\
+Service-area estimates apply only to covered locations\\
 \bottomrule
 \end{tabularx}
 \end{table}

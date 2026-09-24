@@ -4,16 +4,20 @@ lagged'' indicates that only information from the previous aggregation
 period was used for one-period-ahead prediction.}
 \label{tab:variable_availability}
 \centering
-\footnotesize
-\begin{tabularx}{\textwidth}{p{2.5cm}Xp{2.0cm}p{2.0cm}p{2.2cm}}
+\begin{tabularx}{\textwidth}{
+>{\RaggedRight\arraybackslash}p{2.1cm}
+>{\RaggedRight\arraybackslash}X
+>{\RaggedRight\arraybackslash}p{1.7cm}
+>{\RaggedRight\arraybackslash}p{1.8cm}
+>{\RaggedRight\arraybackslash}p{2.0cm}}
 \toprule
 \textbf{Variable} & \textbf{Meaning and role} & \textbf{Spatial unit} &
 \textbf{Temporal unit} & \textbf{Available at forecast time}\\
 \midrule
 Crime count & Daily incidents in the three harmonized crime categories;
 unbinned prediction target & 1 km grid & Day & Target, no\\
-Lagged crime & Previous-period crime count, discretized as
-\(\{0,1,2,\geq3\}\); baseline state & 1 km grid & Previous day & Yes, lagged\\
+Lagged crime & Previous-period crime count, discretized into four levels
+(0, 1, 2, and 3+); baseline state & 1 km grid & Previous day & Yes, lagged\\
 Bicycle inflow & Arrivals at resolved public endpoints; mobility primitive &
 1 km grid & Previous day & Yes, lagged\\
 Bicycle outflow & Departures from resolved public endpoints; mobility

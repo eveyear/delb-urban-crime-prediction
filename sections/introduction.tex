@@ -6,11 +6,11 @@
 
 Urban crime forecasting increasingly combines historical incidents with
 mobility traces, calendar variables, environmental measurements, and other
-dynamic urban data. These sources can enrich the representation of activity
+dynamic urban data. These sources can provide richer representations of activity
 around a location, but they also require acquisition, cleaning, spatial
 alignment, maintenance, and governance. For a city agency or an analyst, the
-relevant question is therefore not only whether a fitted model obtains a
-lower test error after a new source is added. It is also whether that source
+relevant question is not simply whether a fitted model achieves a
+lower test error after a new source is added, but whether that source
 reduces uncertainty about future crime counts beyond information already
 available from location, crime history, and the calendar.
 
@@ -21,30 +21,36 @@ between the added variables and one model class, or sampling variation. In
 contrast, a model-independent prediction benchmark is determined by the joint
 distribution of the target and the information available when a forecast is
 issued. Comparing achieved error with such a benchmark can help distinguish
-uncertainty intrinsic to the target--information pair from error that may
-remain reducible through improved modeling.
+information-constrained uncertainty under the specified target and
+information set from error that may remain reducible through improved
+modeling.
 
-Crime count forecasting makes this distinction practically important.
+Crime count forecasting makes this issue practically important.
 Incident counts are nonnegative integers, are often zero at fine spatial and
 temporal resolutions, and are evaluated under losses such as mean squared
-error (MSE). Existing crime-prediction studies have developed statistical,
-machine-learning, recurrent, graph-based, multiscale, and transformer models
-\citep{kounadi2020review,du2023review,mandalapu2023review,
-alves2018crime,angbera2023model,huang2018deepcrime,deng2023risk,
-jing2024multiscale,wang2025mragnn,butt2025start,cui2026transfer,
-hu2023fusion}. Their comparative results are essential for model selection,
+error (MSE). \rev{The forecasting literature has progressed from models using
+urban metrics \citep{alves2018crime} to representations of temporal
+dependence \citep{huang2018deepcrime} and multiscale spatial structure
+\citep{jing2024multiscale}. Reviews of spatial forecasting
+\citep{kounadi2020review}, multiscale designs \citep{du2023review}, and
+machine- and deep-learning methods \citep{mandalapu2023review} show how
+widely targets and evaluation settings vary.} Their comparative results are essential for model selection,
 but they do not identify how much error is unavoidable under a specified
-information set. This limitation becomes more consequential when a costly
-new urban data source appears to improve one or more fitted models.
+information set. This limitation becomes more consequential when an
+operationally demanding new urban data source appears to improve one or more
+fitted models.
 
-We study this problem using shared-bicycle activity as a candidate source of
-additional information. Bicycle trips provide high-frequency and spatially
-resolved observations of one form of public-space activity. They do not,
-however, constitute a census of the ambient population, and a predictive
-association with crime does not establish a causal effect. The empirical
-question is deliberately narrower: does lagged bicycle flow add
-prediction-relevant information for future crime counts, and can an estimated
-gain be distinguished from finite-sample artifacts?
+\rev{We study this problem using shared-bicycle activity as a candidate source
+of additional information. The motivation is observational rather than
+mechanistic: station departures and arrivals provide high-frequency,
+spatially resolved traces of one form of local street activity and exposure.
+They may therefore help describe when and where potential targets, guardians,
+or other users of public space are present beyond what recent crime and the
+calendar already reveal. We do not assume that bicycle users cause crime, that
+offenders travel by bicycle, or that bicycle flow measures the whole ambient
+population. The empirical question is whether lagged flow contains incremental
+forecast-time information about subsequent property-crime counts and whether
+an estimated gain can be distinguished from finite-sample artifacts.}
 
 \subsection{From Integer-Valued Uncertainty to Calibrated Evidence}
 \label{subsec:intro_calibrated_evidence}
@@ -59,30 +65,42 @@ Shannon entropy. The prediction error lies on an integer lattice, and the
 relevant maximum-entropy envelope under a second-moment constraint is
 discrete.
 
-To address this support mismatch, we formulate the Discrete Entropy Lower
+To address this support mismatch, we define the Discrete Entropy Lower
 Bound (DELB). DELB maps conditional Shannon entropy through the inverse
-integer-lattice maximum-entropy envelope to a model-independent,
-entropy-constrained MSE floor for causal integer-valued predictors. The bound
-is exact in its discrete-envelope form, although equality with the optimal
-integer-predictor risk requires the stated attainability conditions. The
-framework also includes a predictor-dependent refinement and separates two
-sources of nonattainment: residual dependence of the prediction error on the
-available history and mismatch between the error distribution and the
-moment-matched discrete Gaussian.
+integer-lattice maximum-entropy envelope to a model-independent lower bound on
+\rev{the expected squared one-step forecast error,
+\(\mathbb E[(X_t-\widehat X_t)^2]\),} for forecast-time causal, or
+non-anticipating, integer-valued predictors. Here, ``causal'' refers only to the temporal
+admissibility of information available when a forecast is issued; it does not
+denote identification of a causal effect. The envelope inversion is exact for
+the stated integer-lattice maximum-entropy problem, although equality with
+the optimal integer-predictor risk requires the stated attainability
+conditions. The framework also includes a predictor-dependent refinement and
+separates two sources of nonattainment: residual dependence of the prediction
+error on the available history and mismatch between the error distribution
+and the moment-matched discrete Gaussian.
 
-A population ordering is only the first layer of the applied problem. Adding
+The discrete-Gaussian maximum-entropy law and lattice entropy corrections are
+established results. Here, they are adapted to non-anticipating integer
+prediction and linked to predictor-specific attainability conditions,
+incremental information analysis, and finite-sample calibration.
+
+A population ordering addresses only the first part of the applied problem. Adding
 a discretized mobility variable refines the baseline state space, often
 creating sparse or singleton cells. Conditional-entropy and conditional
 mutual information (CMI) estimators can then have different finite-sample
 errors in the baseline and augmented state tables
 \citep{paninski2003,calcagnile2026benchmark}. A positive estimated CMI, or a
 lower estimated DELB, may consequently arise even when the added variable has
-no population information value. Moreover, a randomization reference is
-conditioned on its transformation design; it need not be centered at zero
-when that design changes support occupancy
-\citep{ernst2004permutation,zan2022cmi,runge2018cmi,li2023nncit}.
+no population information value. A randomization reference is also
+conditioned on its transformation design and need not be centered at zero
+when that design changes support occupancy. Permutation inference requires an
+explicit transformation design \citep{ernst2004permutation}. CMI-based
+conditional-independence methods use, respectively, nearest-neighbor
+estimation \citep{runge2018cmi}, mixed-data estimation \citep{zan2022cmi},
+and nearest-neighbor sampling \citep{li2023nncit}.
 
-The evaluation must therefore keep four objects separate: the population
+The evaluation must therefore distinguish four objects: the population
 DELB and CMI estimands, their finite-sample estimates, evidence relative to a
 prespecified randomization reference, and realized out-of-sample prediction
 error. We connect these layers using known-truth simulations, support
@@ -100,42 +118,45 @@ The study addresses three linked research questions:
 
 \begin{enumerate}
     \item \textit{How can conditional uncertainty be translated into a
-    discrete-form, model-independent MSE lower bound for causal
+    discrete-form, model-independent MSE lower bound for non-anticipating
     integer-valued prediction?}
-    \item \textit{How can an estimated information gain be separated from
+    \item \textit{How can a positive CMI estimate be separated from
     sparse-state estimation bias and a transformation-specific randomization
     reference?}
-    \item \textit{Does lagged bicycle mobility provide additional information
-    for urban crime count prediction that remains distinguishable after
-    finite-sample calibration?}
+    \item \textit{Under this calibrated framework, what evidence does lagged
+    bicycle mobility provide about future urban crime counts, and when is
+    that information realized by fitted prediction models?}
 \end{enumerate}
 
-The corresponding contributions are application oriented. First, we
-introduce DELB as a model-independent benchmark for integer-valued urban count
-prediction, provide its attainability diagnostics, and give an implementable
-numerical inversion procedure. Second, we develop a finite-sample-calibrated
-workflow that distinguishes estimated information gain, support-induced
-bias, design-conditioned randomization evidence, and realized prediction
-improvement. Third, we conduct a harmonized multicity evaluation using crime
-and shared-bicycle data from Washington, DC, New York City, and Vancouver
-during 2020--2022. The evaluation examines city-level and local estimates,
-spatial and temporal scale, sample size, alternative estimators, and matched
-held-out prediction.
+\rev{The study makes three contributions. First, it organizes established
+integer-lattice maximum-entropy results into an explicit DELB framework for
+non-anticipating integer prediction, together with attainability and
+nonattainment diagnostics.} Second, it develops a finite-sample
+procedure for assessing whether an apparent reduction in the bound can be
+distinguished from sparse-state estimation effects. Third, it applies the
+procedure to harmonized crime and shared-bicycle data from three cities and
+compares the estimated bounds with matched held-out prediction errors.
 
-The empirical conclusion is intentionally qualified. Adding lagged bicycle
-flow lowers the estimated DELB in the primary city-level comparisons, but the
-reductions are not distinguishable from the prespecified temporal, spatial,
-or circular-shift references after calibration. Realized prediction changes
-are model- and city-dependent. Rather than treating this result as a failed
-application, the study uses it to illustrate why lower estimated
-uncertainty, calibrated information gain, and improved predictive performance
-must be reported as separate claims when evaluating new smart-city data.
+\rev{Adding lagged bicycle flow lowers the estimated DELB in both city-level
+analysis populations. In the primary bicycle-covered, grid-identity
+specification, however, the observed CMI is not distinguishable from the
+prespecified temporal, spatial,
+circular-shift, or baseline-state-matched references after calibration.
+In a lower-cardinality sensitivity, only New York City shows a small
+matched-reference difference after multiplicity adjustment; this finding
+qualifies the primary non-rejection and demonstrates the dependence of
+finite-sample resolution on state design.} Realized prediction changes are model- and city-dependent. The empirical
+application therefore serves as
+a calibration case study in which the estimated DELB reduction,
+randomization-based evidence, and predictive performance are evaluated
+separately.
 
 Section~\ref{sec:related_work} reviews urban crime forecasting, mobility data
 in crime analytics, and information-theoretic prediction limits.
 Section~\ref{sec:theory} presents the DELB methodology. Section~\ref{sec:data}
 defines the multicity data and experimental design. Section~\ref{sec:results}
-first summarizes the multicity application and then reports the finite-sample,
-city-level, multiscale, and prediction evidence.
+first summarizes the multicity application and then reports estimated DELB
+changes, finite-sample behavior, randomization calibration, and realized
+prediction.
 Section~\ref{sec:discussion} discusses practical implications, inferential
 scope, and limitations.

@@ -252,6 +252,11 @@ def _prediction_gap_table(frame: pd.DataFrame) -> str:
                         latex_escape(item["model_label"]),
                         _format_float(item["mse_baseline_integer"], 3),
                         _format_float(item["mse_bicycle_integer"], 3),
+                        (
+                            _format_float(item["l0_exact_mse"], 3)
+                            + "/"
+                            + _format_float(item["lb_exact_mse"], 3)
+                        ),
                         _format_float(item["delta_mse_integer"], 3),
                         _format_float(item["delta_l_exact_mse"], 3),
                         _format_float(item["gap_narrowing"], 3),
@@ -261,14 +266,15 @@ def _prediction_gap_table(frame: pd.DataFrame) -> str:
             )
     return r"""
 \begin{table}[H]
-\caption{Matched held-out integer-prediction MSE and predictability-gap results for July--December 2022. Positive \(\Delta\mathrm{MSE}\) denotes lower error after adding bicycle information; gap narrowing equals \(\Delta\mathrm{MSE}-\Delta L\).}
+\caption{Matched held-out integer-prediction MSE, DELB, and Predictability Gap results for July--December 2022. The paired DELB column reports the baseline and bicycle-augmented lower bounds as \(L^0/L^B\). Positive \(\Delta\mathrm{MSE}\) denotes lower error after adding bicycle information. Gap narrowing is \(\Delta G=\Delta\mathrm{MSE}-\Delta L\): a positive value indicates that the model moved closer to the lower bound, whereas a negative value indicates that the estimated lower bound decreased more than the model MSE.}
 \label{tab:prediction_gap_results}
 \begin{adjustwidth}{-\extralength}{0cm}
 \centering
-\begin{tabular}{llrrrrr}
+\begin{tabular}{llrrrrrr}
 \toprule
 \textbf{City} & \textbf{Model} & \(\boldsymbol{\mathrm{MSE}^0}\) &
-\(\boldsymbol{\mathrm{MSE}^B}\) & \(\boldsymbol{\Delta\mathrm{MSE}}\) &
+\(\boldsymbol{\mathrm{MSE}^B}\) & \(\boldsymbol{L^0/L^B}\) &
+\(\boldsymbol{\Delta\mathrm{MSE}}\) &
 \(\boldsymbol{\Delta L}\) & \textbf{Gap narrowing}\\
 \midrule
 """ + "\n".join(rows) + r"""
@@ -363,7 +369,7 @@ def _robustness_table(
         )
     return r"""
 \begin{table}[H]
-\caption{E09 robustness summary. Positive theory specifications count
+\caption{Robustness summary across information specifications and rolling forecasts. Positive theory specifications count
 Miller--Madow DELB reductions across 16 pre-specified alternatives.
 Rolling forecasts comprise 12 monthly origins for each of four model
 families. Positive \(\Delta\mathrm{MSE}\) favors the bicycle-aware model.}
@@ -516,46 +522,30 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
-            "font.size": 9,
-            "axes.titlesize": 11,
+            "font.size": 8.5,
+            "axes.titlesize": 10.5,
         }
     )
-    figure, axis = plt.subplots(figsize=(11.2, 4.8))
+    figure, axis = plt.subplots(figsize=(5.2, 4.5))
     axis.set_xlim(0, 1)
     axis.set_ylim(0, 1)
     axis.axis("off")
     boxes = [
-        (0.03, 0.63, 0.13, 0.19, "Crime events\n2020--2022", "#D9EAF7"),
-        (0.03, 0.22, 0.13, 0.19, "Bicycle trips\n2020--2022", "#E2F0D9"),
-        (0.22, 0.43, 0.15, 0.19, "1 km daily\ncomplete panel", "#EDEDED"),
-        (0.43, 0.63, 0.15, 0.19, "Conditional entropy\nand CMI", "#FFF2CC"),
-        (0.43, 0.22, 0.15, 0.19, "Matched integer\nprediction models", "#FCE4D6"),
-        (0.65, 0.63, 0.14, 0.19, "Exact discrete\nerror floors", "#FFF2CC"),
-        (0.65, 0.22, 0.14, 0.19, "Held-out MSE\nJuly--Dec. 2022", "#FCE4D6"),
-        (
-            0.82,
-            0.63,
-            0.16,
-            0.19,
-            "Predictability gap\nand heterogeneity",
-            "#E4DFEC",
-        ),
-        (
-            0.82,
-            0.22,
-            0.16,
-            0.19,
-            "Robustness and\nnull calibration",
-            "#F4CCCC",
-        ),
+        (0.05, 0.81, 0.39, 0.12, "Crime events\n2020--2022", "#D9EAF7"),
+        (0.56, 0.81, 0.39, 0.12, "Bicycle trips\n2020--2022", "#E2F0D9"),
+        (0.31, 0.62, 0.38, 0.12, "1 km daily panel", "#EDEDED"),
+        (0.05, 0.40, 0.39, 0.14, "Entropy, CMI\nand DELB", "#FFF2CC"),
+        (0.56, 0.40, 0.39, 0.14, "Integer models\nheld-out MSE", "#FCE4D6"),
+        (0.05, 0.16, 0.39, 0.13, "CMI null calibration\nand robustness", "#F4CCCC"),
+        (0.56, 0.16, 0.39, 0.13, "Predictability Gap\npaired DELB and MSE", "#E4DFEC"),
     ]
     for x, y, width, height, label, color in boxes:
         patch = FancyBboxPatch(
             (x, y),
             width,
             height,
-            boxstyle="round,pad=0.012,rounding_size=0.012",
-            linewidth=1.0,
+            boxstyle="round,pad=0.006,rounding_size=0.012",
+            linewidth=1.1,
             edgecolor="#31546D",
             facecolor=color,
         )
@@ -567,17 +557,16 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
             ha="center",
             va="center",
             fontweight="semibold",
-            fontsize=7.8 if "Predictability" in label else 9,
+            fontsize=8.5,
         )
     arrows = [
-        ((0.16, 0.725), (0.22, 0.555)),
-        ((0.16, 0.315), (0.22, 0.505)),
-        ((0.37, 0.555), (0.43, 0.725)),
-        ((0.37, 0.495), (0.43, 0.315)),
-        ((0.58, 0.725), (0.65, 0.725)),
-        ((0.58, 0.315), (0.65, 0.315)),
-        ((0.79, 0.725), (0.82, 0.725)),
-        ((0.79, 0.315), (0.82, 0.315)),
+        ((0.245, 0.81), (0.43, 0.74)),
+        ((0.755, 0.81), (0.57, 0.74)),
+        ((0.43, 0.62), (0.245, 0.54)),
+        ((0.57, 0.62), (0.755, 0.54)),
+        ((0.245, 0.40), (0.245, 0.29)),
+        ((0.755, 0.40), (0.755, 0.29)),
+        ((0.44, 0.47), (0.56, 0.225)),
     ]
     for start, end in arrows:
         axis.add_patch(
@@ -585,27 +574,28 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
                 start,
                 end,
                 arrowstyle="-|>",
-                mutation_scale=13,
+                mutation_scale=11,
                 linewidth=1.2,
                 color="#31546D",
             )
         )
     axis.text(
         0.505,
-        0.92,
+        0.975,
         "Information-theoretic and predictive analysis workflow",
         ha="center",
         va="center",
-        fontsize=12,
+        fontsize=10.5,
         fontweight="bold",
     )
     axis.text(
         0.505,
-        0.06,
+        0.065,
         "All bicycle variables are lagged and restricted to information available at forecast time.",
         ha="center",
         va="center",
         color="#555555",
+        fontsize=7.5,
     )
     figure.savefig(png_path, dpi=dpi, bbox_inches="tight", facecolor="white")
     figure.savefig(pdf_path, bbox_inches="tight", facecolor="white")

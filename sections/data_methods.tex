@@ -7,27 +7,29 @@
 The empirical analysis covers Washington, DC, New York City, and Vancouver
 from 1 January 2020 through 31 December 2022. These cities were selected
 because each provides geocoded incident records and a large public
-bicycle-system archive over a common period. Crime records were obtained
-from the Metropolitan Police Department of the District of Columbia, the
-New York City Police Department, and the Vancouver Police Department open
-data portals \citep{dc_crime_data,nypd_crime_data,vpd_crime_data}. Bicycle
-trips were obtained from Capital Bikeshare, Citi Bike, and Mobi by Rogers,
-respectively \citep{capital_bikeshare_data,citibike_data,mobi_data}.
+bicycle-system archive over a common period. \rev{Crime records came from the
+Washington, DC Metropolitan Police Department \citep{dc_crime_data}, the
+New York City Police Department \citep{nypd_crime_data}, and the Vancouver
+Police Department \citep{vpd_crime_data}. Bicycle trips came from Capital
+Bikeshare in Washington, DC \citep{capital_bikeshare_data}, Citi Bike in
+New York City \citep{citibike_data}, and Mobi by Rogers in Vancouver
+\citep{mobi_data}.}
 
 Figure~\ref{fig:problem_chain} links the three research questions to the
 corresponding evidence. RQ1 concerns a population limit and is answered analytically.
 RQ2 asks whether a finite-sample entropy difference can be separated from
-sparse-state bias and a design-conditioned null. RQ3 applies that
-distinction to lagged bicycle mobility and crime counts. Held-out prediction
-is evaluated as a consequence rather than as a substitute for those questions.
+sparse-state bias and a design-conditioned null. RQ3 applies the resulting
+calibration to lagged bicycle mobility and crime counts, followed by
+held-out evaluation of the predictive consequence.
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/problem_chain/unified_problem_chain.pdf}
-\caption{Unified question-to-evidence chain. A population lower-bound
-change, a calibrated finite-sample information gain, and an improvement in
-realized prediction are distinct claims. CMI denotes conditional mutual
-information, and DELB denotes the Discrete Entropy Lower Bound.}
+\caption{Evidence guide for the analysis. Each panel identifies an evidence
+object, its practical meaning, how it is calculated, and the conclusion it can
+support. The numbered panels form a sequence rather than interchangeable significance
+tests. CMI denotes conditional mutual information, and DELB denotes the
+Discrete Entropy Lower Bound.}
 \label{fig:problem_chain}
 \end{figure}
 
@@ -35,14 +37,18 @@ Figure~\ref{fig:analysis_workflow} summarizes data processing. Crime
 and bicycle records were first standardized as event-level data. They were
 then aggregated to complete daily panels on a common 1~km grid. The upper
 branch estimates conditional entropy, conditional mutual information (CMI),
-and the DELB; the lower branch evaluates matched integer-valued
-predictors. Their outputs are combined only after the information sets and
-evaluation periods have been aligned.
+and the DELB; \rev{CMI is evaluated against design-matched null references.
+The other branch evaluates matched integer-valued predictors on held-out
+observations. The Predictability Gap combines the estimated DELB with their
+held-out mean squared error (MSE), after information sets and evaluation
+periods have been aligned.}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{figures/e11/e11_analysis_workflow.pdf}
-\caption{Data-processing and matched-analysis workflow. All
+\caption{\rev{Data-processing and matched-analysis workflow. CMI enters the
+null-calibration analysis; the Predictability Gap combines DELB and held-out
+model MSE.} All
 bicycle variables are lagged and restricted to information observed when
 the one-day-ahead forecast is issued.}
 \label{fig:analysis_workflow}
@@ -55,8 +61,17 @@ The raw crime files were harmonized at the event level. We retained the
 authoritative standardized field \texttt{crime\_type\_unified} and did not
 reclassify it in later experiments. The analytic outcome combines three
 mutually exclusive categories: property theft, vehicle theft, and burglary.
-The source-category crosswalk is reported in
-Appendix~\ref{app:empirical_details}. Events were assigned to their source
+\rev{In this harmonization, \emph{vehicle theft} means theft of a general
+motor vehicle, not theft of a bicycle. \emph{Property theft} covers
+non-burglary taking, including other theft and theft from vehicles (and, in
+Vancouver, source-labeled bicycle theft), whereas \emph{burglary} requires
+unlawful entry into a building or other fixed premise. These categories are
+pooled because they are the mutually exclusive property-crime outcomes that
+can be mapped consistently across all three cities. Bicycle flow is not
+treated as a mode used in the offense; it is a lagged indicator of local
+street activity that may be informative for both mobile theft opportunities
+and activity near fixed premises.}
+Events were assigned to their source
 file's calendar year; 35 Washington, DC records whose event dates fell
 outside that year were placed in a reason-coded exclusion table. Stable
 event identifiers, source file hashes, source row numbers, original
@@ -79,9 +94,29 @@ identifiers, and quality-control flags. Input files were processed in
 chunks, and month assignment was determined by trip start time. Blank rows
 and trips assigned to a different source month were retained in
 reason-coded exclusion tables. Official ride identifiers were required to
-be unique after deterministic first-record retention. Exact duplicate
-Vancouver records without an official unique ride identifier were retained
-and flagged rather than silently removed.
+be unique after deterministic first-record retention. \rev{The Vancouver
+files contained 217 repeated complete row signatures among 2,256,222 source
+rows (0.00962\%) but supplied no unique ride identifier. Because distinct
+trips can share every recorded attribute, these rows were retained with an
+explicit flag; even treating all 217 as duplicates would affect at most 434
+endpoint contributions.}
+\rev{We also ran the requested source-row-specific sensitivity: retaining the
+first occurrence of each complete raw-row signature and removing only the
+217 subsequent rows removed 353 eligible endpoint contributions from the
+fixed Vancouver analysis domain. The primary Miller--Madow CMI changed from
+0.142329 to 0.142416 bits, and the exact DELB reduction changed from
+0.091906 to 0.091956 MSE units. The original training-period cut points,
+covered domain, crime observations, and temporal split were unchanged. This
+numerically small change does not establish that the 217 records were
+duplicate journeys; the source provides no ride identifier to decide that.}
+\rev{As a deliberately over-inclusive sensitivity check, we removed all
+3,880 repeated standardized trip signatures (6,806 in-domain endpoint
+contributions), although some may be distinct journeys. Re-estimating the
+Vancouver primary panel changed the Miller--Madow CMI from 0.142329 to
+0.142428 bits and the exact DELB reduction from 0.091906 to 0.091964 MSE
+units. This stress test supports numerical stability of the reported point
+estimate; it does not establish which of the 217 repeated complete source
+rows represent genuinely duplicated rides.}
 
 Source coordinates were used when valid. Missing coordinates in Washington, DC and
 New York were recovered from robust station-month medians and
@@ -93,6 +128,33 @@ non-public. Unresolved endpoints were preserved in the standardized trip
 table but were ineligible for spatial flow at that endpoint; a trip could
 still contribute its other resolved public endpoint.
 
+\rev{Coordinate provenance was audited over all retained trip endpoints. In
+Washington, DC, 93.532895\% were recorded directly in the trip source,
+6.361190\% were resolved deterministically from a station reference, and
+0.105915\% remained unresolved. The corresponding New York shares were
+99.906369\%, 0.000006\%, and 0.093594\%; a further 0.000031\% were identified
+as non-public nodes. Vancouver trip files did not contain endpoint coordinates:
+95.513437\% of endpoints were matched deterministically to the official
+station snapshot, 4.322067\% remained unresolved, and 0.164496\% were
+non-public nodes. No crime-event coordinates were statistically imputed.
+These operations are station-key lookups, not model-based imputation: they do
+not use crime outcomes, calendar outcomes, or fitted values. Unresolved and
+non-public endpoints are excluded from flow at that endpoint, and the other
+endpoint remains eligible. \rev{The crime-category crosswalk and the full
+mutually exclusive coordinate audit are consolidated in the Supplementary
+Materials under ``Empirical Harmonization and Audit Details.''} We
+also performed a same-city coordinate-source sensitivity for Washington, DC
+and New York City. Holding the crime observations, grid, calendar splits,
+and training-period bicycle-covered domain fixed, we removed only flow
+contributions from bicycle endpoints located through station-reference
+matching, re-estimated the primary CMI and DELB, and repeated the three
+randomization comparisons. This is a post hoc data-provenance sensitivity,
+not a new prespecified primary analysis. Vancouver cannot enter a comparable
+source-only contrast because its trip files supply no endpoint coordinates:
+removing the official station snapshot would remove almost all bicycle flow
+by file-schema design. This dependence on deterministic station metadata
+remains a data-quality limitation.}
+
 For each grid--day, departures and arrivals define
 \(B^{\mathrm{out}}_{c,i,t}\) and \(B^{\mathrm{in}}_{c,i,t}\), with total
 endpoint flow
@@ -100,6 +162,10 @@ endpoint flow
 B^{\mathrm{total}}_{c,i,t}
 =B^{\mathrm{out}}_{c,i,t}+B^{\mathrm{in}}_{c,i,t}.
 \]
+\rev{Here, \(B^{\mathrm{out}}_{c,i,t}\) and
+\(B^{\mathrm{in}}_{c,i,t}\) are the numbers of resolved public departures
+and arrivals, respectively, for city \(c\), grid \(i\), and day \(t\), and
+\(B^{\mathrm{total}}_{c,i,t}\) is their sum.}
 The primary mobility variable is the one-day lag of total flow. This measure captures
 observable activity at both ends of a trip without including the
 deterministically redundant total and net flow together with inflow and
@@ -112,14 +178,18 @@ inside the analytic grids.
 
 Coordinates were projected in the appropriate city coordinate reference
 system and assigned to deterministic 1~km square cells anchored to the
-projected coordinate-system origin. Two training-period-frozen populations
-were prespecified for city-level point estimation. The complete
-crime-supported domain contains every cell with at least one crime event
-during 2020--2021. The bicycle-covered domain is the subset of those cells
-with positive total bicycle flow during the same training period. Neither
-definition uses a 2022 record. Bicycle endpoints outside the complete
-crime-supported domain remained in reconciliation outputs but were not
-used in either analytic population.
+projected coordinate-system origin. Two training-period-frozen analysis
+populations were prespecified for city-level point estimation. The
+\emph{deployment population} uses the complete
+crime-supported domain, containing every cell with at least one crime event
+during 2020--2021. The \emph{bicycle-covered population} uses the
+bicycle-covered domain, the subset of those cells with positive total
+bicycle flow during the same training period. The former asks about the
+added source for the complete target task; the latter asks about its value
+where the mobility channel is observed. Neither definition uses a 2022
+record. Bicycle endpoints outside the complete crime-supported domain
+remained in reconciliation outputs but were not used in either analytic
+population.
 
 Every retained grid was crossed with all 1096 calendar days, including
 zero-crime and zero-flow days. The resulting complete panel contains
@@ -147,8 +217,8 @@ the complete panels.
 Crime was sparse at the grid--day scale: zero counts represented
 75.3--79.7\% of observations. New York contributed the largest system and
 the highest mean daily bicycle endpoint flow, whereas Vancouver had the
-highest mean property-crime count per grid--day. We report
-city-specific quantities rather than treat the pooled records as exchangeable.
+highest mean property-crime count per grid--day. We report city-specific
+quantities and keep the city samples separate.
 
 \subsection{Descriptive Analysis}
 \label{subsec:descriptive_analysis}
@@ -162,10 +232,10 @@ and 54.1\% of crime but 67.5, 89.0, and 79.7\% of bicycle flow,
 respectively. These are descriptive associations and do not condition on
 crime history or calendar state.
 
-The corresponding spatial-concentration and monthly-series figures are
-reported in Section S6 of the independent Supplementary Materials, so that
-the main text proceeds directly to the DELB estimand and its finite-sample
-validation.
+The main text proceeds directly to the DELB estimand and its finite-sample
+validation; the descriptive spatial-concentration and monthly-series figures
+are grouped with the secondary empirical analyses identified at the end of
+the Methods.
 
 \subsection{Evaluation Design Overview}
 \label{sec:methods}
@@ -187,7 +257,8 @@ For the application, the generic target in Section~\ref{sec:theory} is
 X_t\longmapsto C_{c,i,t}\in\mathbb Z_{\geq0},
 \label{eq:crime_count_definition}
 \end{equation}
-the unbinned count for city \(c\), grid \(i\), and day \(t\). Bicycle
+\rev{Here, \(C_{c,i,t}\) is the unbinned property-crime count for city
+\(c\), grid cell \(i\), and local day \(t\).} Bicycle
 departures and arrivals are
 \begin{equation}
 B^{\mathrm{out}}_{c,i,t}
@@ -261,9 +332,24 @@ mobility. In sigma-algebra notation,
 Weather and land-use covariates were not used in the reported primary
 analyses and are not claimed as controls.
 
+\rev{Three additional sensitivities were frozen before comparison with
+their results. First, a lower-cardinality specification replaced grid
+identity with within-city quintiles of the training-period mean crime count;
+all remaining baseline variables were unchanged. Second, calendar month
+replaced four-level meteorological season. Third, the bicycle state used zero
+plus positive-flow quintiles. A day-of-year control was not added because its
+365 levels would further multiply the documented sparse conditioning space;
+calendar month was used as the lower-cardinality sensitivity for finer
+seasonal adjustment. Each specification recomputed support metrics,
+Miller--Madow CMI, DELB change, and the seven-day baseline-state-matched
+reference. Routine sensitivities used 199 surrogates; the key New York
+lower-cardinality result was confirmed with 999. Plus-one upper-tail
+\(p\)-values for the three-city lower-cardinality family were adjusted by
+Benjamini--Hochberg.}
+
 \input{sections/application_specialization}
 
-\subsection{Entropy, CMI, and Exact DELB Estimation}
+\subsection{Entropy, CMI, and DELB Estimation}
 \label{subsec:entropy_estimation}
 
 For a discrete target \(C\) and state \(S\), conditional entropy was
@@ -277,7 +363,7 @@ outputs. At city level,
 -\widehat H(C\mid\mathcal{S}^{B}).
 \label{eq:empirical_cmi}
 \end{equation}
-Exact lower bounds were evaluated with the numerical inverse
+Lattice-envelope lower bounds were evaluated with the numerical inverse
 \(\mathcal H_{\mathbb Z}^{-1}\) defined in
 Equation~\eqref{eq:integer_entropy_inverse}:
 \begin{equation}
@@ -306,8 +392,7 @@ R^L_{c,i}
 When sampling fluctuation made an estimated CMI negative, only its
 contribution to the ordered theoretical bound was projected to zero; raw
 estimates were retained in diagnostic tables. No such projection was
-required for the pooled estimates reported in
-Table~\ref{tab:city_entropy_results}.
+required for the pooled city estimates reported in the Results.
 
 Before empirical estimation, we checked the lattice partition
 function, entropy--moment inversion, the zero-entropy boundary, and ordering
@@ -319,7 +404,8 @@ target discrete-Gaussian moments and entropies in simulations of up to
 \subsection{Sparse-State Bias and Randomization Calibration}
 \label{subsec:three_inference_layers}
 
-Three objects must be kept separate. First, the population estimand is
+We distinguish the population estimand, its finite-sample estimate, and the
+randomization reference. First, the population estimand is
 \(\theta=I(C;B\mid\mathcal S^0)\), which determines the ordering of the population DELB and
 Fano floors after side information is added. Its finite-sample estimate can
 be represented schematically as
@@ -345,7 +431,7 @@ summarizes the distinction.
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/s7/e15_estimand_estimator_null_wide.pdf}
+\includegraphics[width=\textwidth]{figures/s7/e15_estimand_estimator_null_wide.pdf}
 \caption{Population estimand, finite-sample estimator, and
 transformation-specific randomization reference. CMI denotes predictive
 information and is not interpreted as a causal effect.}
@@ -381,30 +467,39 @@ estimators or randomization schemes.
 \subsection{City and Local DELB Estimation}
 \label{subsec:city_local_information}
 
-City-level DELB point estimates were evaluated in both training-period-frozen
-populations and separately by year. The complete crime-supported domain
-represents the full prespecified target population, whereas the
-bicycle-covered domain represents the service-covered population in which
-the added mobility channel is observed. Both sets of cells were determined
+City-level DELB point estimates were evaluated for both training-period-frozen
+analysis populations and separately by year. The deployment population uses
+the complete crime-supported domain, whereas the bicycle-covered population
+uses the domain in
+which the added mobility channel is observed. Both sets of cells were determined
 from 2020--2021 records and then applied unchanged to validation and
 testing; no 2022 outcome was used to redefine either spatial population.
 Their comparison therefore concerns the target analysis population rather
 than an administratively fixed city boundary.
 
-Uncertainty was evaluated with 1000 shared non-overlapping seven-day
-calendar-block resamples. Resampling an entire city-day block preserved
+\rev{Uncertainty was evaluated with 1000 bootstrap replicates. Each replicate
+was drawn by multinomial reweighting from the same fixed partition of the
+study calendar into non-overlapping seven-day blocks; the 1000 replicates
+were not themselves mutually disjoint.} Resampling an entire city-day block preserved
 contemporaneous dependence among grids. Reported 95\% intervals were
-centered bootstrap intervals. The co-primary population designation is
-limited to the city-level point-estimate comparison. Local estimation,
-randomization calibration, held-out prediction, and multiscale analyses
-retain their prespecified bicycle-covered domains because complete-domain
-counterparts were not generated for all of those experiments.
+centered bootstrap intervals. The paired decision-population comparison is
+limited to city-level point estimates. Local estimation, randomization
+calibration, held-out prediction, and multiscale analyses retain their
+prespecified bicycle-covered domains because complete-domain counterparts
+were not generated for all of those experiments.
 
 The calculation was repeated within each grid after removing the grid
-identifier from the local state. Eligibility required 1095 valid lagged
-days, at least 30 crimes, at least 55 positive-flow days, no zero-flow run
-longer than 365 days, and at least two observed target and bicycle states.
-This yielded \TotalEligibleLocalGrids{} eligible cells. A one-sided
+identifier from the local state. \rev{The bicycle-covered spatial domain and
+bicycle-state thresholds were frozen from 2020--2021, but the local-analysis
+support screen was descriptive and used the complete 2020--2022 series. It
+required 1095 valid lagged days, at least 30 crimes, at least 55 positive-flow
+days, no zero-flow run longer than 365 days, and at least two observed target
+and bicycle states. Thus, 2022 observations entered the support screen that
+produced the \TotalEligibleLocalGrids{} local cells. These cells were used
+only for full-period local information mapping and randomization diagnostics;
+they were not used to select the grids or tune the models in the
+July--December 2022 held-out prediction experiment. We therefore do not
+interpret the local maps as leakage-free prospective validation.} A one-sided
 normal screen based on the seven-day block bootstrap was adjusted by the
 Benjamini--Hochberg procedure \citep{benjamini1995}; because state-space
 sparsity can bias entropy differences, it is described as a
@@ -416,60 +511,37 @@ contiguity and 999 permutations.
 \subsection{Three-Axis Scale and Sample-Size Design}
 \label{subsec:e16_scale_methods}
 
-To distinguish changes in the prediction target from changes in estimator
-stability, the multiscale design crossed three spatial resolutions (500~m,
-1~km, and 2~km),
-two temporal resolutions (day and complete ISO week), and five sample
-fractions (20, 40, 60, 80, and 100\%). The comparison domain comprised
-complete 2~km parents, their four 1~km children, and all sixteen 500~m
-descendants. Crime and bicycle totals reconciled exactly across this nested
-common footprint. Weekly records were sums over seven complete days, and a
-one-period lag always referred to the preceding aggregation period.
+\rev{To separate target changes from estimator stability, the design crossed
+500~m, 1~km, and 2~km grids; daily and complete-week counts; and 20, 40,
+60, 80, and 100\% time-block samples on a nested common footprint. Stability
+was assessed against the full-sample estimate over 50 frozen thinning paths,
+not against unknown population truth. Count-level DELBs remained primary;
+intensity rescaling was applied only to the correspondingly rescaled count
+target. Daily, weekly, and spatially aggregated results are different
+estimands, and no DELB or CMI was divided by sample size.
+Randomization calibration covered all 90 city--space--time--sample cells
+with 199 temporal-block, spatial-series, and circular-shift replicates per
+cell; the three prespecified key scales used 999. Plus-one upper-tail
+\(p\)-values were adjusted across 270 tests and within city--null-design
+families. These comparisons are design-conditioned diagnostics, not exact
+conditional randomization tests. The nested-block sampling, normalization,
+support recomputation, and expanding-window details are available with the
+secondary analysis protocols.}
 
-Sample fractions were formed by retaining all grids in selected time blocks.
-Daily panels used complete seven-day blocks and weekly panels used complete
-four-week blocks, stratified by year and season. Fractions were nested within
-each of 50 frozen repetitions; a separate five-point expanding-window design
-diagnosed chronological accumulation and possible distribution drift.
-Estimator stability was measured by
-\begin{equation}
-S_N(\widehat\theta)
-=\frac{|\widehat\theta_N-\widehat\theta_{N_{\max}}|}
-{\max(|\widehat\theta_{N_{\max}}|,10^{-12})},
-\label{eq:e16_stability}
-\end{equation}
-where \(\widehat\theta\) denotes an estimated entropy, CMI, or DELB quantity.
-It measures convergence to the full-sample estimate, not error relative to
-unknown population truth.
+\paragraph{Truth-referenced identifiability design.}
+\label{subsec:e19_identifiability_methods}
 
-Count-level DELBs remained primary. For a square-cell area \(A\) in km\(^2\)
-and aggregation duration \(\tau\) in days, the deterministically scaled crime
-intensity target has
-\begin{equation}
-L_{\mathrm{int,MSE}}^{j}(A,\tau)
-=\frac{L^{j}(A,\tau)}{(A\tau)^2},
-\qquad
-L_{\mathrm{int,RMSE}}^{j}(A,\tau)
-=\frac{\sqrt{L^{j}(A,\tau)}}{A\tau},
-\quad j\in\{0,B\}.
-\label{eq:e16_intensity_normalization}
-\end{equation}
-The transformation applies to the correspondingly scaled count target; it
-does not make daily and weekly targets, or different spatial aggregates, the
-same estimand. No DELB or CMI was divided by sample size.
-
-Randomization calibration covered all 90 city--space--time--sample cells.
-Each cell used 199 temporal-block, spatial-series, and circular-shift
-replicates; the prespecified 500~m--day, 1~km--day, and 2~km--week scales used
-999 replicates. Fractions below 100\% used the lowest-index frozen thinning
-path (replicate 1), whereas the stability analysis separately summarized all
-50 thinning paths. Temporal blocks contained seven days or four weeks;
-circular shifts were separated by at least 31 days or five weeks.
-Miller--Madow CMI, DELB reduction, support atoms, singleton share, and
-effective degrees of freedom were recomputed after every transformation.
-Plus-one upper-tail \(p\)-values were adjusted both across all 270 tests and
-within city--null-design families. These are design-conditioned diagnostics
-rather than exact conditional randomization tests.
+\rev{At 500~m--day, 1~km--day, and 2~km--week, fixed-design semi-synthetic
+populations crossed \(N\in\{90,150,365,730\}\) generated periods with true
+CMI of 0, 0.03, 0.06, or 0.12 bits. Each of the 48 design cells contained
+200 replicates evaluated by plug-in, Miller--Madow, and Jeffreys estimators.
+Power used baseline-state-matched surrogates (199 routinely; 999 for 12
+prespecified cells). The 80\% minimum detectable CMI was read from the tested
+effect grid, with interpolation reported separately. These conditional
+fixed-design populations are not recursively coherent crime processes; at
+2~km--week, \(N=730\) refers to generated periods after deterministic state
+replay, not observed weeks. The full generation, support, and precision
+protocol accompanies the secondary analysis results.}
 
 \subsection{Matched Prediction and Predictability Gap}
 \label{subsec:prediction_experiment}
@@ -480,8 +552,8 @@ Equations~\eqref{eq:empirical_baseline_state} and
 \eqref{eq:empirical_bicycle_state}: a smoothed state mean, a Poisson
 generalized linear model (GLM), a negative-binomial GLM, and histogram
 gradient boosting with Poisson loss. Within each family, baseline and
-bicycle-aware specifications used the same target, sample, preprocessing,
-training period, tuning rule, and integer post-processing. The bicycle-aware
+bicycle-augmented specifications used the same target, sample, preprocessing,
+training period, tuning rule, and integer post-processing. The bicycle-augmented
 version added only \(Q_B(B^{\mathrm{total}}_{t-1})\). A seven-day seasonal
 naive predictor was retained as an external descriptive benchmark but was
 not matched to the DELB state and was not used in the principal comparisons.
@@ -500,8 +572,9 @@ where \(k\) indexes the model family and \(\mathcal T_c\) is the fixed
 July--December 2022 test set. Positive
 \(\Delta\operatorname{MSE}_{c,k}
 =\operatorname{MSE}^{0}_{c,k}-\operatorname{MSE}^{B}_{c,k}\)
-denotes improvement. One thousand shared non-overlapping seven-day test
-blocks preserved cross-grid dependence. Family-level screens used
+denotes improvement. \rev{One thousand bootstrap replicates drawn from a
+shared fixed partition into non-overlapping seven-day test blocks preserved
+cross-grid dependence.} Family-level screens used
 one-sided normal approximations and Benjamini--Hochberg adjustment.
 
 \subsection{Secondary Fano, Heterogeneity, and Robustness Designs}
@@ -519,11 +592,13 @@ in Equations~\eqref{eq:empirical_baseline_state} and
 \eqref{eq:empirical_bicycle_state}.
 
 Conditional entropy and the Fano floor were estimated on the combined
-training and validation period. A statewise modal classifier was then
-evaluated on the unchanged July--December 2022 test period. Test states
+training and validation period. \rev{A statewise modal classifier assigns to
+each test observation the most frequent training-and-validation class within
+its observed conditioning state.} It was then evaluated on the unchanged
+July--December 2022 test period. Test states
 unseen before July 2022 used the pretest global mode; no test label was used
-to set a fallback. Uncertainty used 300 non-overlapping seven-day
-calendar-block bootstrap samples. Centered intervals were reported because
+to set a fallback. \rev{Uncertainty used 300 bootstrap replicates drawn from
+a fixed partition into non-overlapping seven-day calendar blocks.} Centered intervals were reported because
 unconditional resampling can itself remove rare states; the raw bootstrap
 means were retained as diagnostics.
 
@@ -561,11 +636,25 @@ positive:
 \eta=\frac{\Delta\operatorname{MSE}}{\Delta L}.
 \label{eq:bound_efficiency}
 \end{equation}
-A positive \(\Delta G\) means that empirical error fell by more than the
-estimated floor; a negative value means that the theoretical opportunity
-expanded faster than the tested model used it. For the test comparison,
-the exact bounds were re-estimated on the matched test-window information
+A positive \(\Delta G\) means that empirical MSE fell by more than the
+estimated DELB, thereby narrowing the distance between the model error and
+the lower bound. A negative \(\Delta G\) means that the DELB fell by more than
+the model MSE, so the added estimated prediction opportunity was not fully
+realized; \(\Delta G=0\) means that they changed by the same amount. For the test comparison,
+the DELB values were re-estimated on the matched test-window information
 states.
+
+{\color{red}For each held-out integer predictor, we additionally decomposed the
+entropy-domain nonattainment slack. Let \(E=C-\widehat C\), \(F\) denote the
+matched forecast-time state, and \(q_D\) be the discrete Gaussian with the
+same second moment \(D=\mathbb E[E^2]\). We estimated
+\[
+H(q_D)-H(E\mid F)=I(E;F)+D_{\mathrm{KL}}(P_E\Vert q_D),
+\]
+where the first term measures residual dependence on the forecast-time state
+and the second measures marginal error-shape mismatch. All probabilities were
+estimated on the same held-out empirical distribution. The decomposition is
+descriptive and finite-sample; it is not a causal attribution.}
 
 At the local scale, pretest \(\Delta L_{c,i}\) from training plus
 validation was compared with test-period
@@ -616,18 +705,19 @@ Finally, matched 14- and 30-day mobility lags were compared with the recent
 one-day lag. These procedures are diagnostic randomization tests, not exact
 conditional randomization tests and not tests of a causal bicycle effect.
 
-E17 assessed whether the city-level calibration depended on the primary
-Miller--Madow correction. On each of the identical E10 surrogates, it
+Estimator-sensitivity analysis assessed whether the city-level calibration
+depended on the primary Miller--Madow correction. On each of the same
+prespecified surrogates, it
 recomputed plug-in, Miller--Madow, and coherent observed-support
 Jeffreys--Dirichlet CMI. Plus-one upper-tail \(p\)-values were adjusted in
 two prespecified families: nine city--design comparisons within each
-estimator and all 27 estimator--city--design comparisons globally. E17 did
-not rerun the 339-cell local screen. The Jeffreys calculation regularizes
-the probabilities of observed full-joint atoms; it does not impute
+estimator and all 27 estimator--city--design comparisons globally. This
+analysis did not rerun the 339-cell local screen. The Jeffreys calculation regularizes
+the probabilities of observed joint states; it does not impute
 unobserved support.
 
-E18 added a baseline-state-matched restricted randomization at the city
-level. Each grid series was partitioned into complete seven-day blocks.
+A baseline-state-matched restricted randomization was also evaluated at the
+city level. Each grid series was partitioned into complete seven-day blocks.
 Blocks were permuted without replacement within grid, year, and season
 after ordering them by the distribution of lagged-crime states and holiday
 occupancy; strata with fewer than five blocks were widened within year.
@@ -648,7 +738,8 @@ design crossed three cities, fitted and enhanced-overdispersion scenarios,
 and the original temporal-block and restricted matched-block references.
 Each cell used 50 Monte Carlo datasets and 99 randomizations. Exact
 binomial 95\% intervals accompanied Type I error and power. This restricted
-design is closer to the baseline state than E10, but it is not an exact
+design is closer to the baseline state than the temporal-block, spatial-series,
+and circular-shift designs, but it is not an exact
 conditional randomization test because it does not sample from a known
 \(B\mid\mathcal S^0\) distribution.
 
@@ -684,24 +775,17 @@ observed support change. These associations diagnose a finite-support
 mechanism; they do not turn the null mean into an estimator-bias estimate or
 identify a causal effect.
 
-\subsection{Reproducibility and Analysis Scope}
+\subsection{Reproducibility}
 \label{subsec:reproducibility}
 
-Every experiment was executed through a Python entry point configured by a
-versioned YAML file. Run directories contain environment
-snapshots, random seeds, source-run pointers, row reconciliations, acceptance
-checks, machine-readable tables, diagnostic workbooks, and figures. All
-manuscript figures were generated by the corresponding Python experiment;
-none was manually edited. E11 reads only accepted E02 and E04--E10 outputs,
-while the S7 Python synthesis reads accepted E12--E15 outputs and copies a
-hash-verified figure set into the manuscript. E09 and E10 were frozen before
-output inspection; E12--E14 retain replicate-level simulation, support, and
-bootstrap records; E15 retains both single- and double-column vector
-versions of the conceptual figure. All accepted outputs remain in the
-versioned run lineage. E16 similarly reads only accepted multiscale panels,
-sample indices, estimates, and randomization outputs; its S16.7 Python
-synthesis generates the LaTeX macros and tables and copies all scale figures
-after SHA-256 verification. A minimal known-truth example at
+Analyses were specified in version-controlled configuration files and Python
+scripts. Random seeds, design parameters, sample indices, machine-readable
+results, and the inputs used to generate each table and figure were archived;
+manuscript graphics were generated programmatically and were not manually
+edited. A minimal known-truth example at
 \texttt{examples/minimal\_delb\_cmi\_simulation.py} reproduces the population
-CMI ordering and discrete-envelope DELB inversion without city data; it is pedagogical and
-does not replace the registered E12 simulation grid.
+CMI ordering and discrete-envelope DELB inversion without city data as a
+pedagogical complement to the full simulation design. Experiment
+lineage, output-acceptance checks, hash verification, descriptive figures, and
+secondary empirical analyses are documented together in the Supplementary
+Materials rather than through repeated interruptions in the main Methods.

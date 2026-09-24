@@ -58,7 +58,5 @@ requires \(O(JTM)\) time and \(O(M)\) additional memory. With \(R\)
 randomizations, the serial calibration cost is
 \(O(RN+RJTM)\), excluding model fitting, whose cost depends on the selected
 predictor. Randomizations are independent conditional on their stored seeds.
-The multiscale implementation parallelizes independent city--spatial-scale--
-temporal-scale cells with six thread workers and writes a checkpoint after
-each completed cell; replicate-level outputs and seeds are retained for
-reconciliation.
+The implementation evaluates city--spatial-scale--temporal-scale cells
+independently and records cell-level results and seeds for reproducibility.

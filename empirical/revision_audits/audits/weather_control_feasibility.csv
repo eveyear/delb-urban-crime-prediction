@@ -1,0 +1,2 @@
+audit_scope,cities,shared_columns,shared_weather_columns,feasible_without_new_external_ingestion,resolution
+accepted harmonized panel,"DC,NY,VAN",29,[],False,state limitation; comparable forecast-time weather was not ingested in the frozen cross-city pipeline

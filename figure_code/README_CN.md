@@ -10,7 +10,7 @@
 本次版面修订使用独立入口：
 
 ```bash
-cd /Users/dangdangdang/Documents/Entropy/entropy_crime_bike_overleaf_v2_delb_fano
+cd delb-urban-crime-prediction
 PYTHONPATH=empirical/src /opt/anaconda3/bin/python3 \
   empirical/run_manuscript_figure_layout.py \
   --e02-run empirical/runs/20260718_172231_E02_spatial_temporal_panel \
