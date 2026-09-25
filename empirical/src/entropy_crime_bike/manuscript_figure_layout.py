@@ -10,6 +10,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 from matplotlib import colors
@@ -106,6 +107,7 @@ def _axis_geometry(
 
 
 def _save_both(figure: plt.Figure, base_path: Path) -> list[Path]:
+    normalize_chart_typography(figure)
     outputs = [base_path.with_suffix(".pdf"), base_path.with_suffix(".png")]
     figure.savefig(outputs[0], facecolor="white")
     figure.savefig(outputs[1], dpi=300, facecolor="white")

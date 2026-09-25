@@ -34,11 +34,11 @@ def redraw(table_dir: Path, output_pdf: Path) -> None:
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
-            "font.size": 10.5,
-            "axes.titlesize": 12,
-            "axes.labelsize": 11,
-            "xtick.labelsize": 9.3,
-            "ytick.labelsize": 9.3,
+            "font.size": 11.5,
+            "axes.titlesize": 13,
+            "axes.labelsize": 12,
+            "xtick.labelsize": 11,
+            "ytick.labelsize": 11,
             "pdf.fonttype": 42,
         }
     )
@@ -60,8 +60,6 @@ def redraw(table_dir: Path, output_pdf: Path) -> None:
                 ax.set_title(CITY_LABELS[city], pad=6)
             if column == 0:
                 ax.set_ylabel(f"{label}\nFrequency", labelpad=3)
-            if row == 2:
-                ax.set_xlabel("Conditional information (bits)", labelpad=3)
             ax.text(
                 0.97,
                 0.94,
@@ -69,13 +67,16 @@ def redraw(table_dir: Path, output_pdf: Path) -> None:
                 transform=ax.transAxes,
                 ha="right",
                 va="top",
-                fontsize=10.2,
+                fontsize=11,
+                bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.88, "pad": 1.2},
             )
             ax.spines[["top", "right"]].set_visible(False)
             ax.tick_params(axis="both", length=2.5, pad=2)
+            ax.locator_params(axis="x", nbins=3)
 
-    fig.suptitle("Observed CMI versus randomization references", fontsize=13, y=0.985)
-    fig.subplots_adjust(left=0.12, right=0.985, top=0.91, bottom=0.105, wspace=0.28, hspace=0.38)
+    fig.suptitle("Observed CMI versus randomization references", fontsize=13.5, y=0.985)
+    fig.supxlabel("Conditional information (bits)", fontsize=12, y=0.025)
+    fig.subplots_adjust(left=0.12, right=0.985, top=0.91, bottom=0.12, wspace=0.28, hspace=0.38)
     output_pdf.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_pdf, bbox_inches="tight", facecolor="white")
     fig.savefig(output_pdf.with_suffix(".png"), dpi=300, bbox_inches="tight", facecolor="white")

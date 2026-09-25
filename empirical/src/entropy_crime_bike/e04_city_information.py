@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 import zlib
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import pyarrow
@@ -144,6 +145,7 @@ def _publication_style() -> None:
 
 
 def _save_figure(figure: plt.Figure, path: Path, dpi: int) -> None:
+    normalize_chart_typography(figure)
     figure.savefig(path, dpi=dpi, bbox_inches="tight", facecolor="white")
     figure.savefig(
         path.with_suffix(".pdf"), bbox_inches="tight", facecolor="white"

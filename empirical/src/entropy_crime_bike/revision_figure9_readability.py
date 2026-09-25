@@ -33,15 +33,15 @@ def redraw(input_csv: Path, output_pdf: Path) -> None:
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
-            "font.size": 11,
-            "axes.titlesize": 12,
-            "axes.labelsize": 11,
-            "xtick.labelsize": 9.8,
-            "ytick.labelsize": 10.5,
+            "font.size": 11.5,
+            "axes.titlesize": 13,
+            "axes.labelsize": 12,
+            "xtick.labelsize": 11.5,
+            "ytick.labelsize": 11.5,
             "pdf.fonttype": 42,
         }
     )
-    fig, axes = plt.subplots(1, 3, figsize=(8.3, 3.35), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(8.3, 3.65), sharey=True)
     y = np.arange(len(MODELS))
     for ax, city in zip(axes, CITIES):
         subset = data.loc[data["city"].eq(city)].set_index("model_family").loc[

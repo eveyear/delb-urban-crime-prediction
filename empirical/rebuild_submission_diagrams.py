@@ -42,7 +42,7 @@ def main() -> None:
     _workflow_figure(workflow_png, workflow_pdf, 600)
 
     stem = s7 / "e15_estimand_estimator_null_wide"
-    concept = draw_concept_figure(layout="wide", figure_size=(5.2, 4.6))
+    concept = draw_concept_figure(layout="wide", figure_size=(6.8, 6.015))
     concept_files = _save_figure(concept, stem, formats=["pdf", "svg", "png"], dpi=600)
     outputs = [workflow_pdf, workflow_png, *concept_files]
     print(json.dumps({str(path.relative_to(root)): sha256(path) for path in outputs}, indent=2, sort_keys=True))

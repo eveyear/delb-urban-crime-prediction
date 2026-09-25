@@ -13,6 +13,7 @@ import time
 import zlib
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import scipy
@@ -44,7 +45,7 @@ NULL_LABELS = {
 }
 ESTIMATOR_LABELS = {
     "plugin": "Plugin",
-    "miller_madow": "Miller--Madow",
+    "miller_madow": "Miller–Madow",
 }
 
 
@@ -868,6 +869,7 @@ def _plot_main(
     for axis in axes.ravel():
         axis.spines[["top", "right"]].set_visible(False)
         axis.grid(axis="y", color="0.9", linewidth=0.6)
+    normalize_chart_typography(fig)
     fig.tight_layout()
     fig.savefig(output.with_suffix(".pdf"), bbox_inches="tight")
     fig.savefig(output.with_suffix(".png"), dpi=dpi, bbox_inches="tight")
@@ -927,6 +929,7 @@ def _plot_supplement(
         axis.spines[["top", "right"]].set_visible(False)
         axis.grid(axis="y", color="0.9", linewidth=0.6)
         axis.legend(frameon=False)
+    normalize_chart_typography(fig)
     fig.tight_layout()
     fig.savefig(output.with_suffix(".pdf"), bbox_inches="tight")
     fig.savefig(output.with_suffix(".png"), dpi=dpi, bbox_inches="tight")

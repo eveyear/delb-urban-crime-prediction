@@ -61,7 +61,7 @@ def build_figure() -> plt.Figure:
             "axes.linewidth": 0.8,
         }
     )
-    fig, ax = plt.subplots(figsize=(4.8, 5.0))
+    fig, ax = plt.subplots(figsize=(6.8, 7.083))
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis("off")
@@ -122,7 +122,7 @@ def build_figure() -> plt.Figure:
         "Evidence layers in the analysis",
         ha="center",
         va="center",
-        fontsize=11,
+        fontsize=9.5,
         fontweight="bold",
         color="#202020",
     )
@@ -186,7 +186,7 @@ def main() -> int:
     plt.close(fig)
 
     manifest = {
-        "generator": str(Path(__file__).resolve()),
+        "generator": "empirical/run_problem_chain_figure.py",
         "data_inputs": [],
         "dpi": args.dpi,
         "outputs": {

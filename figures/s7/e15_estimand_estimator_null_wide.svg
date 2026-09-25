@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-24T17:20:15.412655</dc:date>
+    <dc:date>2026-09-25T14:54:29.175605</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -90,7 +90,7 @@ z
    </g>
    <g id="text_1">
     <!-- 1  Population estimand -->
-    <g style="fill: #2a6f97" transform="translate(29.91168 31.781142) scale(0.08925 -0.08925)">
+    <g style="fill: #2a6f97" transform="translate(29.91168 32.360611) scale(0.11025 -0.11025)">
      <defs>
       <path id="DejaVuSans-Bold-31" d="M 750 831 
 L 1813 831 
@@ -435,7 +435,7 @@ z
    </g>
    <g id="text_2">
     <!-- $\theta=I(C;B\mid\mathcal{F}^{0})$ -->
-    <g style="fill: #202124" transform="translate(158.5926 50.6619) scale(0.0918 -0.0918)">
+    <g style="fill: #202124" transform="translate(151.1838 51.4071) scale(0.1134 -0.1134)">
      <defs>
       <path id="DejaVuSans-Oblique-3b8" d="M 2913 2219 
 L 925 2219 
@@ -663,7 +663,7 @@ z
    </g>
    <g id="text_3">
     <!-- $H(C\mid\mathcal{F}^{0})-H(C\mid\mathcal{F}^{B})=\theta$ -->
-    <g style="fill: #202124" transform="translate(35.0784 69.48855) scale(0.0867 -0.0867)">
+    <g style="fill: #202124" transform="translate(35.0784 70.19235) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-Oblique-48" d="M 1081 4666 
 L 1716 4666 
@@ -709,7 +709,7 @@ z
    </g>
    <g id="text_4">
     <!-- Orders population DELB/Fano floors -->
-    <g style="fill: #5f6368" transform="translate(35.0784 82.108978) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 82.671891) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-4f" d="M 2522 4238 
 Q 1834 4238 1429 3725 
@@ -1149,7 +1149,7 @@ z
    </g>
    <g id="text_5">
     <!-- Predictive information; not a causal effect -->
-    <g style="fill: #5f6368" transform="translate(35.0784 95.328178) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 95.891091) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-50" d="M 1259 4147 
 L 1259 2394 
@@ -1281,7 +1281,7 @@ z
    </g>
    <g id="text_6">
     <!-- 2  Finite-sample estimator -->
-    <g style="fill: #d97706" transform="translate(29.91168 137.534742) scale(0.08925 -0.08925)">
+    <g style="fill: #d97706" transform="translate(29.91168 138.114211) scale(0.11025 -0.11025)">
      <defs>
       <path id="DejaVuSans-Bold-32" d="M 1844 884 
 L 3897 884 
@@ -1373,7 +1373,7 @@ z
    </g>
    <g id="text_7">
     <!-- $\widehat{\theta}=\theta+b(N,K_{\mathrm{obs}},S_1,\nu)+\varepsilon$ -->
-    <g style="fill: #202124" transform="translate(131.6034 156.893147) scale(0.0918 -0.0918)">
+    <g style="fill: #202124" transform="translate(117.8442 157.750734) scale(0.1134 -0.1134)">
      <defs>
       <path id="STIXSizeTwoSym-Regular-302" d="M -1094 3610 
 L -1728 3610 
@@ -1614,7 +1614,7 @@ z
    </g>
    <g id="text_8">
     <!-- Plugin or Miller- -Madow statistic -->
-    <g style="fill: #202124" transform="translate(35.0784 174.643378) scale(0.0867 -0.0867)">
+    <g style="fill: #202124" transform="translate(35.0784 175.206291) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-67" d="M 2906 1791 
 Q 2906 2416 2648 2759 
@@ -1727,7 +1727,7 @@ z
    </g>
    <g id="text_9">
     <!-- Bias and variance depend on support -->
-    <g style="fill: #5f6368" transform="translate(35.0784 187.862578) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 188.425491) scale(0.1071 -0.1071)">
      <use xlink:href="#DejaVuSans-42"/>
      <use xlink:href="#DejaVuSans-69" x="68.603516"/>
      <use xlink:href="#DejaVuSans-61" x="96.386719"/>
@@ -1767,7 +1767,7 @@ z
    </g>
    <g id="text_10">
     <!-- $K_{\mathrm{obs}}/N,\ S_1,\ \nu/N$ diagnose sparsity -->
-    <g style="fill: #5f6368" transform="translate(35.0784 201.07365) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 201.63465) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-79" d="M 2059 -325 
 Q 1816 -950 1584 -1140 
@@ -1822,7 +1822,7 @@ z
    </g>
    <g id="text_11">
     <!-- 3  Randomization reference -->
-    <g style="fill: #4d7c5b" transform="translate(29.91168 243.288342) scale(0.08925 -0.08925)">
+    <g style="fill: #4d7c5b" transform="translate(29.91168 243.867811) scale(0.11025 -0.11025)">
      <defs>
       <path id="DejaVuSans-Bold-33" d="M 2981 2516 
 Q 3453 2394 3698 2092 
@@ -1970,7 +1970,7 @@ z
    </g>
    <g id="text_12">
     <!-- $\mathcal{L}_{\pi}(\widehat{\theta}^{\pi}\mid H_0)$ -->
-    <g style="fill: #202124" transform="translate(166.5792 262.7199) scale(0.0918 -0.0918)">
+    <g style="fill: #202124" transform="translate(161.0496 263.5947) scale(0.1134 -0.1134)">
      <defs>
       <path id="STIXNonUnicode-Italic-e238" d="M 4070 915 
 L 4179 800 
@@ -2047,7 +2047,7 @@ z
    </g>
    <g id="text_13">
     <!-- $\mu_{\mathrm{null}}=\mathbb{E}_{\pi}[\widehat{\theta}^{\pi}]$ need not be zero -->
-    <g style="fill: #202124" transform="translate(35.0784 281.5593) scale(0.0867 -0.0867)">
+    <g style="fill: #202124" transform="translate(35.0784 282.3957) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-Oblique-3bc" d="M -84 -1331 
 L 856 3500 
@@ -2172,7 +2172,7 @@ z
    </g>
    <g id="text_14">
     <!-- Compare $\widehat{\theta}_{\mathrm{obs}}$ with its null law -->
-    <g style="fill: #5f6368" transform="translate(35.0784 294.7785) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 295.6149) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-43" d="M 4122 4306 
 L 4122 3641 
@@ -2250,7 +2250,7 @@ z
    </g>
    <g id="text_15">
     <!-- Recompute statistic and support after $\pi$ -->
-    <g style="fill: #5f6368" transform="translate(35.0784 306.82725) scale(0.0867 -0.0867)">
+    <g style="fill: #5f6368" transform="translate(35.0784 307.38825) scale(0.1071 -0.1071)">
      <defs>
       <path id="DejaVuSans-52" d="M 2841 2188 
 Q 3044 2119 3236 1894 
@@ -2324,7 +2324,7 @@ z
    </g>
    <g id="text_16">
     <!-- sample + discretize -->
-    <g style="fill: #5f6368" transform="translate(205.056 115.7983) scale(0.08 -0.08)">
+    <g style="fill: #5f6368" transform="translate(205.056 116.157019) scale(0.093 -0.093)">
      <use xlink:href="#DejaVuSans-73"/>
      <use xlink:href="#DejaVuSans-61" x="52.099609"/>
      <use xlink:href="#DejaVuSans-6d" x="113.378906"/>
@@ -2348,7 +2348,7 @@ z
    </g>
    <g id="text_17">
     <!-- apply $\pi$; recompute -->
-    <g style="fill: #5f6368" transform="translate(205.056 221.5444) scale(0.08 -0.08)">
+    <g style="fill: #5f6368" transform="translate(205.056 221.9019) scale(0.093 -0.093)">
      <use xlink:href="#DejaVuSans-61" transform="translate(0 0.015625)"/>
      <use xlink:href="#DejaVuSans-70" transform="translate(61.279297 0.015625)"/>
      <use xlink:href="#DejaVuSans-70" transform="translate(124.755859 0.015625)"/>

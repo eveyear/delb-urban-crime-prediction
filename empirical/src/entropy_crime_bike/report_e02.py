@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 from matplotlib.colors import Normalize
@@ -21,6 +22,7 @@ WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 
 def _save(figure: plt.Figure, path: Path) -> None:
+    normalize_chart_typography(figure)
     figure.savefig(path, dpi=300, bbox_inches="tight", facecolor="white")
     plt.close(figure)
 
@@ -160,7 +162,7 @@ def _derive_descriptive_tables(
 def _plot_monthly(monthly: pd.DataFrame, path: Path) -> None:
     figure, axes = plt.subplots(3, 1, figsize=(11.2, 10.2), sharex=True)
     figure.subplots_adjust(
-        left=0.09, right=0.90, bottom=0.08, top=0.92, hspace=0.18
+        left=0.09, right=0.90, bottom=0.12, top=0.92, hspace=0.18
     )
     for axis, city in zip(axes, CITY_ORDER):
         subset = monthly.loc[monthly["city"].eq(city)].copy()
@@ -211,10 +213,10 @@ def _plot_monthly(monthly: pd.DataFrame, path: Path) -> None:
         fontweight="bold",
     )
     figure.text(
-        0.90,
-        0.970,
+        0.50,
+        0.025,
         "Primary 1 km domain; dashed: validation start; dotted: test start",
-        ha="right",
+        ha="center",
         fontsize=9,
         color="#595959",
     )

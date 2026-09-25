@@ -15,6 +15,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import pyarrow
@@ -653,6 +654,7 @@ def _publication_style() -> None:
 
 
 def _save_figure(fig: plt.Figure, path: Path, dpi: int) -> None:
+    normalize_chart_typography(fig)
     fig.savefig(path, dpi=dpi, bbox_inches="tight", facecolor="white")
     fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight", facecolor="white")
     plt.close(fig)
@@ -781,6 +783,7 @@ def _make_figures(
     axes[0].set_ylabel("Conditional information (bits)")
     axes[-1].legend(frameon=False)
     fig.suptitle("Recent versus distant-lag information on matched samples")
+    fig.subplots_adjust(top=0.79)
     _save_figure(fig, run_dir / "figures" / "e10_distant_lags.png", dpi)
 
 

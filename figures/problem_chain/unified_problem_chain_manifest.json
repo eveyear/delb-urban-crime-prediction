@@ -5,15 +5,15 @@
   "outputs": {
     "pdf": {
       "path": "figures/problem_chain/unified_problem_chain.pdf",
-      "sha256": "27cc120727fe15fc44898e4fc9729827a40c4c2f0e6af0f07842965a32f94e0f"
+      "sha256": "6f817c507f3df3bda3117ffb2aa6d92de54393affcc43130dd123c15a32556d0"
     },
     "png": {
       "path": "figures/problem_chain/unified_problem_chain.png",
-      "sha256": "2eb711cf9e70f3c94d2b3f319fca02ace72cdf25360f0fbcbad9a7b857f9453f"
+      "sha256": "ad67765830d9ab21a90223b1930f79669e6224110aa3864c42e0b449fd9cd336"
     },
     "svg": {
       "path": "figures/problem_chain/unified_problem_chain.svg",
-      "sha256": "6a6539c609dc079c837057f10d4e020654b3e51fbe7767ad447f6f0a4b137d5e"
+      "sha256": "d1854d16652f9c244bc2fa6dfe5a621afc6127e2761a31d1402aed43af9301af"
     }
   }
 }

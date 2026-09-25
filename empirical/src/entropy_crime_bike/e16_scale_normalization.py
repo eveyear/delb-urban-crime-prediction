@@ -18,6 +18,8 @@ import pandas as pd
 import pyarrow
 import yaml
 
+from .figure_typography import normalize_chart_typography
+
 
 CITY_ORDER = ["DC", "NY", "VAN"]
 RESOLUTIONS = [500, 1000, 2000]
@@ -244,7 +246,8 @@ def _plot_full_sample_heatmaps(
                 ax.text(col, row, f"{value:.3g}", ha="center", va="center", color="white" if value > (vmin + vmax) / 2 else "black", fontsize=8)
     assert image is not None
     cbar = fig.colorbar(image, ax=axes, shrink=0.82, pad=0.02)
-    cbar.set_label("Reduction in RMSE floor (crimes km$^{-2}$ day$^{-1}$)")
+    cbar.set_label("RMSE-floor reduction\n(crimes km$^{-2}$ day$^{-1}$)")
+    normalize_chart_typography(fig)
     output.mkdir(parents=True, exist_ok=True)
     for suffix in ["pdf", "svg", "png"]:
         kwargs = {"dpi": dpi} if suffix == "png" else {}
@@ -268,6 +271,7 @@ def _plot_stability(summary: pd.DataFrame, output: Path, dpi: int) -> None:
     for ax in axes:
         ax.grid(alpha=0.25)
         ax.legend(frameon=False)
+    normalize_chart_typography(fig)
     for suffix in ["pdf", "svg", "png"]:
         kwargs = {"dpi": dpi} if suffix == "png" else {}
         fig.savefig(output / f"e16_s16_5_sample_stability.{suffix}", bbox_inches="tight", **kwargs)
@@ -403,4 +407,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

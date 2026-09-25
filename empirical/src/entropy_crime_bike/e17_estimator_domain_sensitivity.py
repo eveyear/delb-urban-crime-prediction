@@ -14,6 +14,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import pyarrow
@@ -317,8 +318,8 @@ def _plot_estimator_sensitivity(
 ) -> None:
     labels = {
         "plugin": "Plug-in",
-        "miller_madow": "Miller--Madow",
-        "jeffreys_dirichlet": "Jeffreys--Dirichlet",
+        "miller_madow": "Miller–Madow",
+        "jeffreys_dirichlet": "Jeffreys–Dirichlet",
     }
     fig, axes = plt.subplots(1, 3, figsize=(12.4, 3.6), sharey=True)
     x = np.arange(len(NULL_ORDER), dtype=float)
@@ -354,6 +355,7 @@ def _plot_estimator_sensitivity(
         frameon=False,
         bbox_to_anchor=(0.5, 1.04),
     )
+    normalize_chart_typography(fig)
     fig.tight_layout(rect=(0, 0, 1, 0.92))
     for suffix in [".pdf", ".svg"]:
         fig.savefig(output.with_suffix(suffix), bbox_inches="tight")

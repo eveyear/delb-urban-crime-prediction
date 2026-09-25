@@ -180,7 +180,7 @@ def _arrow(
             y,
             label,
             color=COLORS["muted"],
-            fontsize=8.0,
+            fontsize=9.3,
             transform=axis.transAxes,
             va="center",
             ha="left",
@@ -193,7 +193,7 @@ def _arrow(
             y,
             label,
             color=COLORS["muted"],
-            fontsize=7.5,
+            fontsize=8.7,
             transform=axis.transAxes,
             va="bottom",
             ha="center",
@@ -227,7 +227,7 @@ def draw_concept_figure(
                 axis,
                 element,
                 box_bounds,
-                font_scale=0.85,
+                font_scale=1.05,
                 compact=False,
             )
         _arrow(
@@ -257,7 +257,7 @@ def draw_concept_figure(
                 axis,
                 element,
                 box_bounds,
-                font_scale=0.88,
+                font_scale=1.03,
                 compact=False,
             )
         _arrow(
@@ -275,7 +275,7 @@ def draw_concept_figure(
             vertical=True,
         )
         footer_y = 0.012
-        footer_size = 7.0
+        footer_size = 8.0
 
     if layout != "wide":
         axis.text(

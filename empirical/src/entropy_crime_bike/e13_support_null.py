@@ -11,6 +11,7 @@ import sys
 import time
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
@@ -474,6 +475,7 @@ def _publication_style() -> None:
 
 
 def _save_figure(fig: plt.Figure, output: Path, dpi: int) -> None:
+    normalize_chart_typography(fig)
     fig.savefig(output.with_suffix(".pdf"), bbox_inches="tight")
     fig.savefig(output.with_suffix(".png"), dpi=dpi, bbox_inches="tight")
     plt.close(fig)
@@ -509,10 +511,10 @@ def _plot_results(
         s=23,
         alpha=0.65,
         color="#0072B2",
-        label="Miller--Madow",
+        label="Miller–Madow",
     )
     axes[0, 0].set(
-        title="(a) Simulation: singleton occupancy and null bias",
+        title="(a) Simulation: occupancy versus null bias",
         xlabel="Singleton-observation share",
         ylabel="CMI bias (bits)",
     )
@@ -533,7 +535,7 @@ def _plot_results(
                 alpha=0.55,
             )
     axes[0, 1].set(
-        title="(b) Empirical reference center and singleton occupancy",
+        title="(b) Empirical null center versus occupancy",
         xlabel="Mean surrogate singleton-observation share",
         ylabel="Reference mean (bits)",
     )
@@ -588,7 +590,7 @@ def _plot_results(
     axes[1, 0].axhline(0, color="0.3", linewidth=0.8)
     axes[1, 0].axvline(0, color="0.3", linewidth=0.8)
     axes[1, 0].set(
-        title="(c) Support change and observed-minus-null CMI",
+        title="(c) Support change and CMI contrast",
         xlabel="Null mean minus observed singleton share",
         ylabel="Observed CMI minus null mean (bits)",
     )
@@ -622,13 +624,14 @@ def _plot_results(
     ]
     axes[1, 1].set_xticks(positions, labels, fontsize=6.5)
     axes[1, 1].set(
-        title="(d) Nine city-level randomization comparisons",
+        title="(d) City-level randomization contrasts",
         xlabel="C = circular; S = spatial; T = temporal blocks",
         ylabel="Conditional information (bits)",
     )
     axes[1, 1].legend(frameon=False)
     for axis in axes.ravel():
         axis.grid(axis="y", color="0.9", linewidth=0.6)
+    normalize_chart_typography(fig)
     fig.tight_layout()
     _save_figure(fig, figure_dir / "e13_support_null_main", dpi)
 

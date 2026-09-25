@@ -12,6 +12,7 @@ import time
 import zlib
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import scipy
@@ -703,6 +704,7 @@ def _publication_style() -> None:
 
 
 def _save_figure(fig: plt.Figure, output: Path, dpi: int) -> None:
+    normalize_chart_typography(fig)
     fig.savefig(output.with_suffix(".pdf"), bbox_inches="tight")
     fig.savefig(output.with_suffix(".png"), dpi=dpi, bbox_inches="tight")
     plt.close(fig)

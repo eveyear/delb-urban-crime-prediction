@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 
 from .e06_predictive_models import CITY_COLORS, CITY_LABELS, CITY_ORDER
+from .figure_typography import normalize_chart_typography
 
 
 def _sha256(path: Path) -> str:
@@ -24,6 +25,7 @@ def _sha256(path: Path) -> str:
 
 
 def _save(figure: plt.Figure, stem: Path, dpi: int) -> list[Path]:
+    normalize_chart_typography(figure)
     outputs = []
     for suffix in [".pdf", ".svg"]:
         path = stem.with_suffix(suffix)
@@ -108,6 +110,12 @@ def _combined_city_figure(
             ha="center",
             fontsize=8.0,
         )
+    axes[1].set_ylim(
+        top=1.23 * max(
+            float(subset["l0_exact_mse_ci_high"].max()),
+            float(subset["lb_exact_mse_ci_high"].max()),
+        )
+    )
     axes[1].set_ylabel("MSE lower bound")
     axes[1].set_title("(b) DELB under matched information sets", loc="left")
     axes[1].legend(frameon=False, fontsize=8.5)

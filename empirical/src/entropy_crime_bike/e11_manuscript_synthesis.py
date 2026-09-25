@@ -526,13 +526,13 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
             "axes.titlesize": 10.5,
         }
     )
-    figure, axis = plt.subplots(figsize=(5.2, 4.5))
+    figure, axis = plt.subplots(figsize=(6.8, 5.885))
     axis.set_xlim(0, 1)
     axis.set_ylim(0, 1)
     axis.axis("off")
     boxes = [
-        (0.05, 0.81, 0.39, 0.12, "Crime events\n2020--2022", "#D9EAF7"),
-        (0.56, 0.81, 0.39, 0.12, "Bicycle trips\n2020--2022", "#E2F0D9"),
+        (0.05, 0.81, 0.39, 0.12, "Crime events\n2020–2022", "#D9EAF7"),
+        (0.56, 0.81, 0.39, 0.12, "Bicycle trips\n2020–2022", "#E2F0D9"),
         (0.31, 0.62, 0.38, 0.12, "1 km daily panel", "#EDEDED"),
         (0.05, 0.40, 0.39, 0.14, "Entropy, CMI\nand DELB", "#FFF2CC"),
         (0.56, 0.40, 0.39, 0.14, "Integer models\nheld-out MSE", "#FCE4D6"),
@@ -556,8 +556,8 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
             label,
             ha="center",
             va="center",
-            fontweight="semibold",
-            fontsize=8.5,
+            fontweight="medium",
+            fontsize=7.1,
         )
     arrows = [
         ((0.245, 0.81), (0.43, 0.74)),
@@ -585,7 +585,7 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
         "Information-theoretic and predictive analysis workflow",
         ha="center",
         va="center",
-        fontsize=10.5,
+        fontsize=7.5,
         fontweight="bold",
     )
     axis.text(
@@ -595,7 +595,7 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
         ha="center",
         va="center",
         color="#555555",
-        fontsize=7.5,
+        fontsize=7.0,
     )
     figure.savefig(png_path, dpi=dpi, bbox_inches="tight", facecolor="white")
     figure.savefig(pdf_path, bbox_inches="tight", facecolor="white")

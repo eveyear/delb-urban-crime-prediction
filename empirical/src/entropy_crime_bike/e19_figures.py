@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 import yaml
 
+from .figure_typography import normalize_chart_typography
+
 
 SCALES = ["500m_day", "1km_day", "2km_week"]
 SCALE_LABELS = {
@@ -44,6 +46,7 @@ def _load_yaml(path: Path) -> dict[str, object]:
 
 
 def _save(figure: plt.Figure, stem: Path, *, dpi: int) -> list[Path]:
+    normalize_chart_typography(figure)
     outputs = []
     for suffix in [".pdf", ".svg"]:
         path = stem.with_suffix(suffix)
@@ -110,14 +113,15 @@ def _convergence_plot(
         axes[0, column].set_title(
             f"({chr(97 + column)}) {SCALE_LABELS[scale]}", loc="left"
         )
-        axes[1, column].set_xlabel("Generated periods per spatial unit, $N$")
         for row in range(2):
             axes[row, column].set_xticks([90, 150, 365, 730])
             axes[row, column].set_xticklabels(["90", "150", "365", "730"])
             axes[row, column].grid(alpha=0.25, linewidth=0.6)
+        axes[1, column].tick_params(axis="x", labelrotation=45)
     axes[0, 0].set_ylabel("CMI RMSE (bits)")
     axes[1, 0].set_ylabel("DELB relative RMSE")
-    axes[0, 2].legend(frameon=False, fontsize=8, loc="upper right")
+    fig.supxlabel("Generated periods per spatial unit, $N$")
+    axes[0, 0].legend(frameon=False, fontsize=8, loc="upper right")
     outputs = _save(fig, output / "main_e19_truth_convergence", dpi=dpi)
     return outputs, plot_data
 
@@ -166,9 +170,10 @@ def _power_mdcmi_plot(
         )
     axis.set_xticks([90, 150, 365, 730])
     axis.set_xticklabels(["90", "150", "365", "730"])
+    axis.tick_params(axis="x", labelrotation=45)
     axis.set(
-        title="(d) 80% minimum detectable CMI",
-        xlabel="Generated periods per spatial unit, $N$",
+        title="(d) Detectable CMI",
+        xlabel="Periods, $N$",
         ylabel="MDCMI (bits)",
         ylim=(0, 0.125),
     )

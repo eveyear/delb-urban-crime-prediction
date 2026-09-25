@@ -16,6 +16,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import matplotlib.pyplot as plt
+from .figure_typography import normalize_chart_typography
 import numpy as np
 import pandas as pd
 import pyarrow
@@ -424,6 +425,7 @@ def _make_figures(summary: pd.DataFrame, run_dir: Path, dpi: int) -> None:
         axis.set_ylim(limits)
     axes[0].set_ylabel("Randomization-null mean (bits)")
     axes[-1].legend(title="Sample", frameon=False, fontsize=7)
+    normalize_chart_typography(fig)
     for suffix in ["pdf", "svg", "png"]:
         kwargs = {"dpi": dpi} if suffix == "png" else {}
         fig.savefig(run_dir / "figures" / f"e16_s16_6_observed_vs_null.{suffix}", bbox_inches="tight", **kwargs)
@@ -447,8 +449,9 @@ def _make_figures(summary: pd.DataFrame, run_dir: Path, dpi: int) -> None:
         for column in range(9):
             axis.text(column, row, labels[row][column], ha="center", va="center", fontsize=7, color="white" if matrix[row, column] > 0.55 else "black")
     colorbar = fig.colorbar(image, ax=axis, shrink=0.85)
-    colorbar.set_label("Upper-tail randomization p-value")
+    colorbar.set_label("Upper-tail p-value")
     axis.set_title("Full-sample calibration at prespecified key scales (999 randomizations)")
+    normalize_chart_typography(fig)
     for suffix in ["pdf", "svg", "png"]:
         kwargs = {"dpi": dpi} if suffix == "png" else {}
         fig.savefig(run_dir / "figures" / f"e16_s16_6_key_scale_pvalues.{suffix}", bbox_inches="tight", **kwargs)
