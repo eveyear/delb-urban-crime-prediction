@@ -91,7 +91,7 @@ def build_figure() -> plt.Figure:
             title,
             ha="center",
             va="center",
-            fontsize=8.8,
+            fontsize=9.6,
             fontweight="bold",
             color="#202020",
         ))
@@ -101,17 +101,17 @@ def build_figure() -> plt.Figure:
             "Meaning: " + meaning,
             ha="center",
             va="center",
-            fontsize=8.0,
+            fontsize=9.0,
             color="#303030",
         ))
         texts.append(ax.text(
             cx, cy - 0.026, "From: " + calculation,
-            ha="center", va="center", fontsize=8.0,
+            ha="center", va="center", fontsize=9.0,
             linespacing=1.12, color="#303030",
         ))
         texts.append(ax.text(
             cx, cy - 0.112, "Supports:\n" + conclusion,
-            ha="center", va="center", fontsize=8.0,
+            ha="center", va="center", fontsize=9.0,
             linespacing=1.12, color="#303030",
         ))
         card_text.append(texts)
@@ -122,7 +122,7 @@ def build_figure() -> plt.Figure:
         "Evidence layers in the analysis",
         ha="center",
         va="center",
-        fontsize=9.5,
+        fontsize=10.0,
         fontweight="bold",
         color="#202020",
     )

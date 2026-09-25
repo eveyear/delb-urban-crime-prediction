@@ -557,7 +557,7 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
             ha="center",
             va="center",
             fontweight="medium",
-            fontsize=7.1,
+            fontsize=9.0,
         )
     arrows = [
         ((0.245, 0.81), (0.43, 0.74)),
@@ -585,7 +585,7 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
         "Information-theoretic and predictive analysis workflow",
         ha="center",
         va="center",
-        fontsize=7.5,
+        fontsize=10.0,
         fontweight="bold",
     )
     axis.text(
@@ -595,7 +595,7 @@ def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
         ha="center",
         va="center",
         color="#555555",
-        fontsize=7.0,
+        fontsize=8.7,
     )
     figure.savefig(png_path, dpi=dpi, bbox_inches="tight", facecolor="white")
     figure.savefig(pdf_path, bbox_inches="tight", facecolor="white")

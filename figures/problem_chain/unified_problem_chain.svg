@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-24T21:34:56.380931</dc:date>
+    <dc:date>2026-09-25T16:29:13.687831</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -40,7 +40,7 @@ Q 16.65945 70.10487 16.65945 79.19955
 L 16.65945 238.35645 
 Q 16.65945 247.45113 25.39125 247.45113 
 z
-" clip-path="url(#pcd1b5bc104)" style="fill: #dceaf7; stroke: #2c6eaa; stroke-linejoin: miter"/>
+" clip-path="url(#p0a5bc51d39)" style="fill: #dceaf7; stroke: #2c6eaa; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
     <path d="M 263.09025 247.45113 
@@ -53,7 +53,7 @@ Q 254.35845 70.10487 254.35845 79.19955
 L 254.35845 238.35645 
 Q 254.35845 247.45113 263.09025 247.45113 
 z
-" clip-path="url(#pcd1b5bc104)" style="fill: #fce8ce; stroke: #d97917; stroke-linejoin: miter"/>
+" clip-path="url(#p0a5bc51d39)" style="fill: #fce8ce; stroke: #d97917; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 25.39125 444.50253 
@@ -66,7 +66,7 @@ Q 16.65945 267.15627 16.65945 276.25095
 L 16.65945 435.40785 
 Q 16.65945 444.50253 25.39125 444.50253 
 z
-" clip-path="url(#pcd1b5bc104)" style="fill: #e2f0d9; stroke: #57923f; stroke-linejoin: miter"/>
+" clip-path="url(#p0a5bc51d39)" style="fill: #e2f0d9; stroke: #57923f; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 263.09025 444.50253 
@@ -79,11 +79,11 @@ Q 254.35845 267.15627 254.35845 276.25095
 L 254.35845 435.40785 
 Q 254.35845 444.50253 263.09025 444.50253 
 z
-" clip-path="url(#pcd1b5bc104)" style="fill: #e8e1f2; stroke: #73559a; stroke-linejoin: miter"/>
+" clip-path="url(#p0a5bc51d39)" style="fill: #e8e1f2; stroke: #73559a; stroke-linejoin: miter"/>
    </g>
    <g id="text_1">
     <!-- 1  DELB -->
-    <g style="fill: #202020" transform="translate(111.959875 100.57505) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(110.238 100.7958) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-31" d="M 750 831 
 L 1813 831 
@@ -191,7 +191,7 @@ z
    </g>
    <g id="text_2">
     <!-- Meaning: Integer-MSE floor -->
-    <g style="fill: #303030" transform="translate(76.77175 134.71198) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(70.005656 134.987917) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-4d" d="M 628 4666 
 L 1569 4666 
@@ -525,7 +525,7 @@ z
    </g>
    <g id="text_3">
     <!-- From: Entropy and integer-lattice -->
-    <g style="fill: #303030" transform="translate(64.786125 169.886285) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(56.521828 169.632726) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-46" d="M 628 4666 
 L 3309 4666 
@@ -696,7 +696,7 @@ z
      <use xlink:href="#DejaVuSans-65" x="1591.347656"/>
     </g>
     <!-- envelope -->
-    <g style="fill: #303030" transform="translate(112.516125 178.358235) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(110.218078 179.163669) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-76" d="M 191 3500 
 L 800 3500 
@@ -721,7 +721,7 @@ z
    </g>
    <g id="text_4">
     <!-- Supports: -->
-    <g style="fill: #303030" transform="translate(111.656125 213.338645) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(109.250578 213.085086) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-75" d="M 544 1381 
 L 544 3500 
@@ -788,7 +788,7 @@ z
      <use xlink:href="#DejaVuSans-3a" x="447.412109"/>
     </g>
     <!-- Assessment of floor change -->
-    <g style="fill: #303030" transform="translate(75.458 221.810595) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(68.527687 222.616029) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-41" d="M 2188 4044 
 L 1331 1722 
@@ -856,7 +856,7 @@ z
    </g>
    <g id="text_5">
     <!-- 2  CMI + -->
-    <g style="fill: #202020" transform="translate(348.010937 95.648012) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(346.13925 95.42085) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-32" d="M 1844 884 
 L 3897 884 
@@ -950,7 +950,7 @@ z
      <use xlink:href="#DejaVuSans-Bold-2b" x="384.130859"/>
     </g>
     <!-- randomization -->
-    <g style="fill: #202020" transform="translate(332.765625 105.502087) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(329.508 106.17075) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-72" d="M 3138 2547 
 Q 2991 2616 2845 2648 
@@ -1168,7 +1168,7 @@ z
    </g>
    <g id="text_6">
     <!-- Meaning: Added information -->
-    <g style="fill: #303030" transform="translate(311.793875 134.71198) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(304.693172 134.987917) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-4d"/>
      <use xlink:href="#DejaVuSans-65" x="86.279297"/>
      <use xlink:href="#DejaVuSans-61" x="147.802734"/>
@@ -1199,7 +1199,7 @@ z
    </g>
    <g id="text_7">
     <!-- From: CMI and matched -->
-    <g style="fill: #303030" transform="translate(320.928875 169.886285) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(314.970047 169.632726) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-43" d="M 4122 4306 
 L 4122 3641 
@@ -1246,7 +1246,7 @@ z
      <use xlink:href="#DejaVuSans-64" x="1128.292969"/>
     </g>
     <!-- references -->
-    <g style="fill: #303030" transform="translate(347.4195 178.358235) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(344.772 179.163669) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-72"/>
      <use xlink:href="#DejaVuSans-65" x="38.863281"/>
      <use xlink:href="#DejaVuSans-66" x="100.386719"/>
@@ -1261,7 +1261,7 @@ z
    </g>
    <g id="text_8">
     <!-- Supports: -->
-    <g style="fill: #303030" transform="translate(349.355125 209.10267) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(346.949578 208.319614) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-53"/>
      <use xlink:href="#DejaVuSans-75" x="63.476562"/>
      <use xlink:href="#DejaVuSans-70" x="126.855469"/>
@@ -1273,7 +1273,7 @@ z
      <use xlink:href="#DejaVuSans-3a" x="447.412109"/>
     </g>
     <!-- Evidence beyond -->
-    <g style="fill: #303030" transform="translate(334.23575 217.57462) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(329.940281 217.850557) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-62" d="M 3116 1747 
 Q 3116 2381 2855 2742 
@@ -1319,7 +1319,7 @@ z
      <use xlink:href="#DejaVuSans-64" x="795.556641"/>
     </g>
     <!-- finite-sample bias -->
-    <g style="fill: #303030" transform="translate(332.961375 226.04657) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(328.506609 227.381501) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-66"/>
      <use xlink:href="#DejaVuSans-69" x="35.205078"/>
      <use xlink:href="#DejaVuSans-6e" x="62.988281"/>
@@ -1342,7 +1342,7 @@ z
    </g>
    <g id="text_9">
     <!-- 3  Known-truth -->
-    <g style="fill: #202020" transform="translate(93.54725 292.699412) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(90.1515 292.47225) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-33" d="M 2981 2516 
 Q 3453 2394 3698 2092 
@@ -1475,7 +1475,7 @@ z
      <use xlink:href="#DejaVuSans-Bold-68" x="777.783203"/>
     </g>
     <!-- experiments -->
-    <g style="fill: #202020" transform="translate(99.842687 302.553487) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(97.01925 303.22215) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-65" d="M 4031 1759 
 L 4031 1441 
@@ -1590,7 +1590,7 @@ z
    </g>
    <g id="text_10">
     <!-- Meaning: Bias and power -->
-    <g style="fill: #303030" transform="translate(80.374875 331.76338) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(74.059172 332.039317) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-42" d="M 1259 2228 
 L 1259 519 
@@ -1668,7 +1668,7 @@ z
    </g>
    <g id="text_11">
     <!-- From: Injected CMI and -->
-    <g style="fill: #303030" transform="translate(84.824875 366.937685) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(79.065422 366.684126) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-6a" d="M 603 3500 
 L 1178 3500 
@@ -1714,7 +1714,7 @@ z
      <use xlink:href="#DejaVuSans-64" x="1088.400391"/>
     </g>
     <!-- replicates -->
-    <g style="fill: #303030" transform="translate(111.35925 375.409635) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(108.916594 376.215069) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-72"/>
      <use xlink:href="#DejaVuSans-65" x="38.863281"/>
      <use xlink:href="#DejaVuSans-70" x="100.386719"/>
@@ -1729,7 +1729,7 @@ z
    </g>
    <g id="text_12">
     <!-- Supports: -->
-    <g style="fill: #303030" transform="translate(111.656125 410.390045) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(109.250578 410.136486) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-53"/>
      <use xlink:href="#DejaVuSans-75" x="63.476562"/>
      <use xlink:href="#DejaVuSans-70" x="126.855469"/>
@@ -1741,7 +1741,7 @@ z
      <use xlink:href="#DejaVuSans-3a" x="447.412109"/>
     </g>
     <!-- Detectable effects -->
-    <g style="fill: #303030" transform="translate(94.138 418.861995) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(89.542687 419.667429) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-44" d="M 1259 4147 
 L 1259 519 
@@ -1785,7 +1785,7 @@ z
    </g>
    <g id="text_13">
     <!-- 4  Held-out MSE -->
-    <g style="fill: #202020" transform="translate(328.980937 292.699412) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(325.37925 292.47225) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-34" d="M 2356 3675 
 L 1038 1722 
@@ -1877,7 +1877,7 @@ z
      <use xlink:href="#DejaVuSans-Bold-45" x="832.128906"/>
     </g>
     <!-- + Gap -->
-    <g style="fill: #202020" transform="translate(353.6505 302.553487) scale(0.088 -0.088)">
+    <g style="fill: #202020" transform="translate(352.2915 303.22215) scale(0.096 -0.096)">
      <defs>
       <path id="DejaVuSans-Bold-47" d="M 4781 347 
 Q 4331 128 3847 18 
@@ -1914,7 +1914,7 @@ z
    </g>
    <g id="text_14">
     <!-- Meaning: Realized model error -->
-    <g style="fill: #303030" transform="translate(307.382 331.76338) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(299.729812 332.039317) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-52" d="M 2841 2188 
 Q 3044 2119 3236 1894 
@@ -1991,7 +1991,7 @@ z
    </g>
    <g id="text_15">
     <!-- From: Test MSE and paired -->
-    <g style="fill: #303030" transform="translate(315.681375 366.937685) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(309.066609 366.684126) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-54" d="M -19 4666 
 L 3928 4666 
@@ -2032,7 +2032,7 @@ z
      <use xlink:href="#DejaVuSans-64" x="1259.482422"/>
     </g>
     <!-- DELB -->
-    <g style="fill: #303030" transform="translate(358.018875 375.409635) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(356.696297 376.215069) scale(0.09 -0.09)">
      <defs>
       <path id="DejaVuSans-4c" d="M 628 4666 
 L 1259 4666 
@@ -2052,7 +2052,7 @@ z
    </g>
    <g id="text_16">
     <!-- Supports: -->
-    <g style="fill: #303030" transform="translate(349.355125 410.390045) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(346.949578 410.136486) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-53"/>
      <use xlink:href="#DejaVuSans-75" x="63.476562"/>
      <use xlink:href="#DejaVuSans-70" x="126.855469"/>
@@ -2064,7 +2064,7 @@ z
      <use xlink:href="#DejaVuSans-3a" x="447.412109"/>
     </g>
     <!-- Realized opportunity -->
-    <g style="fill: #303030" transform="translate(327.19075 418.861995) scale(0.08 -0.08)">
+    <g style="fill: #303030" transform="translate(322.014656 419.667429) scale(0.09 -0.09)">
      <use xlink:href="#DejaVuSans-52"/>
      <use xlink:href="#DejaVuSans-65" x="64.982422"/>
      <use xlink:href="#DejaVuSans-61" x="126.505859"/>
@@ -2089,7 +2089,7 @@ z
    </g>
    <g id="text_17">
     <!-- Evidence layers in the analysis -->
-    <g style="fill: #202020" transform="translate(167.269219 27.468397) scale(0.095 -0.095)">
+    <g style="fill: #202020" transform="translate(162.928125 27.604412) scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-Bold-76" d="M 97 3500 
 L 1216 3500 
@@ -2271,7 +2271,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="pcd1b5bc104">
+  <clipPath id="p0a5bc51d39">
    <rect x="7.2" y="7.2" width="485.1" height="505.26"/>
   </clipPath>
  </defs>

@@ -97,9 +97,9 @@ def _box(
         clip_on=False,
     )
     axis.add_patch(patch)
-    title_size = 9.5 if compact else 10.5 * font_scale
-    formula_size = 9.4 if compact else 10.8 * font_scale
-    line_size = 8.8 if compact else 10.2 * font_scale
+    title_size = 9.5 if compact else 9.2 * font_scale
+    formula_size = 9.4 if compact else 9.2 * font_scale
+    line_size = 8.8 if compact else 8.8 * font_scale
     compact_lines = {
         "estimand": (
             r"$H(C\mid\mathcal{F}^{0})-$" + "\n" + r"$H(C\mid\mathcal{F}^{B})=\theta$",
@@ -180,7 +180,7 @@ def _arrow(
             y,
             label,
             color=COLORS["muted"],
-            fontsize=9.3,
+            fontsize=8.7,
             transform=axis.transAxes,
             va="center",
             ha="left",
