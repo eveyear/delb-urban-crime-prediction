@@ -1,0 +1,28 @@
+{
+  "snapshot_date": "2026-10-08",
+  "scope": "Accepted production proof; software archive v0.1.0 is a separate unchanged snapshot",
+  "main_source": "applsci-4501207.tex",
+  "historical_sections": "sections/ is not the final main-manuscript entry point",
+  "canonical_figures_1_2": "empirical/src/entropy_crime_bike/editor_framework_figures.py",
+  "diagram_entry": "empirical/rebuild_submission_diagrams.py",
+  "validation": {
+    "figures_1_2": "Raster identity verified at 150 dpi against the supplied production-proof figures",
+    "all_nine_main_figure_pdfs": "Byte-identical to the production-proof assets",
+    "equations_and_tables": "Unchanged by proofreading",
+    "zenodo_doi": "10.5281/zenodo.22936346",
+    "zenodo_release_updated": false
+  },
+  "sha256": {
+    "applsci-4501207.tex": "ad5802d4f1536c04728f6b54f5cea87ec2d6e0d6405dc6cc58ab3a6f7b60508f",
+    "applsci-4501207.pdf": "b3844442c809531724237051ef1de39ecc8afe2ae5128da7b341a35521dd5b01",
+    "figures/problem_chain/unified_problem_chain.pdf": "ea934af0b84d50c250d3b9785d3c15b8a74af026e03101dda367eb66b8c0ef2d",
+    "figures/e11/e11_analysis_workflow.pdf": "2c18dfc7939af97138bd5064af85ffd58ab1d90c18adcc2cc3d8342767d8222f",
+    "figures/s7/e15_estimand_estimator_null_wide.pdf": "9770feccf9c0664f3fda861560a4b5bd3cd2aa98d5c3e58f9ad664b6db08aa78",
+    "figures/e17/e17_city_cmi_delb_combined.pdf": "083a5185faac683d907c99accb0435cb3d2e0025ee143eac2926dc5774cce7e3",
+    "figures/s7/e12_sparse_cmi_main.pdf": "8b81e45159d8bc991af2cc8442f58010c2c072bad0b84cd975aa4cdd251305c3",
+    "figures/e11/e10_city_null_distributions.pdf": "2fc84d239c140d6d56b806b0dfb0a787ec2250192562f5d0315a42f2331ce832",
+    "figures/e19/main_e19_truth_convergence.pdf": "580b5753f035e532782592dc8c6a6122338af251b407463ebc0122f548218d90",
+    "figures/e19/main_e19_power_mdcmi.pdf": "e8933b3c9be0cf398db956f6eaf0d10065582bc72184b58b3d12c74506296711",
+    "figures/e11/e06_mse_improvement.pdf": "f5b7b14d65710867092eb25b48b4fcf0e6b6b8c61d0a10cd96755f0f7c8c0abd"
+  }
+}

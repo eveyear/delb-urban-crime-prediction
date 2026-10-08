@@ -777,7 +777,7 @@ def _plot_main(
     dpi: int,
 ) -> None:
     colors = {"plugin": "#D55E00", "miller_madow": "#0072B2"}
-    fig, axes = plt.subplots(2, 2, figsize=(11.2, 8.0))
+    fig, axes = plt.subplots(2, 2, figsize=(11.4, 8.0))
     null_estimator = estimator_summary.loc[
         estimator_summary["effect_strength"].eq(0)
     ]
@@ -828,7 +828,7 @@ def _plot_main(
     axes[1, 0].set(
         xlabel="Observed singleton-observation share",
         ylabel="Randomization-null mean (bits)",
-        title="(c) A randomization null need not center at zero",
+        title="(c) Positive null-reference center",
     )
 
     grouped = (
@@ -863,7 +863,7 @@ def _plot_main(
     axes[1, 1].set(
         ylabel="Mean rejection rate",
         ylim=(0, 1),
-        title="(d) Randomization calibration and detection",
+        title="(d) Calibration and power",
     )
     axes[1, 1].legend(frameon=False, fontsize=8)
     for axis in axes.ravel():

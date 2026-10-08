@@ -519,84 +519,9 @@ def _write_macros(
 
 
 def _workflow_figure(png_path: Path, pdf_path: Path, dpi: int) -> None:
-    plt.rcParams.update(
-        {
-            "font.family": "DejaVu Sans",
-            "font.size": 8.5,
-            "axes.titlesize": 10.5,
-        }
-    )
-    figure, axis = plt.subplots(figsize=(6.8, 5.885))
-    axis.set_xlim(0, 1)
-    axis.set_ylim(0, 1)
-    axis.axis("off")
-    boxes = [
-        (0.05, 0.81, 0.39, 0.12, "Crime events\n2020–2022", "#D9EAF7"),
-        (0.56, 0.81, 0.39, 0.12, "Bicycle trips\n2020–2022", "#E2F0D9"),
-        (0.31, 0.62, 0.38, 0.12, "1 km daily panel", "#EDEDED"),
-        (0.05, 0.40, 0.39, 0.14, "Entropy, CMI\nand DELB", "#FFF2CC"),
-        (0.56, 0.40, 0.39, 0.14, "Integer models\nheld-out MSE", "#FCE4D6"),
-        (0.05, 0.16, 0.39, 0.13, "CMI null calibration\nand robustness", "#F4CCCC"),
-        (0.56, 0.16, 0.39, 0.13, "Predictability Gap\npaired DELB and MSE", "#E4DFEC"),
-    ]
-    for x, y, width, height, label, color in boxes:
-        patch = FancyBboxPatch(
-            (x, y),
-            width,
-            height,
-            boxstyle="round,pad=0.006,rounding_size=0.012",
-            linewidth=1.1,
-            edgecolor="#31546D",
-            facecolor=color,
-        )
-        axis.add_patch(patch)
-        axis.text(
-            x + width / 2,
-            y + height / 2,
-            label,
-            ha="center",
-            va="center",
-            fontweight="medium",
-            fontsize=9.0,
-        )
-    arrows = [
-        ((0.245, 0.81), (0.43, 0.74)),
-        ((0.755, 0.81), (0.57, 0.74)),
-        ((0.43, 0.62), (0.245, 0.54)),
-        ((0.57, 0.62), (0.755, 0.54)),
-        ((0.245, 0.40), (0.245, 0.29)),
-        ((0.755, 0.40), (0.755, 0.29)),
-        ((0.44, 0.47), (0.56, 0.225)),
-    ]
-    for start, end in arrows:
-        axis.add_patch(
-            FancyArrowPatch(
-                start,
-                end,
-                arrowstyle="-|>",
-                mutation_scale=11,
-                linewidth=1.2,
-                color="#31546D",
-            )
-        )
-    axis.text(
-        0.505,
-        0.975,
-        "Information-theoretic and predictive analysis workflow",
-        ha="center",
-        va="center",
-        fontsize=10.0,
-        fontweight="bold",
-    )
-    axis.text(
-        0.505,
-        0.065,
-        "All bicycle variables are lagged and restricted to information available at forecast time.",
-        ha="center",
-        va="center",
-        color="#555555",
-        fontsize=8.7,
-    )
+    from .editor_framework_figures import workflow
+
+    figure = workflow()
     figure.savefig(png_path, dpi=dpi, bbox_inches="tight", facecolor="white")
     figure.savefig(pdf_path, bbox_inches="tight", facecolor="white")
     plt.close(figure)

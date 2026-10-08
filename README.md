@@ -1,9 +1,18 @@
 # DELB Urban Crime Prediction
 
-This repository accompanies the revised *Applied Sciences* manuscript
+This repository accompanies the accepted *Applied Sciences* manuscript
 **“Calibrating Discrete Entropy Prediction Floors for Urban Crime Counts: A Multicity Evaluation”**
 (manuscript applsci-4501207). The versioned code-and-derived-counts record is
 [Zenodo 10.5281/zenodo.22936346](https://doi.org/10.5281/zenodo.22936346).
+
+The main manuscript and its nine PDF figures correspond to the production
+proof dated 8 October 2026. Figures 1 and 2 use the final evidence-layer/RQ
+mapping and the explicit lagged-state, calibration, training, held-out, and
+gap-alignment workflow. Their single canonical implementation is
+`empirical/src/entropy_crime_bike/editor_framework_figures.py`.
+`figure_code/final_proof_manifest.json` records the checked file hashes.
+The independent Supplementary Materials retain their previously submitted
+version. Publisher-assigned bibliographic fields in the proof are provisional.
 
 ## Contents
 
@@ -39,7 +48,9 @@ python empirical/run_problem_chain_figure.py --output-dir /tmp/delb-figure1
 The joint-state check independently recalculates the **primary** entropy,
 conditional mutual information (CMI), and discrete entropy lower bound (DELB)
 point estimates. It does not reproduce uncertainty intervals or tests.
-The diagram commands use no city records. Run them to temporary output paths
+The first diagram command redraws final Figures 1–3; the second redraws
+Figure 1 from the same canonical implementation. The diagram commands use
+no city records. Run them to temporary output paths
 to avoid overwriting the included final figures.
 
 Compile the English article and supplement with:
